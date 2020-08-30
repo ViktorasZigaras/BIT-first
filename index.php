@@ -9,18 +9,17 @@
 * Author URI: http://yourwebsiteurl.com/
 **/
 
-// require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 // require_once __DIR__.'/app/App.php';
 
-// use BIT\app\App;
-
-// $app = new App;
+use BIT\app\App;
 
 add_action('admin_menu', function() {
     // add_menu_page('Title', 'Menu', 'manage_options', 'Path', 'render_event_function');
 
+    $app = App::start();
     // 'admin' => 'AdminController@index'
-
+    // echo $app->routeDir;
     // $routes = require $app->routeDir . 'adminRoute.php';
     $routes = require 'routes/adminRoute.php';
     foreach ($routes as $path => $route) {
@@ -36,7 +35,10 @@ add_action('admin_menu', function() {
 });
 
 function renderAdminController_index() {
-    echo 'Admin';
+    echo 'Admin <br>';
+    $app = App::start();
+    print_r($app);
+    echo '<br> ' . $app->routeDir;
 }
 
 function renderFrontController_index() {
