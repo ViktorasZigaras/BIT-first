@@ -28,6 +28,7 @@ class App {
     
     //sukuria naują objektą
     static public function start(){
+        add_shortcode( 'front_shortcode', 'frontRoute' );
         return new self;
     }
 
