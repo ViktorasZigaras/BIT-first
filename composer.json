@@ -1,7 +1,11 @@
 {
     "name": "bit/first",
+    "description": "",
     "require": {
-        "monolog/monolog": "1.0.*"
+        "monolog/monolog": "1.0.*",
+        "symfony/http-foundation": "^4.4",
+        "symfony/finder": "^4.4",
+        "symfony/dependency-injection": "^4.4"
     },
     "autoload": {
         "psr-4": {
