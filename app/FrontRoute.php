@@ -10,7 +10,7 @@ class FrontRoute
     function frontRoute($atts) {
         // $app = new App;
         $app = App::start();        
-        $routes = $app->$routeDir.'frontRoutes.php';
+        $routes = $app->routeDir.'frontRoutes.php';
 
         $a = shortcode_atts( [
             'route' => '',	
