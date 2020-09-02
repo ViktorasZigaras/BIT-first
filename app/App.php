@@ -2,15 +2,10 @@
 
 namespace BIT\app;
 
-// use Symfony\Component\HttpFoundation\Request;
-// require_once __DIR__.'/vendor/autoload.php';
-// use Symfony\Component\Finder\Finder;
+class App
+{
 
-class App {
 
-// $finder = new Finder();
-// $finder->in('../data/');
-   
     private $routeDir;
     private $viewDir;
     private $resourseDir;
@@ -18,17 +13,24 @@ class App {
     private $request;
 
     // construct priskiria savybes, kurie yra keliai
-    public function __construct(){
-        $this->routeDir = plugin_dir_path(__FILE__).'routes/'; 
-        $this->viewDir = plugin_dir_path(__FILE__).'views/'; 
-        $this->resourseDir = plugin_dir_path(__FILE__).'resources/'; 
-        $this->apiUrl = plugin_dir_url(__FILE__).'api/'; // unused
-        // $this->request = Request::createFromGlobals();
+    public function __construct()
+    {
+        $this->routeDir = PLUGIN_DIR_PATH . 'routes/';
+        $this->viewDir = PLUGIN_DIR_PATH . 'views/';
+        $this->resourseDir = PLUGIN_DIR_PATH . 'resources/';
+        $this->apiUrl = PLUGIN_DIR_URL . 'api/'; // unused
+
     }
-    
+
+
     //sukuria naują objektą
-    static public function start(){
-        add_shortcode( 'front_shortcode', 'frontRoute' );
+    static public function start()
+    {
+        add_action('admin_enqueue_scripts', function () {
+            wp_enqueue_style('app', PLUGIN_DIR_URL . 'public/style/app.css');
+            wp_enqueue_style('app');
+        });
+        add_shortcode('front_shortcode', 'frontRoute');
         return new self;
     }
 
@@ -37,5 +39,4 @@ class App {
     {
         return $this->$dir;
     }
-
 }
