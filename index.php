@@ -48,3 +48,127 @@ function renderFrontController_index() {
 function renderApiController_index() {
     echo 'Api';
 }
+
+function renderNewsController_index()
+{
+    // echo count(get_posts()) . ' count <br><br>';
+
+    $posts = get_posts([
+        'post_type' => 'News',
+        'post_status' => 'publish',
+        'numberposts' => -1
+        // 'order'    => 'ASC'
+    ]);
+
+    foreach ($posts as $post) {
+
+        echo '<br>
+            <div class="lenteles">
+            <form class="forma" method="POST" action="" enctype="multipart/form-data">
+                <input type="hidden" name="news_update" value="update news">
+                <input type="hidden" name="news_id" value="' . $post->ID . '">
+                <div class="form-group">
+                    <label class="admin-label">Data</label><br>
+                    <input type="text" name="date" value="' . $metas['date'][0] . '" class="admin-input">
+                </div>
+                <div class="form-group">
+                    <label class="admin-label">Įrašas</label><br>
+                    <input type="text" name="record" value="' . $metas['record'][0] . '" class="admin-input">
+                </div>
+                <div class="mygtukai">
+                    <button type="submit" class="admin-button">Redaguoti</button>
+                    </form>
+                    <form method="POST" action="">
+                    <div class="mygtukai">
+                            <input type="hidden" name="news_delete" value="news_id">
+                            <input type="hidden" name="news_id" value="' . $post->ID . '">
+                            <button type="submit" class="admin-button">Trinti</button>
+                        </div>
+                    </form>
+                </div>
+        </div>
+        <br>';
+
+}
+
+        echo '<br>
+            <div class="lenteles">
+                <form class="forma" method="POST" action="" enctype="multipart/form-data">
+                    <input type="hidden" name="news_new" value="new news">
+                    <div class="form-group">
+                        <label class="admin-label">Data</label><br>
+                        <input type="text" name="date" value="date" class="admin-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="admin-label">Įrašas</label><br>
+                        <input type="text" name="record" value="record" class="admin-input">
+                    </div>
+                    <div class="mygtukai">
+                        <button type="submit" class="admin-button">Pridėti</button>
+                </form>
+                    </div>
+            </div>
+        <br>';
+}
+
+function renderPhilosophyController_index()
+{
+    // echo count(get_posts()) . ' count <br><br>';
+
+    $posts = get_posts([
+        'post_type' => 'Philosophy',
+        'post_status' => 'publish',
+        'numberposts' => -1
+        // 'order'    => 'ASC'
+    ]);
+
+    foreach ($posts as $post) {
+
+        echo '<br>
+            <div class="lenteles">
+            <form class="forma" method="POST" action="" enctype="multipart/form-data">
+                <input type="hidden" name="philosophy_update" value="update philosophy">
+                <input type="hidden" name="philosophy_id" value="' . $post->ID . '">
+                <div class="form-group">
+                    <label class="admin-label">Vizija</label><br>
+                    <input type="text" name="vision" value="' . $metas['vision'][0] . '" class="admin-input">
+                </div>
+                <div class="form-group">
+                    <label class="admin-label">Misija</label><br>
+                    <input type="text" name="mission" value="' . $metas['mission'][0] . '" class="admin-input">
+                </div>
+                <div class="mygtukai">
+                    <button type="submit" class="admin-button">Redaguoti</button>
+                    </form>
+                    <form method="POST" action="">
+                    <div class="mygtukai">
+                            <input type="hidden" name="philosophy_delete" value="philosophy_id">
+                            <input type="hidden" name="philosophy_id" value="' . $post->ID . '">
+                            <button type="submit" class="admin-button">Trinti</button>
+                        </div>
+                    </form>
+                </div>
+        </div>
+        <br>';
+
+}
+        echo '<br>
+            <div class="lenteles">
+                <form class="forma" method="POST" action="" enctype="multipart/form-data">
+                    <input type="hidden" name="philosophy_new" value="new philosophy">
+                    <div class="form-group">
+                        <label class="admin-label">Vizija</label><br>
+                        <input type="text" name="vision" value="vision" class="admin-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="admin-label">Misija</label><br>
+                        <input type="text" name="mission" value="mission" class="admin-input">
+                    </div>
+                    <div class="mygtukai">
+                        <button type="submit" class="admin-button">Pridėti</button>
+                </form>
+                    </div>
+            </div>
+        <br>';
+}
+
