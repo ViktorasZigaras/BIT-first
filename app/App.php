@@ -3,7 +3,11 @@
 namespace BIT\app;
 
 use BIT\app\AdminRouter;
-
+use Symfony\Component\HttpFoundation\Request;
+require_once __DIR__.'/vendor/autoload.php';
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 // use Symfony\Component\HttpFoundation\Request;
 // require_once __DIR__.'/vendor/autoload.php';
 // use Symfony\Component\Finder\Finder;
