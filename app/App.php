@@ -1,6 +1,9 @@
 <?php
+
+namespace BIT\app;
+
 use Symfony\Component\HttpFoundation\Request;
-require_once __DIR__.'/vendor/autoload.php';
+// require_once __DIR__.'/vendor/autoload.php';
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
@@ -34,7 +37,7 @@ class App
         $this->apiUrl = PLUGIN_DIR_URL . 'api/'; // unused
         $this->containerBuilder = new ContainerBuilder();
         $this->loader = new PhpFileLoader($this->containerBuilder, new FileLocator(__DIR__));
-        $this->loader->load('services.php');
+        $this->loader->load('service.php');
         add_action('admin_enqueue_scripts', function () {
             wp_enqueue_style('app', PLUGIN_DIR_URL . 'public/style/app.css');
             wp_enqueue_style('app');
@@ -56,6 +59,8 @@ class App
 
     public function run($controller, $method)
     {
+        $this->controller = $controller;
+        $this->method = $method;
         // $this->controller = $this->routes->getController($route); //BebroController
         // $this->method = $this->routes->getMethod($route); //bebras
         $this->reflectionParams = (new \ReflectionMethod($this->controller, $this->method))->getParameters();

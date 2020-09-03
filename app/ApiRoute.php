@@ -3,16 +3,17 @@
 namespace BIT\app;
 
 use BIT\app\App;
-use BIT\app\TestController; //?????
+// use Symfony\Component\HttpFoundation\Request;
 
 class ApiRoute
 {
-    static function apiRoute(/*App $app*/) {
-        $get_param = $_GET['route']; // bebras/api/?route=labas
+    static function apiRoute() {
+        // Request $request
+        // $get_param = $_GET['route']; // bebras/api/?route=labas
         //$param = get_query_var( 'route', '' );
 
-        // $get_param = $request->query->get('route', '');
-        // $app = App::start();        
+        $app = App::start();
+        $get_param = $app->getService('request')->query->get('route', '');   
         $routes = require PLUGIN_DIR_PATH . 'routes/apiRoutes.php';
         // $routes = $app->routeDir.'apiRoutes.php';
         // var_dump($routes);
@@ -22,7 +23,8 @@ class ApiRoute
                 list($controller, $method) = explode('@', $route);
                 $controller = 'BIT\\controllers\\' . $controller;
                 // echo $controller . ' ' . $method;
-                return (new $controller)->$method();
+                // return (new $controller)->$method();
+                return $app->run($controller, $method);
             }
         }
         

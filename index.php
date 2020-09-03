@@ -67,4 +67,4 @@ function renderApiController_index()
     echo 'Api';
 }
 
-App::start();
+// App::start();
