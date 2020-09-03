@@ -55,6 +55,8 @@ function renderAdminController_index()
             });
         }
     </script>";
+
+    // axios
 }
 
 function renderFrontController_index()

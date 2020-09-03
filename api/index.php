@@ -18,5 +18,5 @@ use BIT\app\ApiRoute;
 
 // $app = App::start();
 
-ApiRoute::apiRoute(/*$app*/);
-
+$response = ApiRoute::apiRoute(/*$app*/);
+$response->send();
