@@ -5,4 +5,6 @@
 return [
     'event' => 'EventController@index',
     'gallery' => 'GalleryController@index',
+    
+    'test' => 'TestController@testing',
 ];
