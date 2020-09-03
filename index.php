@@ -27,8 +27,34 @@ add_action('admin_menu', function () {
 
 function renderAdminController_index()
 {
-    // $app = App::start();
-    echo '<div>ADMIN</div>';
+    echo PLUGIN_DIR_URL . '<br>';
+    echo '
+        <br>
+        <button id="editButton"> Click </button>
+    ';
+
+    echo "<script language='javascript'>
+        
+
+        const editButton = document.querySelector('#editButton');
+        console.log(editButton);
+        console.log('JS');
+        if (editButton) {
+            editButton.addEventListener('click', () => { 
+                console.log('clicked');
+                axios.get('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=test')
+                .then((response) => {  
+                    console.log(response);
+                    // displayMessages(response.data);
+                    // drawIndexInit();
+                })
+                .catch((error) => {
+                    console.log(error);
+                    // displayErrorMessages(error.response.data.errors);
+                });
+            });
+        }
+    </script>";
 }
 
 function renderFrontController_index()
