@@ -4,11 +4,11 @@ namespace BIT\app;
 
 use BIT\app\App;
 
-class FrontRoute
+class FrontRouter
 {
 /** Iš frontRoutes.php paima kontrolerį ir metodą ir jį paleidžia*/
     function frontRoute($atts) {
-        $app = App::start();     //get App Singelton, kad nekurti naujo App objekto   
+        $app = App::start();
         $routes = $app->routeDir.'frontRoutes.php';
 
         $a = shortcode_atts( [
@@ -16,8 +16,9 @@ class FrontRoute
         ], $atts );
 
         list($controller, $method) = explode('@', $routes[$a['route']]);
-        $spacenameController = 'BIT\\controllers\\' . $controller;
-        return (new $spacenameController)->$method();
+        $controller = 'BIT\\controllers\\' . $controller;
+        return $app->run($controller, $method);
+        // return (new $controller)->$method();
     }
 
 /**App __construct() uzregistruoti FrontRoute klase add_shortcode*/
