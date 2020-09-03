@@ -1,19 +1,14 @@
 {
-    "name": "bit/first",
-    "description": "",
-    "require": {
-        "monolog/monolog": "1.0.*",
-        "symfony/http-foundation": "^4.4",
-        "symfony/finder": "^4.4",
-        "symfony/dependency-injection": "^4.4"
-    },
-    "autoload": {
-        "psr-4": {
-            "BIT\\app\\": "app/",
-            "BIT\\models\\": "models/",
-            "BIT\\controllers\\": "controllers/"
-
+    "name": "ievaskyriene/bit-first",
+    "authors": [
+        {
+            "name": "ieva Skyriene",
+            "email": "ieva.skyriene@gmail.com"
         }
-    },
-    "license": "MIT"
+    ],
+    "require": {
+        "symfony/http-foundation": "^4.4",
+        "symfony/dependency-injection": "^4.4",
+        "symfony/config": "^4.4"
+    }
 }
