@@ -7,9 +7,9 @@ use BIT\app\App;
 class FrontRouter
 {
 /** Iš frontRoutes.php paima kontrolerį ir metodą ir jį paleidžia*/
-    function frontRoute($atts) {
+    public function frontRoute($atts) {
         $app = App::start();
-        $routes = $app->routeDir.'frontRoutes.php';
+        $routes = require $app->routeDir.'frontRoutes.php';
 
         $a = shortcode_atts( [
             'route' => '',	
