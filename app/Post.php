@@ -2,19 +2,15 @@
 
 namespace BIT\app;
 
-require __DIR__ . '/postTraits/Tevent.php';
 
 class Post{
-    // uses Traits to include post TYPE fields
-    use Tevent;
-    
 
     protected $ID;
     // combines meta ant post tables
     public function __construct($postID = 0){
         
         if(!$postID === 0){
-            foreach ( get_object_vars(new WP_Post(null)) as $var => $value ) {
+            foreach ( get_object_vars(new \WP_Post(null)) as $var => $value ) {
             $this->$var = $value; 
             }
         }
@@ -53,7 +49,7 @@ class Post{
     public function save(){
         $metaVars = []; 
         foreach(get_object_vars($this) as $var => $value){
-            if( ($value) && (! array_key_exists($var, get_object_vars( new WP_Post(null) )))){
+            if( ($value) && (! array_key_exists($var, get_object_vars( new \WP_Post(null) )))){
                 $metaVars[$var] = $value;
             } 
         }
