@@ -22,10 +22,10 @@ class FrontRoute
         // return (new $spacenameController)->$method();
     }
 
+}
+
 /**App __construct() uzregistruoti FrontRoute klase add_shortcode*/
 //add_shortcode( 'front_shortcode', 'frontRoute' );
 
 /**Shortcode iškvietimas*/
 //[front_shortcode route="event"]
-
-}
