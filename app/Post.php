@@ -30,17 +30,14 @@ class Post{
 		if ( !$post_id || !get_post($post_id) ){
             return null;
         }
-        return new self($post_id);
+        return new static($post_id);
     }
 
     // returns all Post object by type
-    public static function all($type) :array{
-        global $wpdb;
-        $list = [];
-        // todo:
-        $post_ids = $wpdb->get_results( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = %s", $type ) );
-        foreach ($post_ids as $post_id) {
-            $list[$post_id->ID] = self::get($post_id->ID);
+    public static function all() :array{
+        $list =[];
+        foreach (get_posts(['posts_per_page' => -1, 'post_type' => static::$type]) as $post) {
+            $list[$post->ID] = static::get($post->ID);
         }
         return $list;
     }
