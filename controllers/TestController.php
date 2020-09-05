@@ -23,4 +23,8 @@ class TestController {
         $response->setContent(json_encode(['a' => 'aaaaaa']));
         return $response;
     }
+
+    function front() {
+        echo 'Paulione';
+    }
 }
