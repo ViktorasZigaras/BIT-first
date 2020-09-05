@@ -34,15 +34,15 @@ function renderAdminController_index()
     ';
 
     echo "<script language='javascript'>
-        
-
         const editButton = document.querySelector('#editButton');
-        console.log(editButton);
-        console.log('JS');
+        // console.log(editButton);
+        // console.log('JS');
         if (editButton) {
             editButton.addEventListener('click', () => { 
                 console.log('clicked');
-                axios.get('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=test')
+                axios.get('http://localhost/wordpress/wp-content/plugins/BIT-first/api/'), 
+                {route: test}
+                // get can also have params
                 .then((response) => {  
                     console.log(response);
                     // displayMessages(response.data);
@@ -57,14 +57,4 @@ function renderAdminController_index()
     </script>";
 }
 
-function renderFrontController_index()
-{
-    echo 'Front';
-}
-
-function renderApiController_index()
-{
-    echo 'Api';
-}
-
-// App::start();
+App::start();

@@ -10,7 +10,9 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 // use Symfony\Component\Finder\Finder;
 
-use BIT\app\ApiRoute;
+// use BIT\app\ApiRoute;
+use BIT\app\FrontRoute;
+use BIT\app\AdminRoute;
 
 class App
 {
@@ -45,7 +47,8 @@ class App
             wp_enqueue_script('js');
             wp_enqueue_script( 'axios', 'https://unpkg.com/axios/dist/axios.min.js' );
         });
-        add_shortcode('front_shortcode', 'frontRoute');
+        add_shortcode('front_shortcode', [FrontRoute::class, 'frontRoute']);
+        // AdminRoute::start($this);
         // $this->request = Request::createFromGlobals();
     }
 
