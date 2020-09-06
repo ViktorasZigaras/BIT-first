@@ -40,11 +40,14 @@ function renderAdminController_index()
         if (editButton) {
             editButton.addEventListener('click', () => { 
                 console.log('clicked');
-                axios.get('http://localhost/wordpress/wp-content/plugins/BIT-first/api/'), 
-                {route: test}
+                axios.get('http://localhost/wordpress/wp-content/plugins/BIT-first/api?route=test'
+                // , {route: 'test'}
+                )
                 // get can also have params
                 .then((response) => {  
                     console.log(response);
+                    console.log(response.data);
+                    console.log(response.data.a);
                     // displayMessages(response.data);
                     // drawIndexInit();
                 })

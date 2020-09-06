@@ -18,6 +18,15 @@ class TestController {
         // echo json_encode([value'not something']);
         // var_dump($request->query->get('route'));
         // echo 'not something';
+
+        // logic, logic, get object from DB... logic, process params
+
+        // $kazkokie = EventPost::all();
+        // $kazkas = EventPost::get($post_id);
+        // $kazkas->event_description = ‘tekstas is requesto, geto arba posto’;
+        // $kazkas->event_date = 'YYYY-MM-DD';
+        // $kazkas->save();
+
         $response = new Response;
         $response->prepare($request);
         $response->setContent(json_encode(['a' => 'aaaaaa']));

@@ -4,7 +4,7 @@ namespace BIT\app;
 
 use BIT\app\App;
 
-class FrontRoute
+class FrontRouter
 {
 // Iš frontRoutes.php paima kontrolerį ir metodą ir jį paleidžia
     static function frontRoute($atts) {
