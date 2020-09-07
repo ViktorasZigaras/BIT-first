@@ -16,6 +16,7 @@ define('PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
 
 use BIT\app\App;
 
+
 add_action('admin_menu', function () {
     $app = App::start();
     $routes = require 'routes/adminRoute.php';
@@ -32,15 +33,16 @@ function renderAdminController_index()
         <br>
         <button id="editButton"> Click </button>
     ';
-
+   
     echo "<script language='javascript'>
+
         const editButton = document.querySelector('#editButton');
         // console.log(editButton);
         // console.log('JS');
         if (editButton) {
             editButton.addEventListener('click', () => { 
                 console.log('clicked');
-                axios.get('http://localhost/wordpress/wp-content/plugins/BIT-first/api?route=test'
+                axios.get('http://localhost:8080/wordpress/wp-content/plugins/BIT-first/api?route=test'
                 // , {route: 'test'}
                 )
                 // get can also have params
