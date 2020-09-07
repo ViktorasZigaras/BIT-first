@@ -4,6 +4,8 @@ namespace BIT\controllers;
 
 use BIT\app\App;
 
+use Symfony\Component\HttpFoundation\Request;
+
 class NewsController {
     
     public function index(Request $request)
@@ -44,6 +46,8 @@ class NewsController {
     public function show(NewsPost $newsPost)
     {
         //persiduoti post konkretus
+        // $newsPost = NewsPost::get($post_id);
+        return view(); //viena tik parodyti
     }
 
 

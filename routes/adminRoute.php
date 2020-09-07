@@ -5,6 +5,6 @@ return [
     'news' => 'NewsController@index',
     'news' => 'NewsController@create',
     'news' => 'NewsController@update',
-    'news' => 'NewsController@delete',
+    // 'news' => 'NewsController@delete',
     'philosophy' => 'PhilosophyController@index'
 ];
