@@ -48,7 +48,7 @@ class App
             wp_enqueue_script( 'axios', 'https://unpkg.com/axios/dist/axios.min.js' );
         });
         add_shortcode('front_shortcode', [FrontRouter::class, 'frontRoute']);
-        // AdminRoute::start($this);
+        AdminRoute::start();
         // $this->request = Request::createFromGlobals();
     }
 
@@ -68,6 +68,7 @@ class App
         // $this->method = $this->routes->getMethod($route); //bebras
         $this->reflectionParams = (new \ReflectionMethod($this->controller, $this->method))->getParameters();
 
+        $params = [];
         foreach ($this->reflectionParams as $val) {
             if ($val->getType()) {
                 $params[] = $this->getService($val->getType()->getName()); // kvieciu is konteinerio
