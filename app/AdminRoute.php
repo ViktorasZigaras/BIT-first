@@ -6,13 +6,20 @@ use BIT\app\App;
 
 class AdminRoute {
 
-    public static function start(/*App $app*/) {
+    public static function start() {
         add_action('admin_menu', function() {
             $routes = require 'C:\xampp\htdocs\wordpress\wp-content\plugins\BIT-first\routes/adminRoute.php';
             foreach ($routes as $path => $route) {
                 list($controller, $method) = explode('@', $route, 2);
                 $controller = 'BIT\\controllers\\' . $controller;
-                add_menu_page(ucfirst($path) . ' Title', ucfirst($path) . ' Menu'/* . $app->routeDir*/, 'manage_options', $path, (new $controller)->$method());
+                // use $controller;
+                // (new $controller)->$method()
+                $app = App::start();
+                add_menu_page(ucfirst($path) . ' Title', ucfirst($path) . ' Menu', 'manage_options', $path, 
+                function () use ($controller, $method, $app) {
+                    return $app->run($controller, $method);
+                    // (new $controller)->$method();
+                });
             }
         });
     }
