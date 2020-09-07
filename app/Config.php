@@ -9,9 +9,8 @@ class Config{
         if ($types) {
             foreach ($types as $type1 => $args1) {
                 
-                add_action('init', function(){
-                    global $type1;
-                    global $args1;
+                add_action('init', function() use ($type1, $args1){
+                   
                     register_post_type($type1, $args1);
                 });   
             }   

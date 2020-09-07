@@ -8,7 +8,7 @@ class AdminRoute {
 
     public static function start() {
         add_action('admin_menu', function() {
-            $routes = require 'C:\xampp\htdocs\wordpress\wp-content\plugins\BIT-first\routes/adminRoute.php';
+            $routes = require PLUGIN_DIR_PATH . 'routes/adminRoute.php';
             foreach ($routes as $path => $route) {
                 list($controller, $method) = explode('@', $route, 2);
                 $controller = 'BIT\\controllers\\' . $controller;
