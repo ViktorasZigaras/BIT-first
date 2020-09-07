@@ -25,6 +25,7 @@ add_action('admin_menu', function () {
     }
 });
 
+// 'admin' => 'AdminController@index',
 function renderAdminController_index()
 {
     echo PLUGIN_DIR_URL . '<br>';
@@ -40,7 +41,7 @@ function renderAdminController_index()
         if (editButton) {
             editButton.addEventListener('click', () => { 
                 console.log('clicked');
-                axios.get('http://localhost/wordpress/wp-content/plugins/BIT-first/api?route=test'
+                axios.get('" . PLUGIN_DIR_URL . "/api?route=test'
                 // , {route: 'test'}
                 )
                 // get can also have params

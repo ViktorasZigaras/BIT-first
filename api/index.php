@@ -19,4 +19,6 @@ use BIT\app\ApiRoute;
 // $app = App::start();
 
 $response = ApiRoute::apiRoute(/*$app*/);
-$response->send();
+    // throw error???
+if (!$response) throw Error;
+else $response->send();

@@ -6,7 +6,7 @@ use BIT\app\App;
 
 class AdminRoute {
 
-    public static function start(App $app) {
+    public static function start(/*App $app*/) {
         add_action('admin_menu', function() {
             $routes = require 'C:\xampp\htdocs\wordpress\wp-content\plugins\BIT-first\routes/adminRoute.php';
             foreach ($routes as $path => $route) {

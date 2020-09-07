@@ -28,12 +28,15 @@ class TestController {
         // $kazkas->save();
 
         $response = new Response;
+        // $content = View::render('zebras.bebras', ['z' => 86, ...]);
+        // 'zebras.bebras' - aktyvioje temoje, folder Views, folder zebras, bebras.php (php + html mix)
         $response->prepare($request);
         $response->setContent(json_encode(['a' => 'aaaaaa']));
         return $response;
     }
 
     function front() {
+        // put JS here and load view through API
         echo 'Paulione';
     }
 }
