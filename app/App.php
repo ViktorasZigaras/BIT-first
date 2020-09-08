@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 // use Symfony\Component\Finder\Finder;
 
 // use BIT\app\ApiRoute;
-use BIT\app\FrontRoute;
+use BIT\app\FrontRouter;
 use BIT\app\AdminRoute;
 
 class App
@@ -47,8 +47,8 @@ class App
             wp_enqueue_script('js');
             wp_enqueue_script( 'axios', 'https://unpkg.com/axios/dist/axios.min.js' );
         });
-        add_shortcode('front_shortcode', [FrontRoute::class, 'frontRoute']);
-        // AdminRoute::start($this);
+        add_shortcode('front_shortcode', [FrontRouter::class, 'frontRoute']);
+        AdminRoute::start();
         // $this->request = Request::createFromGlobals();
     }
 
@@ -68,6 +68,7 @@ class App
         // $this->method = $this->routes->getMethod($route); //bebras
         $this->reflectionParams = (new \ReflectionMethod($this->controller, $this->method))->getParameters();
 
+        $params = [];
         foreach ($this->reflectionParams as $val) {
             if ($val->getType()) {
                 $params[] = $this->getService($val->getType()->getName()); // kvieciu is konteinerio
