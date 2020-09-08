@@ -1,50 +1,50 @@
 <?php
-
 namespace BIT\app;
 
-require __DIR__ . '/postTraits/Tevent.php';
+use BIT\app\coreExeptions\wrongArgsTypeExeption;
 
 class Post{
-    // uses Traits to include post TYPE fields
-    use Tevent;
-    
 
-    protected $ID;
+    private $ID;
+    protected static $type = 'post';
     // combines meta ant post tables
-    public function __construct($postID = 0){
-        
-        if(!$postID === 0){
-            foreach ( get_object_vars(new WP_Post(null)) as $var => $value ) {
-            $this->$var = $value; 
+    public function __construct($post_id = 0){
+        if($post_id === 0){
+            foreach ( get_object_vars( new \WP_Post(new \stdClass())) as $var => $value ) {
+                $this->$var = $value; 
+                
             }
+            if(isset(static::$type)) $this->post_type = static::$type;
         }
-        elseif($postID >0){
-            foreach ( get_object_vars(get_post($postID)) as $var => $value ) {
+        elseif($post_id >0){
+            foreach ( get_object_vars(get_post($post_id)) as $var => $value ) {
                 $this->$var = $value; 
             }
-            foreach ( get_post_meta($postID) as $var => $value ) {
+            foreach ( get_post_meta($post_id) as $var => $value ) {
                 $this->$var = $value[0]; 
             }
         }
     }
 
     // returns Post object with common post and meta fields
-    public static function get($post_id) :Post{
+    public static function get($post_id = 0) :Post{
         $post_id = (int) $post_id;
-		if ( !$post_id || !get_post($post_id) ){
-            return null;
+        if(0 === $post_id){
+            return new static($post_id);
         }
-        return new self($post_id);
+
+		if ( $post_id<0 || (strcmp(get_post($post_id)->post_type, static::$type )!=0) ){
+            throw new wrongArgsTypeExeption('Wrong $post_id args passed to Post::get($post_id)');
+        }
+        
+        return new static($post_id);
     }
 
     // returns all Post object by type
-    public static function all($type) :array{
-        global $wpdb;
-        $list = [];
-        // todo:
-        $post_ids = $wpdb->get_results( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = %s", $type ) );
-        foreach ($post_ids as $post_id) {
-            $list[$post_id->ID] = self::get($post_id->ID);
+    public static function all() :array{
+        $list =[];
+        foreach (get_posts(['posts_per_page' => -1, 'post_type' => static::$type]) as $post) {
+            $list[$post->ID] = static::get($post->ID);
         }
         return $list;
     }
@@ -53,11 +53,12 @@ class Post{
     public function save(){
         $metaVars = []; 
         foreach(get_object_vars($this) as $var => $value){
-            if( ($value) && (! array_key_exists($var, get_object_vars( new WP_Post(null) )))){
+            if(! array_key_exists($var, get_object_vars( new \WP_Post(new \stdClass()) ))){
                 $metaVars[$var] = $value;
             } 
         }
         $post = (array)$this;
+        $post['ID'] = $this->ID;
         $post['meta_input'] = $metaVars;
 
         if(isset($this->ID)){

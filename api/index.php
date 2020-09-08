@@ -1,5 +1,5 @@
 <?php
-
+die("hhh");
 require __DIR__ . '/../../../../wp-load.php';
 
 // require(C:\\xampp\\htdocs\\wordpress\\wp-content\\plugins\\BIT-first\\api/../../../../../wp-load.php
@@ -19,4 +19,7 @@ use BIT\app\ApiRoute;
 // $app = App::start();
 
 $response = ApiRoute::apiRoute(/*$app*/);
-$response->send();
+    // throw error???
+if (!$response) throw Error;
+else $response->send();
+
