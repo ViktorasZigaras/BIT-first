@@ -1,29 +1,28 @@
 <?php
-
 namespace BIT\app;
-
 use Symfony\Component\HttpFoundation\Request;
-// require_once __DIR__.'/vendor/autoload.php';
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-
+use BIT\app\Config;
 // use Symfony\Component\Finder\Finder;
-
 // use BIT\app\ApiRoute;
 use BIT\app\FrontRouter;
 use BIT\app\AdminRoute;
 
 class App
 {
-
     private $containerBuilder;
     private $loader;
     private $routeDir;
     private $viewDir;
     private $resourseDir;
     private $apiUrl;
-
+    private $controller;
+    private $method;
+    private $reflectionParams;
+    // private $config;
+    //ar reikia kintamojo?
     static private $obj;
 
     public static function start()
@@ -31,8 +30,9 @@ class App
         return self::$obj ?? self::$obj = new self;
     }
 
-    //keiciam i private?
-    private function __construct(){
+    private function __construct()
+    {
+        Config::postTypeRegister();
         $this->routeDir = PLUGIN_DIR_PATH . 'routes/';
         $this->viewDir = PLUGIN_DIR_PATH . 'views/';
         $this->resourseDir = PLUGIN_DIR_PATH . 'resources/';
@@ -49,26 +49,18 @@ class App
         });
         add_shortcode('front_shortcode', [FrontRouter::class, 'frontRoute']);
         AdminRoute::start();
-        // $this->request = Request::createFromGlobals();
     }
 
-    //Julius duos konstantas - plugin_dir ir plugin_url
-    //sukuria naują objektą
     public function getService($service){
         return  $this->containerBuilder->get($service);
     }
-//paleisti
-// arba stat kaip singleton arba getApp() metoda, kad visi galetu gauti objekta. Arba is starto padaryti, kad jeigu sukurtas grazina, o jeigu ne, tai sukuria nauja. Starta i bendrini pavadinima.
 
     public function run($controller, $method)
     {
         $this->controller = $controller;
         $this->method = $method;
-        // $this->controller = $this->routes->getController($route); //BebroController
-        // $this->method = $this->routes->getMethod($route); //bebras
         $this->reflectionParams = (new \ReflectionMethod($this->controller, $this->method))->getParameters();
 
-        $params = [];
         foreach ($this->reflectionParams as $val) {
             if ($val->getType()) {
                 $params[] = $this->getService($val->getType()->getName()); // kvieciu is konteinerio
