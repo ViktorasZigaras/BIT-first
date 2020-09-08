@@ -23,4 +23,3 @@ $response = ApiRoute::apiRoute(/*$app*/);
 if (!$response) throw Error;
 else $response->send();
 
-

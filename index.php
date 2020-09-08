@@ -17,3 +17,4 @@ define('PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
 use BIT\app\App;
 
 App::start();
+

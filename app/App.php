@@ -60,6 +60,7 @@ class App
         $this->controller = $controller;
         $this->method = $method;
         $this->reflectionParams = (new \ReflectionMethod($this->controller, $this->method))->getParameters();
+        $params = [];
         foreach ($this->reflectionParams as $val) {
             if ($val->getType()) {
                 $params[] = $this->getService($val->getType()->getName()); // kvieciu is konteinerio
