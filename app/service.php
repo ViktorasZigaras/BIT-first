@@ -1,7 +1,7 @@
 <?php
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 use Symfony\Component\HttpFoundation\Request;
-use Bebras\models\NewsPost;
+use BIT\models\NewsPost;
 
 // require_once __DIR__.'/vendor/autoload.php';
 
