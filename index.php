@@ -58,3 +58,35 @@ function renderAdminController_index()
 }
 
 App::start();
+
+
+
+
+
+
+
+
+
+
+use BIT\app\Config;
+Config::postTypeRegister();
+use BIT\app\Post;
+use BIT\models\AlbumPost;
+use BIT\models\IdeaPost;
+use BIT\models\NewsPost;
+use BIT\models\EventPost;
+echo'----------------------------';
+$post = AlbumPost::get(288);
+// $post->post_title = 'nauja rGGGGGGGGGGGGG';
+// $post->event_description = 'nauja 0GGGGGG99';
+var_dump($post);
+// echo '<br><br>';
+
+// $post->save();
+
+
+
+
+
+
+
