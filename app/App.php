@@ -47,7 +47,7 @@ class App
             wp_enqueue_script('js');
             wp_enqueue_script( 'axios', 'https://unpkg.com/axios/dist/axios.min.js' );
         });
-        add_shortcode('front_shortcode', [FrontRouter::class, 'frontRoute']);
+        add_shortcode('front_shortcode', [FrontRoute::class, 'frontRoute']);
         AdminRoute::start();
     }
 
