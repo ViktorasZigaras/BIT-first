@@ -15,10 +15,10 @@ return function(ContainerConfigurator $configurator) {
     ->factory([Request::class, 'createFromGlobals']);
     $services->alias(Request::class, 'request');
     
-    $services->set(RequestId::class)
+    $services->set('requestId', RequestId::class)
     // ->factory([NewsPost::class, 'get'])
     ->args([ref(Request::class)]);
-    // $services->alias(NewsPost::class, 'newsPost');
+    $services->alias(RequestId::class, 'requestId');
 
     $services->set('newsPost', NewsPost::class)
     // ->factory([NewsPost::class, 'get'])
