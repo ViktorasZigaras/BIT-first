@@ -17,7 +17,7 @@ class AdminRoute {
                 $app = App::start();
                 add_menu_page(ucfirst($path) . ' Title', ucfirst($path) . ' Menu', 'manage_options', $path, 
                 function () use ($controller, $method, $app) {
-                    return $app->run($controller, $method);
+                    echo $app->run($controller, $method);
                     // (new $controller)->$method();
                 });
             }
