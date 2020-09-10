@@ -8,11 +8,13 @@ class Post{
     private $ID;
     protected static $type = 'post';
     // combines meta ant post tables
+
     public function __construct($post_id = 0){
+        
+        $post_id = (string) $post_id;
         if($post_id === 0){
             foreach ( get_object_vars( new \WP_Post(new \stdClass())) as $var => $value ) {
                 $this->$var = $value; 
-                
             }
             if(isset(static::$type)) $this->post_type = static::$type;
         }
@@ -24,11 +26,13 @@ class Post{
                 $this->$var = $value[0]; 
             }
         }
+       
     }
 
     // returns Post object with common post and meta fields
     public static function get($post_id = 0) :Post{
-        $post_id = (int) $post_id;
+        $post_id = $post_id;
+        // $post_id = (int) $post_id;
         if(0 === $post_id){
             return new static($post_id);
         }

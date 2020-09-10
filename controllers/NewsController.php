@@ -5,6 +5,7 @@ namespace BIT\controllers;
 use BIT\app\App;
 
 use Symfony\Component\HttpFoundation\Request;
+use BIT\models\NewsPost;
 
 class NewsController {
     
@@ -37,9 +38,7 @@ class NewsController {
         //     $menu->photo = $name;
         // }
         $new_news->save();
-
-        // return redirect()->route('news.index'); TODO su Js
-        
+        // return redirect()->route('news.index'); TODO su Js 
     }
 
 
@@ -69,7 +68,6 @@ class NewsController {
         // }
         $newsPost->save();
         // return redirect()->route('menu.index');
-
         // return redirect()->route('menu.index')->with('success_message', 'Succsesfully updated.'); TODO su Js
     }
 

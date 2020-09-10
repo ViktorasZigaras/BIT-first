@@ -1139,6 +1139,8 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
                 }
             }
         } else {
+
+            _dc(debug_backtrace());
             $r = new \ReflectionClass($parameterBag->resolveValue($definition->getClass()));
 
             $service = null === $r->getConstructor() ? $r->newInstance() : $r->newInstanceArgs($arguments);
