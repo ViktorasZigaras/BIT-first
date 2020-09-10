@@ -11,7 +11,7 @@ class Post{
 
     public function __construct($post_id = 0){
         
-        $post_id = (string) $post_id;
+        $post_id = (int) $post_id;
         if($post_id === 0){
             foreach ( get_object_vars( new \WP_Post(new \stdClass())) as $var => $value ) {
                 $this->$var = $value; 
