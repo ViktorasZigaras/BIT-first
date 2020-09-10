@@ -10,9 +10,7 @@ class Post{
     // combines meta ant post tables
 
     public function __construct($post_id = 0){
-        
-        $post_id = (string) $post_id;
-        if($post_id === 0){
+        if($post_id == 0){
             foreach ( get_object_vars( new \WP_Post(new \stdClass())) as $var => $value ) {
                 $this->$var = $value; 
             }
@@ -31,11 +29,12 @@ class Post{
 
     // returns Post object with common post and meta fields
     public static function get($post_id = 0) :Post{
-        $post_id = $post_id;
-        // $post_id = (int) $post_id;
-        if(0 === $post_id){
-            return new static($post_id);
-        }
+        $post_id = (int) $post_id;
+
+        if(0 === $post_id || !get_post_status($post_id)){
+            return new static();
+        } 
+ 
 
 		if ( $post_id<0 || (strcmp(get_post($post_id)->post_type, static::$type )!=0) ){
             throw new wrongArgsTypeExeption('Wrong $post_id args passed to Post::get($post_id)');
@@ -66,9 +65,15 @@ class Post{
         $post['meta_input'] = $metaVars;
 
         if(isset($this->ID)){
+            // add_action('init', function() use($post){
+            //     wp_update_post($post);
+            // });
             wp_update_post($post);
         }
         else{
+            // add_action('init', function() use($post){
+            //     wp_insert_post($post);
+            // });
             wp_insert_post($post);
         }
     }
