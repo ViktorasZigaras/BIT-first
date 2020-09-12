@@ -8,7 +8,6 @@ class FrontRoute
 {
 // Iš frontRoutes.php paima kontrolerį ir metodą ir jį paleidžia
     static function frontRoute($atts) {
-        // $app = new App;
         $app = App::start();        
         $routes = require $app->routeDir.'frontRoutes.php';
         if (file_exists(get_stylesheet_directory() . '/frontRoutes.php')) {
@@ -20,12 +19,9 @@ class FrontRoute
         $a = shortcode_atts( [
             'route' => '',	
         ], $atts );
-        // var_dump ($routes);
         list($controller, $method) = explode('@', $routes[$a['route']]);
         $controller = 'BIT\\controllers\\' . $controller;
         return (new $controller)->$method();
-        // $spacenameController = 'BIT\\controllers\\' . $controller;
-        // return (new $spacenameController)->$method();
     }
 
 }
