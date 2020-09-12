@@ -3,14 +3,12 @@
 namespace BIT\controllers;
 
 use BIT\app\App;
+
 use BIT\app\View;
 
 use BIT\models\NewsPost;
-
-use BIT\app\View;
 
 use Symfony\Component\HttpFoundation\Request;
-use BIT\models\NewsPost;
 
 use Symfony\Component\HttpFoundation\Response;
 
