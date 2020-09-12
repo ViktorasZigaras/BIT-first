@@ -14,52 +14,36 @@ use Symfony\Component\HttpFoundation\Response;
 
 class NewsController {
     
-    public function index(Request $request)
+    public function index(/*Request $request*/) 
     {   
-        // $post;
-        // var_dump($request);
         $news = NewsPost::all();
-        // return view('news.index');
-        // echo 'labas buliau';
         return View::adminRender('news.index', ['url' => PLUGIN_DIR_URL, 'news' => $news]);
-        
     }
 
-    public function create(Request $request)
-    {
-        $response = new Response;
-        $response->prepare($request);
-        $response->setContent(json_encode(['a' => 'jjjjjjj']));
-        return $response;
-    }
-
+    public function create(Request $request){}
 
     public function store(Request $request)
     {   
-        
         $new_news = new NewsPost();
-        $new_news->news_content = $request->content;
-        // $new_news->= $request->menu_surname;
+        // $new_news->news_content = $request->getContent();
 
-        // if ($request->hasFile('photo')) {
-        //     $image = $request->file('photo');
-        //     $name = time().'.'.$image->getClientOriginalExtension();
-        //     $destinationPath = public_path('/images');
-        //     $image->move($destinationPath, $name);
-        //     $menu->photo = $name;
-        // }
+        
+        $new_news->news_content = 'hey';
+        print_r($new_news);
         $new_news->save();
 
-        // return redirect()->route('news.index'); TODO su Js
-        
+        $response = new Response;
+        $response->prepare($request);
+        // $response->setContent(json_encode(['a' => $request->getContent()]));
+        // $response->setContent(json_encode(['a' => $request]));
+        $response->setContent(json_encode(['html' => $this->index()]));
+        return $response;
     }
 
 
     public function show (/*NewsPost $newsPost*/)
     {
-        //persiduoti post konkretus
-        // $newsPost = NewsPost::get($post_id);
-        return view(); //viena tik parodyti
+       
     }
 
 
