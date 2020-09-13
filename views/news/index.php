@@ -12,8 +12,7 @@ foreach ($news as $key => $post) {
             <input type="hidden" name="event_id" value="' . $post->ID  . '">
             <div class="admin-event-form-group">
                 <label class="admin-label">Keisti naujienos pavadinimą:</label><br>
-                <input class="admin-input" type="text" name="content" value="' . $metas['content'][0] .'">
-                <input class="admin-input" type="text" name="content" value="' . $metas['content'][0] .'">
+                <input class="admin-input" type="text" name="content" value="' . $metas['news_content'][0] .'">
             </div>
             <div class="admin-event-buttons">
                 <button type="submit" class="admin-event-button">Redaguoti</button>
@@ -56,14 +55,16 @@ foreach ($news as $key => $post) {
     if (editButton) {
         editButton.addEventListener('click', () => { 
             console.log('clicked');
-            axios.get('<?= $url ?>api?route=news_store&content='+ document.querySelector('#content')
+            axios.get('<?= $url ?>api?route=news_store&content='+ document.querySelector('#content').value
             // , {route: 'test'}
             )
             // get can also have params
             .then((response) => {  
-                console.log(response);
+                // console.log(response);
                 console.log(response.data);
-                console.log(response.data.html);
+                // console.log(response.data.html);
+                // document.querySelector('.events-wrappers').innerHTML = response.data.html;
+                // console.log(JSON.stringify(response))
                 document.querySelector('#list').innerHTML = response.data.html;
             })
             .catch((error) => {
