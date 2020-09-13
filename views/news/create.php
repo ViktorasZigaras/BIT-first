@@ -47,3 +47,37 @@
                     </div>
             </div>
         <br>
+<!-- 
+        <div class="admin-event-div">
+        <form class="admin-event-forms" method="POST" action="">
+            <input type="hidden" name="event_update" value="update event">
+            <input type="hidden" name="event_id" value="' . $post->ID . '">
+            <div class="admin-event-form-group">
+                <label class="admin-label">Keisti įvykio pavadinimą:</label><br>
+                <input class="admin-input" type="text" name="title" value="' . $metas['title'][0] . '">
+            </div>
+            <div class="admin-event-form-group">
+                <label class="admin-label">Redaguoti tekstą:</label><br>
+                <input name="text" type="text" class="admin-input" value="' . $metas['text'][0] . '">
+            </div>
+            <div class="admin-event-form-group">
+                <label class="admin-label">Data:</label><br>
+                <input class="admin-input" type="datetime-local" value="' . $metas['date'][0] . '" name="date">
+            </div>
+            <div class="admin-event-buttons">
+                <button type="submit" class="admin-event-button">Redaguoti</button>
+            </div>
+        </form>
+        <form method="POST" action="">
+            <div class="admin-event-buttons">
+                <input type="hidden" name="event_delete" value="event_id">
+                <input type="hidden" name="event_id" value="' . $post->ID . '">
+                <button type="submit" class="admin-event-button">Trinti</button>
+            </div>
+        </form>
+        <!--<div>
+            <select name="cars">
+            <option value="' . $metas['title'][0] . '">' . $metas['title'][0] . '</option>
+            </select>
+        </div>-->
+    </div> -->
