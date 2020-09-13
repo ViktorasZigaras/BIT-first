@@ -186,7 +186,7 @@ return [
             'filter_items_list'     => __( 'Filter items list', 'text_domain' ),
         ],
     'supports'              => ['title', 'editor', 'author', 'thumbnail' ],
-    'taxonomies'            => [ 'category', 'post_tag' ],
+    'taxonomies'            => [ 'category', 'post_tag', 'hashtag' ],
     'hierarchical'          => false,
     'public'                => true,
     'show_ui'               => true,
