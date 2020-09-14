@@ -2,6 +2,7 @@
 
 namespace BIT\app;
 use BIT\app\Post;
+use BIT\app\coreExeptions\wrongArgsTypeExeption;
 require PLUGIN_DIR_PATH . '/../../../wp-load.php';
 require_once( ABSPATH . 'wp-admin/includes/image.php' );
 
@@ -49,4 +50,13 @@ class Attachment extends Post{
             wp_update_attachment_metadata( $upload_id, wp_generate_attachment_metadata( $upload_id, $new_file_path ) );
         }
     }
+
+    public function delete($force_delete = false){
+        if($this->ID > 0){
+            wp_delete_attachment($this->ID, $force_delete);
+        }
+        else throw new wrongArgsTypeExeption('Klaida: trinamas objektas neturi ID');
+    }
+
+
 }

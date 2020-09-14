@@ -78,16 +78,14 @@ class Post{
             wp_update_post($post);
         }
         else{
-            // add_action('init', function() use($post){
-            //     wp_insert_post($post);
-            // });
-            wp_insert_post($post);
+            $postID = wp_insert_post($post, true);
+            $this->ID = $postID;
         }
     }
 
-    public function delete($trash = false){
+    public function delete($force_delete = false){
         if(isset($this->ID)){
-            wp_delete_post($this->ID, $trash);
+            wp_delete_post($this->ID, $force_delete);
         }
         else throw new wrongArgsTypeExeption('Klaida: trinamas objektas neturi ID');
     }
