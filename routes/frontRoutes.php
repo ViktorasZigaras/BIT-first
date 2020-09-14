@@ -3,7 +3,8 @@
 // example Controller names and functions
 // 'event' (key) is provided for the shortcode as attribute
 return [
-    'event' => 'EventController@index',
+    'event' => 'EventController@events',
     'gallery' => 'GalleryController@index',
     'test' => 'TestController@front',
+    'callendar' => 'CallendarController@index',
 ];
