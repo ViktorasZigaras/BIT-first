@@ -2,17 +2,24 @@
 namespace BIT\app;
 
 use BIT\app\coreExeptions\wrongArgsTypeExeption;
+use BIT\app\Attachment;
+use BIT\app\IdeaPost;
+use BIT\app\EventPost;
+use BIT\app\NewsPost;
+use BIT\app\AlbumPost;
 
 class Post{
 
     private $ID;
     protected static $type = 'post';
+    public $attachments = [];
     // combines meta ant post tables
+
     public function __construct($post_id = 0){
-        if($post_id === 0){
+        $post_id = (string)$post_id;
+        if($post_id == 0){
             foreach ( get_object_vars( new \WP_Post(new \stdClass())) as $var => $value ) {
                 $this->$var = $value; 
-                
             }
             if(isset(static::$type)) $this->post_type = static::$type;
         }
@@ -23,15 +30,18 @@ class Post{
             foreach ( get_post_meta($post_id) as $var => $value ) {
                 $this->$var = $value[0]; 
             }
+            $this->attachments = $this->getAttachments($this->ID);
         }
+       
     }
 
     // returns Post object with common post and meta fields
-    public static function get($post_id = 0) :Post{
+    public static function get($post_id = 0) {
         $post_id = (int) $post_id;
-        if(0 === $post_id){
-            return new static($post_id);
-        }
+
+        if(0 === $post_id || !get_post_status($post_id)){
+            return new static();
+        } 
 
 		if ( $post_id<0 || (strcmp(get_post($post_id)->post_type, static::$type )!=0) ){
             throw new wrongArgsTypeExeption('Wrong $post_id args passed to Post::get($post_id)');
@@ -62,9 +72,15 @@ class Post{
         $post['meta_input'] = $metaVars;
 
         if(isset($this->ID)){
+            // add_action('init', function() use($post){
+            //     wp_update_post($post);
+            // });
             wp_update_post($post);
         }
         else{
+            // add_action('init', function() use($post){
+            //     wp_insert_post($post);
+            // });
             wp_insert_post($post);
         }
     }
@@ -77,6 +93,33 @@ class Post{
         return null;
     }
 
+    protected function getAttachments($parent_id){
+        $allAttachments = get_posts(['posts_per_page' => -1, 'post_type' => 'attachment', 'post_parent' => $parent_id]);
+        $attachments = [];
+        foreach ($allAttachments as $id => $attachment) {
+            $attachments[$attachment->ID] = Attachment::get($attachment->ID);
+        }
+        return $attachments;
+    }
+
+    private static function getModel(WP_Post $post){
+        
+        switch ($post->ID) {
+            case 'post':
+                return Post::get($post->ID);
+            case 'idea':
+                return IdeaPost::get($post->ID);
+            case 'album':
+                return AlbumPost::get($post->ID);
+            case 'news':
+                return NewsPost::get($post->ID);
+            case 'event':
+                return EventPost::get($post->ID);
+
+            default:
+                return null;
+        }
+    }
 
 
 

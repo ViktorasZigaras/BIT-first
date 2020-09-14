@@ -5,6 +5,7 @@
 return [
     'event' => 'EventController@index',
     'gallery' => 'GalleryController@index',
-    
-    'test' => 'TestController@testing',
+    'news_store' => 'NewsController@store',
+    'news_update' => 'NewsController@update',
+    'news_destroy' => 'NewsController@destroy'
 ];

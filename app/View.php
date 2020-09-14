@@ -38,5 +38,7 @@ class View
         ob_end_clean();
         
         return $content;
+        // echo $templateName;
+        // return $templateName . '';
     }
 }
