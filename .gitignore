@@ -2,3 +2,4 @@
 ///vendor
 /public/mix-manifest.json
 .DS_Store
+/vendor/
