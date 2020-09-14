@@ -3,11 +3,12 @@
 namespace BIT\app;
 use BIT\app\Post;
 use WP_Query;
+use BIT\app\coreExeptions\wrongArgsTypeExeption;
 include_once(ABSPATH . 'wp-includes/pluggable.php');
 
 class Query{
     //gauti postus pagal tipa
-    public function postType($post_type)
+    public function postType(string $post_type)
     {
         $this->args['post_type'] = $post_type;
         return $this;
@@ -28,8 +29,12 @@ class Query{
     }
 
     //surusiuoti postus pagal reikiamus parametrus. Paduodama pagal ka rusiuoti(pvz date) ir kokia tvarka ('DESC')'
-    public function postSort(string $orderby, string $order)
+    public function postSort(string $orderby, string $order = 'ASC')
     {
+        $sortOrder = ['DESC', 'ASC'];
+        if (!in_array($order, $sortOrder)) {
+            throw new wrongArgsTypeExeption ('Reikia nurodyti "DESC" arba "ASC"');
+        }
         $this->args['orderby'] = $orderby;
         $this->args['order'] = $order;
         return $this;
@@ -48,10 +53,11 @@ class Query{
         //Thanks to WP_Query Class, WordPress gives us access to the database quickly (no need to get our hands dirty with SQL) and securely (WP_Query builds safe queries behind the scenes). i objekta magic savybe ideti to string.
         $query = new WP_Query($this->args);
         $list = $query->get_posts();
-        foreach ($list as $post){
-            _dd($post);
+        foreach ($list as &$post){
+            // _dd($post);
             $post = Post::getModel($post);
         } 
+        // _dc($list);
         return $list;
     }
 

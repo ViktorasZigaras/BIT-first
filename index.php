@@ -16,15 +16,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-require __DIR__ . '/app/Query.php';
-// require __DIR__ . '/app/Post.php';
+use BIT\app\coreExeptions\wrongArgsTypeExeption;
+require_once __DIR__.'/vendor/autoload.php';
+
 
 $query = new Query;
 
-$getPostType = $query->postType('news')->postMeta('news_content','Naujiena')->getPost();
-var_dump($getPostType);
+// $getPostType = $query->postType('event')->postMeta('text', 'Naujas ivykis')->getPost();
+// _dc($getPostType);
 
-require_once __DIR__.'/vendor/autoload.php';
+$getPostType = $query->postType('event')->postSort('post_date','DESC')->getPost();
+_dc($getPostType);
+
 define('PLUGIN_DIR_URL', plugin_dir_url(__FILE__));
 define('PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
 
