@@ -3,7 +3,7 @@ namespace BIT\app;
 
 use BIT\app\coreExeptions\wrongArgsTypeExeption;
 use BIT\app\Attachment;
-
+// require __DIR__ . '/coreExeptions/wrongArgsTypeExeption.php';
 class Post{
 
     private $ID;
