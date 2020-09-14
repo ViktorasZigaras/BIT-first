@@ -3,10 +3,10 @@ namespace BIT\app;
 
 use BIT\app\coreExeptions\wrongArgsTypeExeption;
 use BIT\app\Attachment;
-use BIT\app\IdeaPost;
-use BIT\app\EventPost;
-use BIT\app\NewsPost;
-use BIT\app\AlbumPost;
+use BIT\models\IdeaPost;
+use BIT\models\EventPost;
+use BIT\models\NewsPost;
+use BIT\models\AlbumPost;
 
 class Post{
 
@@ -78,11 +78,16 @@ class Post{
             wp_update_post($post);
         }
         else{
-            // add_action('init', function() use($post){
-            //     wp_insert_post($post);
-            // });
-            wp_insert_post($post);
+            $postID = wp_insert_post($post, true);
+            $this->ID = $postID;
         }
+    }
+
+    public function delete($force_delete = false){
+        if(isset($this->ID)){
+            wp_delete_post($this->ID, $force_delete);
+        }
+        else throw new wrongArgsTypeExeption('Klaida: trinamas objektas neturi ID');
     }
 
     //returns objects ID (protected)
@@ -102,9 +107,9 @@ class Post{
         return $attachments;
     }
 
-    private static function getModel(WP_Post $post){
+    public static function getModel(\WP_Post $post){
         
-        switch ($post->ID) {
+        switch ($post->post_type) {
             case 'post':
                 return Post::get($post->ID);
             case 'idea':
