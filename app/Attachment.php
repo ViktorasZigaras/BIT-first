@@ -7,11 +7,10 @@ require_once( ABSPATH . 'wp-admin/includes/image.php' );
 
 class Attachment extends Post{
 
-
     protected static $type = 'attachment';
 
 
-    public function save($formInputName, $parentId = 0){
+    public function save($formInputName = '', $parentId = 0){
 
         $wordpress_upload_dir = wp_upload_dir();
         $fileNamePrefix = 1; 

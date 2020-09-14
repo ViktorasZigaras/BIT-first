@@ -3,7 +3,11 @@ namespace BIT\app;
 
 use BIT\app\coreExeptions\wrongArgsTypeExeption;
 use BIT\app\Attachment;
-// require __DIR__ . '/coreExeptions/wrongArgsTypeExeption.php';
+use BIT\app\IdeaPost;
+use BIT\app\EventPost;
+use BIT\app\NewsPost;
+use BIT\app\AlbumPost;
+
 class Post{
 
     private $ID;
@@ -98,8 +102,25 @@ class Post{
         return $attachments;
     }
 
+    private static function getModel(WP_Post $post){
+        
+        switch ($post->ID) {
+            case 'post':
+                return Post::get($post->ID);
+            case 'idea':
+                return IdeaPost::get($post->ID);
+            case 'album':
+                return AlbumPost::get($post->ID);
+            case 'news':
+                return NewsPost::get($post->ID);
+            case 'event':
+                return EventPost::get($post->ID);
+
+            default:
+                return null;
+        }
+    }
 
 
 
 }
-
