@@ -25,4 +25,9 @@ return function(ContainerConfigurator $configurator) {
     ->args([ref(RequestId::class)]);
     $services->alias(NewsPost::class, 'newsPost');
 
+    $services->set('albumPost', NewsPost::class)
+    // ->factory([NewsPost::class, 'get'])
+    ->args([ref(RequestId::class)]);
+    $services->alias(NewsPost::class, 'newsPost');
+
 };
