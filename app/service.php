@@ -16,18 +16,23 @@ return function(ContainerConfigurator $configurator) {
     $services->alias(Request::class, 'request');
     
     $services->set('requestId', RequestId::class)
-    // ->factory([NewsPost::class, 'get'])
     ->args([ref(Request::class)]);
     $services->alias(RequestId::class, 'requestId');
 
     $services->set('newsPost', NewsPost::class)
-    // ->factory([NewsPost::class, 'get'])
     ->args([ref(RequestId::class)]);
     $services->alias(NewsPost::class, 'newsPost');
 
-    $services->set('albumPost', NewsPost::class)
-    // ->factory([NewsPost::class, 'get'])
+    $services->set('albumPost', AlbumPost::class)
     ->args([ref(RequestId::class)]);
-    $services->alias(NewsPost::class, 'newsPost');
+    $services->alias(AlbumPost::class, 'albumPost');
+
+    $services->set('eventPost', EventPost::class)
+    ->args([ref(RequestId::class)]);
+    $services->alias(EventPost::class, 'eventPost');
+
+    $services->set('ideaPost', IdeaPost::class)
+    ->args([ref(RequestId::class)]);
+    $services->alias(IdeaPost::class, 'ideaPost');
 
 };
