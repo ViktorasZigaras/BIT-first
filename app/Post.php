@@ -3,10 +3,10 @@ namespace BIT\app;
 
 use BIT\app\coreExeptions\wrongArgsTypeExeption;
 use BIT\app\Attachment;
-use BIT\app\IdeaPost;
-use BIT\app\EventPost;
-use BIT\app\NewsPost;
-use BIT\app\AlbumPost;
+use BIT\models\IdeaPost;
+use BIT\models\EventPost;
+use BIT\models\NewsPost;
+use BIT\models\AlbumPost;
 
 class Post{
 
@@ -85,6 +85,13 @@ class Post{
         }
     }
 
+    public function delete($trash = false){
+        if(isset($this->ID)){
+            wp_delete_post($this->ID, $trash);
+        }
+        else throw new wrongArgsTypeExeption('Klaida: trinamas objektas neturi ID');
+    }
+
     //returns objects ID (protected)
     public function __get($prop){
         if('ID' == $prop){
@@ -102,9 +109,9 @@ class Post{
         return $attachments;
     }
 
-    private static function getModel(WP_Post $post){
+    public static function getModel(\WP_Post $post){
         
-        switch ($post->ID) {
+        switch ($post->post_type) {
             case 'post':
                 return Post::get($post->ID);
             case 'idea':
