@@ -6,10 +6,6 @@ use BIT\app\Post;
 
 
 class IdeaPost extends Post{
-
     use Tidea;
-
     protected static $type = 'idea';
-
-    
 }

@@ -32,7 +32,6 @@ class NewsController {
         $new_news = new NewsPost();
         $new_news->news_content = $request->query->get('content');
         // $new_news->news_content = $request->getContent();
-
         // var_dump($request);
         // $new_news->news_content = 'hey';
         print_r($new_news);
@@ -66,13 +65,10 @@ class NewsController {
     {   
         $newsPost->news_content = $request->content;
 
-    
         $newsPost->save();
 
         return 'labas';
         
-
-
         // return redirect()->route('menu.index')->with('success_message', 'Succsesfully updated.'); TODO su Js
     }
 

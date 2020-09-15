@@ -52,9 +52,10 @@ class App
     }
 
     public function getService($service){
-        return  $this->containerBuilder->get($service);
+        return $this->containerBuilder->get($service);
     }
 
+    //metodas, aprasantis refleksija
     public function run($controller, $method)
     {
         $this->controller = $controller;

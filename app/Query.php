@@ -1,41 +1,64 @@
 <?php
 
 namespace BIT\app;
-// use BIT\app\Config;
 use BIT\app\Post;
 use WP_Query;
+use BIT\app\coreExeptions\wrongArgsTypeExeption;
 include_once(ABSPATH . 'wp-includes/pluggable.php');
-//ar reikia sito?
 
 class Query{
-    public function postType($post_type)
+    //gauti postus pagal tipa
+    public function postType(string $post_type)
     {
         $this->args['post_type'] = $post_type;
         return $this;
     }
 
-    public function postTitle($post_title)
+    //gauti postus pagal title
+    public function postTitle(string $post_title)
     {
         $this->args['post_title'] = $post_title;
         return $this;
     }
 
-    public function getPost()
+    //gauti postus pagal pavadinima
+    public function postName(string $post_name)
     {
-        //naudodami WP_query gauname postus pagal mums reikalingus parametrus. Paramentai nurodyti funkcijose aukščiau - postType, postTitle. KOnkrečius paramentrus (posto tipą, pavadinimą ir kt. nurodome kviesdami funckcija)
-        //Thanks to WP_Query Class, WordPress gives us access to the database quickly (no need to get our hands dirty with SQL) and securely (WP_Query builds safe queries behind the scenes).
-        $wp_query = new WP_Query( $this->args );
-        if($wp_query->have_posts() ) : 
-            while ( $wp_query->have_posts() ) : 
-               $wp_query->the_post(); 
-               $id = get_the_id();
-               $newPostObj = Post::get($id);
-            //    var_dump($newPostObj);
-            endwhile; 
-            wp_reset_postdata(); 
-        else: 
-        endif;
+        $this->args['post_name'] = $post_name;
+        return $this;
     }
 
-   
+    //surusiuoti postus pagal reikiamus parametrus. Paduodama pagal ka rusiuoti(pvz date) ir kokia tvarka ('DESC')'
+    public function postSort(string $orderby, string $order = 'ASC')
+    {
+        $sortOrder = ['DESC', 'ASC'];
+        if (!in_array($order, $sortOrder)) {
+            throw new wrongArgsTypeExeption ('Reikia nurodyti "DESC" arba "ASC"');
+        }
+        $this->args['orderby'] = $orderby;
+        $this->args['order'] = $order;
+        return $this;
+    }
+
+    //gauti reikmems is post_meta lenteles. Paduodama meta_key ir meta_value
+     function postMeta(string $key, string $value){
+        $this->args['meta_key'] = $key;
+        $this->args['meta_value'] = $value;
+        return $this; 
+     }
+
+    public function getPost() :array
+    {
+         //naudodami WP_query gauname postus pagal mums reikalingus parametrus. Paramentai nurodyti funkcijose aukščiau - postType, postTitle. KOnkrečius paramentrus (posto tipą, pavadinimą ir kt. nurodome kviesdami funckcija)
+        //Thanks to WP_Query Class, WordPress gives us access to the database quickly (no need to get our hands dirty with SQL) and securely (WP_Query builds safe queries behind the scenes). i objekta magic savybe ideti to string.
+        $query = new WP_Query($this->args);
+        $list = $query->get_posts();
+        foreach ($list as &$post){
+            // _dd($post);
+            $post = Post::getModel($post);
+        } 
+        // _dc($list);
+        return $list;
+    }
+
 }
