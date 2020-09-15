@@ -30,19 +30,24 @@ class NewsController {
     public function store(Request $request, NewsPost $newsPost)
     {   
         $new_news = new NewsPost();
+        $new_news->news_content = $request->query->get('content');
         // $new_news->news_content = $request->getContent();
 
-        
-        $new_news->news_content = 'hey';
-        print_r($new_news);
+        // var_dump($request);
+        // $new_news->news_content = 'hey';
+       var_dump($new_news);
         $new_news->save();
 
         $response = new Response;
         $response->prepare($request);
         // $response->setContent(json_encode(['a' => $request->getContent()]));
         // $response->setContent(json_encode(['a' => $request]));
+        // $response->setContent(json_encode(['html' => $this->index()]));
         $response->setContent(json_encode(['html' => $this->index()]));
         return $response;
+
+        var_dump($response);
+        // print_r($news_content.value);
     }
 
 
