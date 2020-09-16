@@ -61,8 +61,8 @@ foreach ($news as $key => $post) {
             // get can also have params
             .then((response) => {  
                 // console.log(response);
-                //console.log(response.data);
-                 console.log(response.data);
+                console.log(response.data);
+                // console.log(response.data.html);
                 // document.querySelector('.events-wrappers').innerHTML = response.data.html;
                 // console.log(JSON.stringify(response))
                 document.querySelector('#list').innerHTML = response.data.html;

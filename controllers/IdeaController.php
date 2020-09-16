@@ -25,9 +25,13 @@ class IdeaController {
 	}
 
 	public function frontIndex() {
-		$query = new Query;
+
 		$idea = new IdeaPost();
-		$getPostType = $query->postType('event')->postMeta('idea_content', 'meta_value')->getPost();
+		$query = new Query;
+		$getPostType = $query->postType('idea')->getPost();
+		echo '<pre>';
+		// $kazkas = IdeaPost::get($id);
+		// $kontentas = $kazkas->idea_content;
 		var_dump($getPostType );
 		//return View::render('home.ideja', []);
 		return View::render('home.ideja', ['url' => PLUGIN_DIR_URL, 'ideja' => $idea]);
