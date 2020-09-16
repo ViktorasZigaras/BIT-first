@@ -3,6 +3,7 @@
 namespace BIT\controllers;
 use BIT\app\View;
 use BIT\models\IdeaPost;
+use BIT\app\Query;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,17 +25,16 @@ class IdeaController {
 	}
 
 	public function frontIndex() {
-
-		//    echo '<pre>';
-		//    var_dump( $this->request);
-		// $content = $this->request->content;
-		return View::render('home.ideja', []);
+		$query = new Query;
+		$idea = new IdeaPost();
+		$getPostType = $query->postType('event')->postMeta('idea_content', 'meta_value')->getPost();
+		var_dump($getPostType );
+		//return View::render('home.ideja', []);
+		return View::render('home.ideja', ['url' => PLUGIN_DIR_URL, 'ideja' => $idea]);
 	}
 
 	public function addIdea(Request $request) {
 		$response = new Response;
-		// echo '<pre>';
-		// var_dump($request);
 		$output = View::render('home.ideja');
 		$response->prepare($request);
 		$response->setContent(json_encode(['html' => $output]));
@@ -43,31 +43,19 @@ class IdeaController {
 			$data = json_decode($request->getContent(), true);
 			$request->request->replace(is_array($data) ? $data : array());
 		}
-		
-		$idea = new IdeaPost();
-		//$idea->idea_content = 'aaaaaaaaaaaaaaaaaaaaaaaaaa,  ddddddddddddddddddd, ddddddddddddddddddddddddddd, dddddddddddddddd';
-		$idea->idea_content = $request->request->get('idea');
-		//$idea->idea_content = $request->request->get('idea')[0];
-		//$request = json_decode($request->getContent(), true);
-		// $parametersAsArray = [];
-		// if ($content = $request->getContent()) {
-		// 	$parametersAsArray = json_decode($content, true);
-		// }
-		
-		//$a = $request->getContent();
-		//$a = $$idea->idea_content = $request->query->get('idea');
 
-		//echo '<pre>';
+		$idea = new IdeaPost();
+		$idea->idea_content = $request->request->get('idea');
+		//$idea->save();
 		
-		//$a =  $parametersAsArray[0]['idea'];
-		//var_dump($a);
-		$idea->save();
 		return $response;
 	}
-	public function store(Request $request, IdeaPost $ideaPost) {
+	public function renderIdea(Response $response, IdeaPost $ideaPost) {
+		$query = new Query;
 		$idea = new IdeaPost();
-		$idea->idea_content = $request->request->get('idea');
-		$idea->save();
+		$getPostType = $query->postType('event')->postSort('post_date','DESC')->getPost();
+
+		$getPostType = $query->postType('event')->postMeta('idea_content', 'meta_value')->getPost();
 	}
 
 	// function frontIndex() {

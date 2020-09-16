@@ -5,10 +5,11 @@
 return [
 	'event' => 'EventController@index',
 	'gallery' => 'GalleryController@index',
-	'ideja' => 'IdeaController@frontIndex',
+
 	'idejos' => 'IdeasController@index',
 	'idejos' => 'IdeasController@adminIndex',
 	'add-idea' => 'IdeaController@addIdea',
+	'render-ideja' => 'IdeaController@renderIdea',
 
 	'news_store' => 'NewsController@store',
 	'news_update' => 'NewsController@update',
