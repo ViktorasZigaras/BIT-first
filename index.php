@@ -10,14 +10,16 @@
  **/
 use BIT\app\App;
 use BIT\app\Query;
+use BIT\app\Post;
 use BIT\app\RequestId;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-
-
+use BIT\app\coreExeptions\wrongArgsTypeExeption;
 require_once __DIR__.'/vendor/autoload.php';
+
+
 define('PLUGIN_DIR_URL', plugin_dir_url(__FILE__));
 define('PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
 
