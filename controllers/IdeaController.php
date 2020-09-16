@@ -25,19 +25,12 @@ class IdeaController {
 	}
 
 	public function frontIndex() {
-
-		$idea = new IdeaPost();
-		$query = new Query;
-		$getPostType = $query->postType('idea')->getPost();
-		echo '<pre>';
-		// $kazkas = IdeaPost::get($id);
-		// $kontentas = $kazkas->idea_content;
-		var_dump($getPostType );
-		//return View::render('home.ideja', []);
-		return View::render('home.ideja', ['url' => PLUGIN_DIR_URL, 'ideja' => $idea]);
+		return View::render('home.ideja', []);
 	}
 
 	public function addIdea(Request $request) {
+		$idea = new IdeaPost();
+
 		$response = new Response;
 		$output = View::render('home.ideja');
 		$response->prepare($request);
@@ -48,18 +41,33 @@ class IdeaController {
 			$request->request->replace(is_array($data) ? $data : array());
 		}
 
-		$idea = new IdeaPost();
-		$idea->idea_content = $request->request->get('idea');
-		//$idea->save();
+		$array  = $idea->idea_content = $request->request->get('idea');
+
+		if(count(array_filter($array)) != ""){
+			var_dump($array );
+			$txt = '';
+			foreach ($array as $key => $text) {;
+				$txt .=$text . ' ';			
+			}
+			$idea->idea_content = $txt;	
+			$idea->save();
+		}else{
+			echo 'negautas array';
+		}
+
 		
 		return $response;
 	}
-	public function renderIdea(Response $response, IdeaPost $ideaPost) {
+	public function json(Response $response, IdeaPost $ideaPost) {
 		$query = new Query;
-		$idea = new IdeaPost();
-		$getPostType = $query->postType('event')->postSort('post_date','DESC')->getPost();
+		$getPostType = $query->postType('idea')->getPost();
+		$response->setContent(json_encode(['$getPostType'] ));
+		//$query = new Query;
+		// $idea = new IdeaPost();
+		// $getPostType = $query->postType('event')->postSort('post_date','DESC')->getPost();
 
-		$getPostType = $query->postType('event')->postMeta('idea_content', 'meta_value')->getPost();
+		// $getPostType = $query->postType('event')->postMeta('idea_content', 'meta_value')->getPost();
+		return $response;
 	}
 
 	// function frontIndex() {
