@@ -19,6 +19,7 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use BIT\app\coreExeptions\wrongArgsTypeExeption;
 require_once __DIR__.'/vendor/autoload.php';
 
+
 define('PLUGIN_DIR_URL', plugin_dir_url(__FILE__));
 define('PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
 
