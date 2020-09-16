@@ -5,11 +5,6 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use BIT\app\Config;
-<<<<<<< HEAD
-=======
-// use Symfony\Component\Finder\Finder;
-// use BIT\app\ApiRoute;
->>>>>>> development
 use BIT\app\FrontRouter;
 use BIT\app\AdminRoute;
 
@@ -24,13 +19,10 @@ class App
     private $controller;
     private $method;
     private $reflectionParams;
-<<<<<<< HEAD
     private $params;
-    // private $config;
-=======
-    // private $config;
-    //ar reikia kintamojo?
->>>>>>> development
+    private $config;
+    
+
     static private $obj;
 
     public static function start()
@@ -69,11 +61,9 @@ class App
         $this->controller = $controller;
         $this->method = $method;
         $this->reflectionParams = (new \ReflectionMethod($this->controller, $this->method))->getParameters();
-<<<<<<< HEAD
-        $params = [];
-=======
 
->>>>>>> development
+        $params = [];
+        
         foreach ($this->reflectionParams as $val) {
             if ($val->getType()) {
                 $params[] = $this->getService($val->getType()->getName()); // kvieciu is konteinerio

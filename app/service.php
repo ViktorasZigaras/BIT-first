@@ -2,10 +2,7 @@
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 use Symfony\Component\HttpFoundation\Request;
 use BIT\models\NewsPost;
-<<<<<<< HEAD
 use BIT\app\RequestId;
-=======
->>>>>>> development
 
 // require_once __DIR__.'/vendor/autoload.php';
 
@@ -18,7 +15,6 @@ return function(ContainerConfigurator $configurator) {
     ->factory([Request::class, 'createFromGlobals']);
     $services->alias(Request::class, 'request');
     
-<<<<<<< HEAD
     $services->set('requestId', RequestId::class)
     ->args([ref(Request::class)]);
     $services->alias(RequestId::class, 'requestId');
@@ -38,11 +34,5 @@ return function(ContainerConfigurator $configurator) {
     $services->set('ideaPost', IdeaPost::class)
     ->args([ref(RequestId::class)]);
     $services->alias(IdeaPost::class, 'ideaPost');
-=======
-    $services->set('newsPost', NewsPost::class)
-    ->factory([NewsPost::class, 'get'])
-    ->args([ref(Request::class)]);
-    $services->alias(NewsPost::class, 'newsPost');
->>>>>>> development
 
 };
