@@ -37,7 +37,7 @@ class IdeaController {
 		return View::render('home.ideja', ['url' => PLUGIN_DIR_URL, 'ideja' => $idea]);
 	}
 
-	public function addIdea(Request $request) {
+	public function addIdea(Request $request, IdeaPost $ideaPost) {
 		$response = new Response;
 		$output = View::render('home.ideja');
 		$response->prepare($request);

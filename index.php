@@ -17,11 +17,19 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use BIT\app\coreExeptions\wrongArgsTypeExeption;
+use Symfony\Component\Uid\Uuid;
 require_once __DIR__.'/vendor/autoload.php';
+
+
 
 
 define('PLUGIN_DIR_URL', plugin_dir_url(__FILE__));
 define('PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
+
+
+
+// $request = $request->query->get('page');
+// var_dump($request);
 
 App::start();
 

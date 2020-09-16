@@ -2,6 +2,9 @@
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 use Symfony\Component\HttpFoundation\Request;
 use BIT\models\NewsPost;
+use BIT\models\IdeaPost;
+use BIT\models\EventPost;
+use BIT\models\AlbumPost;
 use BIT\app\RequestId;
 
 // require_once __DIR__.'/vendor/autoload.php';

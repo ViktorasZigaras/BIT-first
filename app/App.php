@@ -21,8 +21,6 @@ class App
     private $reflectionParams;
     private $params;
     private $config;
-    
-
     static private $obj;
 
     public static function start()
