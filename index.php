@@ -11,6 +11,9 @@
 use BIT\app\App;
 use BIT\app\Query;
 use BIT\app\RequestId;
+
+use BIT\app\modelTraits\Talbum;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -44,3 +47,16 @@ define('PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
 //paskui istrinti
 App::start();
 
+
+add_action('init', function() {
+    echo '<pre>';
+    print_r(get_taxonomies());
+});
+
+add_action('init', function() {
+    // $tag = 'atostogos prie juros';
+    // wp_remove_object_terms( 73, 19, 'hashtag' );
+    echo '<pre>';
+    print_r(get_the_terms(73, 'hashtag'));
+
+});
