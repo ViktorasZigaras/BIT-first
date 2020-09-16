@@ -38,14 +38,17 @@ class Attachment extends Post{
         }
         //save to DB
         if( move_uploaded_file( $profilepicture['tmp_name'], $new_file_path ) ) {
-        
+            
             $upload_id = wp_insert_attachment( array(
+                'ID'             => $this->ID,
                 'guid'           => $new_file_path, 
                 'post_mime_type' => $new_file_mime,
                 'post_title'     => preg_replace( '/\.[^.]+$/', '', $profilepicture['name'] ),
                 'post_status'    => 'inherit'
             ), $new_file_path, $parentId );
-        
+            $this->ID = $upload_id;
+            wp_update_post(['ID'=>$this->ID, 'guid'=>$new_file_path]);
+
             // Generate and save the attachment metas into the database
             wp_update_attachment_metadata( $upload_id, wp_generate_attachment_metadata( $upload_id, $new_file_path ) );
         }
@@ -58,5 +61,29 @@ class Attachment extends Post{
         else throw new wrongArgsTypeExeption('Klaida: trinamas objektas neturi ID');
     }
 
+    public function getURL(){
+        if(($this->ID) > 0){
+            return wp_get_attachment_url($this->ID);
+        }
+    }
+
+    public function getAttachmentDetails() {
+        if(($this->ID) > 0){
+            return wp_get_attachment_metadata( $this->ID );
+        }
+    }
+
+    
+    // public function getCaption(){
+        //     if(($this->ID) > 0){
+            //         return wp_get_attachment_caption($this->ID);
+            //     }
+            // }
+            
+    // public function getThumb(){
+    //     if(($this->ID) > 0){
+    //         return wp_get_attachment_thumb_file($this->ID);
+    //     }
+    // }
 
 }
