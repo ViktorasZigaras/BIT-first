@@ -115,8 +115,8 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/wordpress/wp-content/plugins/BIT-first/resources/js/main.js */"./resources/js/main.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/wordpress/wp-content/plugins/BIT-first/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/ievaskyriene/.bitnami/stackman/machines/xampp/volumes/root/htdocs/wordpress/wp-content/plugins/BIT-first/resources/js/main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! /Users/ievaskyriene/.bitnami/stackman/machines/xampp/volumes/root/htdocs/wordpress/wp-content/plugins/BIT-first/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -20,14 +20,6 @@ use BIT\app\coreExeptions\wrongArgsTypeExeption;
 require_once __DIR__.'/vendor/autoload.php';
 
 
-$query = new Query;
-
-// $getPostType = $query->postType('event')->postMeta('text', 'Naujas ivykis')->getPost();
-// _dc($getPostType);
-
-$getPostType = $query->postType('event')->postSort('post_date','DESC')->getPost();
-//_dc($getPostType);
-
 define('PLUGIN_DIR_URL', plugin_dir_url(__FILE__));
 define('PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
 
