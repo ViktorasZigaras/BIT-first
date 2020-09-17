@@ -14,14 +14,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class NewsController {
     
-    public function index(/*Request $request*/) 
+    public function index() 
     {   
         $news = NewsPost::all();
 
-        // return view('news.index');
-        // echo 'labas buliau';
         return View::adminRender('news.index', ['url' => PLUGIN_DIR_URL, 'news' => $news]);
-
     }
 
     public function create(Request $request){}
@@ -47,26 +44,23 @@ class NewsController {
     }
 
 
-    public function show (/*NewsPost $newsPost*/)
-    {
-       
-    }
+    public function show (){}
 
+    public function edit (){}
 
-    public function edit (/*NewsPost $newsPost*/)
-    {
-        return view('news.edit'); //kaip pasiimti objekta is db su id url?
-    }
-
-    public function update(Request $request/*, NewsPost $newsPost*/)
+    public function update(Request $request, NewsPost $newsPost)
     {   
-        $newsPost->news_content = $request->content;
-
+        $new_news->news_content = $request->query->get('content');
+        
         $newsPost->save();
 
-        return 'labas';
-        
-        // return redirect()->route('menu.index')->with('success_message', 'Succsesfully updated.'); TODO su Js
+        $news = NewsPost::all();
+
+        $response = new Response;
+        $response->prepare($request);
+        $response->setContent(json_encode(['list' => 'hello']));
+        // $response->setContent(json_encode(['list' => View::adminRender('news.list', ['news' => $news])]));
+        return $response;
     }
 
 
