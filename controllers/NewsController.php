@@ -52,7 +52,6 @@ class NewsController {
 
     public function show (/*NewsPost $newsPost*/)
     {
-       
     }
 
 
@@ -66,6 +65,7 @@ class NewsController {
         $newsPost->news_content = $request->content;
 
         $newsPost->save();
+        
 
         return 'labas';
         
