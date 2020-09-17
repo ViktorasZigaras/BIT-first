@@ -7,6 +7,7 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use BIT\app\Config;
 use BIT\app\FrontRouter;
 use BIT\app\AdminRoute;
+use BIT\app\Cookie;
 
 class App
 {
@@ -47,6 +48,7 @@ class App
         });
         add_shortcode('front_shortcode', [FrontRoute::class, 'frontRoute']);
         AdminRoute::start();
+        Cookie::getUuid();
     }
 
     public function getService($service){

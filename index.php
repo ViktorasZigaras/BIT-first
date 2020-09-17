@@ -24,13 +24,6 @@ require_once __DIR__.'/vendor/autoload.php';
 define('PLUGIN_DIR_URL', plugin_dir_url(__FILE__));
 define('PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
 
-$uuid = Cookie::getUuid();
-// $uuid = $cookie->getUuid();
-_dc($_COOKIE); 
-_dc($uuid);
-
-// $request = $request->query->get('page');
-// var_dump($request);
 
 App::start();
 
