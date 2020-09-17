@@ -1,6 +1,19 @@
-ramzi biblioteka//
-tikrinam ar turi qookie, ar neutir, jiegu neturi tai duodam. Issaugom uida kaip atskira kintamaji. cia vienas turi buti metodas, issetinma ciikie is issaugom uiida. 
-qookio klase padaryti kaip servisa
-consento collator_sort_with_sort_keys
-gali buti statiniai metodai arba singeltonas.servisas turi duoti uida. 
-kai padarys Paulius tai bus ne get uida, bet get data. ir is transiento grazins objekta. 
+<?php
+namespace BIT\app;
+
+class Cookie {
+    static private $uuid;
+    
+    public static function getUuid(){
+        self::$uuid = rand(1000, 2000);
+        if (!isset($_COOKIE['Bit'])) {
+            setcookie("Bit", self::$uuid);
+        }
+        return self::$uuid;
+    }
+
+    public function __get($dir)
+    {
+        return $this->$dir;
+    }
+}
