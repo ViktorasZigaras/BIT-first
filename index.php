@@ -12,7 +12,7 @@ use BIT\app\App;
 use BIT\app\Query;
 use BIT\app\Post;
 use BIT\app\RequestId;
-use BIT\app\Cookie;
+// use BIT\app\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
