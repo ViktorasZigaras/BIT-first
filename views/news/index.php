@@ -8,10 +8,19 @@ require ('list.php');
     <div class="admin-event-form-group">
         <label class="admin-label">Naujienos pavadinimas</label><br>
         <input type="text" name="news-content" id="news-content" value="" placeholder="Įrašykite naujienos teksta..." class="admin-input">
-    </div>
-    <div class="admin-event-buttons">
-        <button type="submit" id="create" class="admin-event-button">Pridėti</button>
-    </div>
+   
+   
+        <!-- <input type="file" name="news-picture" id="news-picture" value="" class="admin-input"> -->
+        <div class="admin-event-buttons">
+            <button type="submit" id="create" class="admin-event-button">Pridėti</button>
+        </div>
+   </div>
+    <!-- <form enctype="multipart/form-data" action="{route: 'news.index'}" method="POST">
+        <input type="file" name="news-picture" id="news-picture" value="" class="admin-input">
+        <div class="admin-event-buttons">
+            <button type="submit" id="create" class="admin-event-button">Pridėti</button>
+        </div>
+    </form> -->
 <div>
 <br>
 
@@ -24,9 +33,11 @@ require ('list.php');
     deleteButtons.forEach((button, key) => {
         if (button) {
             console.log(key);
+            const id = button.dataset.id;
             button.addEventListener('click', () => { 
                 console.log(key);
-                axios.post('<?= $url ?>api', {route: 'news_destroy'}
+                console.log(id);
+                axios.post('<?= $url ?>/?route=news_destroy', {ID: id}
                 )  
                 .then((response) => {  
                     console.log(response);

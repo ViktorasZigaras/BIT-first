@@ -8,6 +8,8 @@ use BIT\app\View;
 
 use BIT\models\NewsPost;
 
+use BIT\app\Attachment;
+
 use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -26,9 +28,29 @@ class NewsController {
     
     public function store(Request $request, NewsPost $newsPost)
     {   
-        $new_news = new NewsPost();
-        $new_news->news_content = $request->request->get('news-content');
-        $new_news->save();
+        // $new_news = new NewsPost();
+        
+        // $new_news->news_content = $request->request->get('news-content');
+        // $new_news->news_content = $request->content->get('content');
+        $newsPost->news_content = $request->query->get('content');
+        // $new_news->news_content = $request->query->get('content');
+        
+        $newsPost->save();
+       
+        // var_dump($request);
+
+        // $new_news->attachments = [u, i, j];
+        
+        var_dump($newsPost);
+        $new_content = $newsPost->news_content;
+        var_dump($new_content);
+        // $new_news_attachment = new Attachment();
+        // $new_news_attachment->save('news-picture', $postID);
+        
+        // $new_news_attachment->attachments = [o, p, u];
+        // var_dump($new_news_attachment);
+        // $new_news->attachments = $_FILES['news-picture'];
+        
 
         $response = new Response;
         $response->prepare($request);
