@@ -39,9 +39,6 @@ class NewsController {
 
         $response = new Response;
         $response->prepare($request);
-        // $response->setContent(json_encode(['a' => $request->getContent()]));
-        // $response->setContent(json_encode(['a' => $request]));
-        // $response->setContent(json_encode(['html' => $this->index()]));
         $response->setContent(json_encode(['html' => $this->index()]));
         return $response;
 
@@ -52,7 +49,6 @@ class NewsController {
 
     public function show (/*NewsPost $newsPost*/)
     {
-       
     }
 
 
@@ -66,6 +62,7 @@ class NewsController {
         $newsPost->news_content = $request->content;
 
         $newsPost->save();
+        
 
         return 'labas';
         
@@ -73,16 +70,17 @@ class NewsController {
     }
 
 
-    public function destroy(/*NewsPost $newsPost*/)
-    {
-        // if($menu->restaurants->count()){
-        //     return redirect()->route('menu.index')->with('info_message', 'Don\'t delete, there are restaurants by this menu.');;
-        // }
-        // $newsPost->wp_delete_post($newsPost->ID);
-        // return redirect()->route('menu.index');
+    public function destroy(Request $request, NewsPost $newsPost)
+    {   
+        $newsPost->delete();
 
-        // return redirect()->route('menu.index')->with('success_message', 'Succesfully deleted.');
-        // TODO su Js
+        $news = NewsPost::all();
+
+        $response = new Response;
+        $response->prepare($request);
+        $response->setContent(json_encode(['list' => 'hello']));
+        // $response->setContent(json_encode(['list' => View::adminRender('news.list', ['news' => $news])]));
+        return $response;
  
     }
 }

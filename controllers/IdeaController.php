@@ -28,6 +28,7 @@ class IdeaController {
 		return View::render('home.ideja', []);
 	}
 
+
 	public function addIdea(Request $request) {
 		$idea = new IdeaPost();
 		$getPosts = IdeaPost::all();
@@ -64,6 +65,9 @@ class IdeaController {
 		
 		// var_dump( $data);
 		
+
+  
+	public function addIdea(Request $request, IdeaPost $ideaPost) {
 
 		$response = new Response;
 		$output = View::render('home.ideja',);
