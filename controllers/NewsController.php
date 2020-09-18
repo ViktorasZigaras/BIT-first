@@ -27,11 +27,7 @@ class NewsController {
     public function store(Request $request, NewsPost $newsPost)
     {   
         $new_news = new NewsPost();
-        $new_news->news_content = $request->query->get('content');
-        // $new_news->news_content = $request->getContent();
-        // var_dump($request);
-        // $new_news->news_content = 'hey';
-        print_r($new_news);
+        $new_news->news_content = $request->request->get('news-content');
         $new_news->save();
 
         $response = new Response;
@@ -40,7 +36,6 @@ class NewsController {
         return $response;
 
         var_dump($response);
-        // print_r($news_content.value);
     }
 
 
@@ -50,7 +45,7 @@ class NewsController {
 
     public function update(Request $request, NewsPost $newsPost)
     {   
-        $new_news->news_content = $request->query->get('content');
+        $new_news->news_content = $request->get('news-content');
         
         $newsPost->save();
 

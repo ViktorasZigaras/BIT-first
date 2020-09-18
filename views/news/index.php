@@ -7,7 +7,7 @@ require ('list.php');
     <input type="hidden" name="news_new" value="new news">
     <div class="admin-event-form-group">
         <label class="admin-label">Naujienos pavadinimas</label><br>
-        <input type="text" id="content" value="" placeholder="Įrašykite naujienos teksta..." class="admin-input">
+        <input type="text" name="news-content" id="news-content" value="" placeholder="Įrašykite naujienos teksta..." class="admin-input">
     </div>
     <div class="admin-event-buttons">
         <button type="submit" id="create" class="admin-event-button">Pridėti</button>

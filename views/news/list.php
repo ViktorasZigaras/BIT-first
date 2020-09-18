@@ -4,7 +4,6 @@ echo '<div id="list">';
 foreach ($news as $key => $post) {
 
 
-    
     echo '<div class="admin-event-div">
         <div class="admin-event-forms">
             <input type="hidden" name="news_update" value="update news">
