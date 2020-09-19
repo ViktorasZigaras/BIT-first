@@ -9,7 +9,7 @@ return [
     'idejos' => 'IdeasController@index',
 	'idejos' => 'IdeasController@adminIndex',
 	'add-idea' => 'IdeaController@addIdea',
-    'render-ideja' => 'IdeaController@renderIdea',
+    'ideja-json' => 'IdeaController@json',
     
     'news_store' => 'NewsController@store',
     'news_update' => 'NewsController@update',
