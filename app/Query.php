@@ -54,7 +54,6 @@ class Query{
         $query = new WP_Query($this->args);
         $list = $query->get_posts();
         foreach ($list as &$post){
-           
             $post = Post::getModel($post);
         } 
        

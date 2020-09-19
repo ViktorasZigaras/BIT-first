@@ -24,7 +24,9 @@ use BIT\app\ApiRoute;
 
 $response = ApiRoute::apiRoute(/*$app*/);
     // throw error???
+
 // if (!$response) throw Error;
 // else $response->send();
 $response->send();
+
 

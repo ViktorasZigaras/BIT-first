@@ -50,14 +50,22 @@ class Post{
         return new static($post_id);
     }
 
-    // returns all Post object by type
-    public static function all() :array{
+    // returns all Post model objects if no args bypassed
+    // if args bypassed as objects variable - returns var values of all objects as array
+    public static function all(string $field = '') :array{
         $list =[];
-        foreach (get_posts(['posts_per_page' => -1, 'post_type' => static::$type]) as $post) {
-            $list[$post->ID] = static::get($post->ID);
+        if($field){
+            foreach (get_posts(['posts_per_page' => -1, 'post_type' => static::$type]) as $post) {
+                $list[$post->ID] = $post->$field;
+            }
+        }else{
+            foreach (get_posts(['posts_per_page' => -1, 'post_type' => static::$type]) as $post) {
+                $list[$post->ID] = static::get($post->ID);
+            }
         }
         return $list;
     }
+
     
     // inserts or updates new object to DB 
     public function save(){
@@ -107,7 +115,7 @@ class Post{
         return $attachments;
     }
 
-    public static function getModel(\WP_Post $post){
+    protected static function getModel(\WP_Post $post){
         
         switch ($post->post_type) {
             case 'post':
