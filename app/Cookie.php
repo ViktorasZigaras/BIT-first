@@ -16,4 +16,11 @@ class Cookie {
     {
         return $this->$dir;
     }
+
+    public function ideaCookies($like){
+        
+        setcookie("Idea_cookie", $like, time()+360*24*60*60, "/", "",  0);//2 månder
+
+        return $like;
+    }
 }
