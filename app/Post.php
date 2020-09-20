@@ -52,14 +52,25 @@ class Post{
 
     // returns all Post model objects if no args bypassed
     // if args bypassed as objects variable - returns var values of all objects as array
-    public static function all(string $field = '') :array{
+    // if args bypassed as array of objects variable - returns var values of all objects as array
+    public static function all( $field = null) :array{
+        $posts = get_posts(['posts_per_page' => -1, 'post_type' => static::$type]);
         $list =[];
-        if($field){
-            foreach (get_posts(['posts_per_page' => -1, 'post_type' => static::$type]) as $post) {
+
+        if(is_array($field)){
+            foreach ($posts as $post) {
+                $list[$post->ID] = [];
+                foreach ($field as $value) {
+                    $list[$post->ID][$value] = $post->$value;
+                }
+            }
+        }
+        elseif(is_string($field)){
+            foreach ($posts as $post) {
                 $list[$post->ID] = $post->$field;
             }
         }else{
-            foreach (get_posts(['posts_per_page' => -1, 'post_type' => static::$type]) as $post) {
+            foreach ($posts as $post) {
                 $list[$post->ID] = static::get($post->ID);
             }
         }
