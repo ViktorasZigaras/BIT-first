@@ -5,5 +5,9 @@
 return [
     'event' => 'EventController@index',
     'gallery' => 'GalleryController@index',
+
+    'ideja' => 'IdeaController@frontIndex',
+    'idejos' => 'IdeasController@index',
+    
     'test' => 'TestController@front',
 ];
