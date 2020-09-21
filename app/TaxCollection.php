@@ -1,6 +1,8 @@
 <?php
 namespace BIT\app;
 
+use BIT\app\modelTraits\Talbum;
+
 class TaxCollection implements \IteratorAggregate
 {
     private $tags = [];
@@ -16,12 +18,7 @@ class TaxCollection implements \IteratorAggregate
             return $this->tags[$position];
         }
         return null;
-    }
-
-    // public function count() : int
-    // {
-    //     return count($this->tags);
-    // }
+    }   
 
     public function addTerm($tag)
     {
@@ -30,7 +27,30 @@ class TaxCollection implements \IteratorAggregate
 
     public function sortByName() 
     {
-        // $tags = $this->getAllTags();
+        usort($this->tags, [$this, 'byName']);
+        return $tags;        
+    }
 
+    public function sortByCount() 
+    {
+        usort($this->tags, [$this, 'byCount']);
+        return $tags;        
+    }
+
+    public function byName($a, $b) 
+    {
+        return $a->name <=> $b->name;
+    }
+
+    public function byCount($a, $b) 
+    {
+        return $a->count <=> $b->count;
     }
 }
+
+        // $album = new Talbum;
+        // $tags = $album->getAllTags();
+    
+        // usort($tags, function($a, $b) {
+        //     return ($a->count <=> $b->count);
+        // });
