@@ -1,7 +1,9 @@
 <?php
 namespace BIT\app\modelTraits;
 
-trait Talbum{
+use BIT\app\TaxCollection;
+
+trait Talbum {
 
     public $album_date = 'YYYY-MM_DD';
     public $album_content = '';
@@ -50,4 +52,19 @@ trait Talbum{
         return $terms;    
     }
 
+    /** returns all hashtags Collection */
+    public function getAllTags() 
+    {
+        $taxCollection = new TaxCollection();
+
+        $args = ['taxonomy' => $this->taxonomy, 'hide_empty' => 0,];
+        $terms = get_terms($args);
+
+        foreach ($terms as $term) {
+            $taxCollection->addTerm($term);
+        }
+        return $taxCollection;
+    }
+
+    
 }
