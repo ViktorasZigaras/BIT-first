@@ -17,10 +17,19 @@ class Cookie {
         return $this->$dir;
     }
 
-    public function ideaCookies($like){
-        
-        setcookie("Idea_cookie", $like, time()+360*24*60*60, "/", "",  0);//2 månder
-
-        return $like;
+    public static function ideaCookie($like){
+        $cookieName = "Idea_cookie";
+        if ( isset($_COOKIE[$cookieName]) ) {
+            $cookie = unserialize($_COOKIE[$cookieName]);
+        } else {
+            $cookie = array();
+        }
+     
+        if ( ! in_array($like, $cookie) ) {
+            $cookie[] = $like;
+        }       
+       
+        setcookie($cookieName, serialize( $cookie), time()+30*24*60*60, '/');   
+        var_dump($_COOKIE);
     }
 }
