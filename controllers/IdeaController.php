@@ -4,6 +4,7 @@ namespace BIT\controllers;
 use BIT\app\View;
 use BIT\models\IdeaPost;
 use BIT\app\Query;
+use BIT\app\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -59,6 +60,7 @@ class IdeaController {
 		}
 
 		$array  = $idea->idea_content = $request->request->get('idea');
+		$like  = $idea->idea_like = $request->request->get('idea_like');
 
 		if(count(array_filter($array)) != ""){
 			$txt = '';
@@ -67,7 +69,24 @@ class IdeaController {
 			}
 			$idea->idea_content = $txt;	
 			$idea->save();
+		}
+		if($like){
+			Cookie::ideaCookie($like);
+
+			foreach($_COOKIE as $cookieVal){
+				if($_COOKIE["Idea_cookie"] != $like){
+					$ideaLike = IdeaPost::get($like);				
+					$ideaLike ->idea_like = $ideaLike->idea_like+1;
+					$ideaLike->save();
+					break;
+				}else{
+					break;
+				}
+			}
+			
+
 		}		
+
 		return $response;
 	}
 }
