@@ -1,7 +1,5 @@
 <?php
-
 namespace BIT\app;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -9,6 +7,7 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use BIT\app\Config;
 use BIT\app\FrontRouter;
 use BIT\app\AdminRoute;
+use BIT\app\Cookie;
 
 class App
 {
@@ -22,7 +21,7 @@ class App
     private $method;
     private $reflectionParams;
     private $params;
-    // private $config;
+    private $config;
     static private $obj;
 
     public static function start()
@@ -50,18 +49,22 @@ class App
         });
         add_shortcode('front_shortcode', [FrontRoute::class, 'frontRoute']);
         AdminRoute::start();
+        Cookie::getUuid();
     }
 
     public function getService($service){
-        return  $this->containerBuilder->get($service);
+        return $this->containerBuilder->get($service);
     }
 
+    //metodas, aprasantis refleksija
     public function run($controller, $method)
     {
         $this->controller = $controller;
         $this->method = $method;
         $this->reflectionParams = (new \ReflectionMethod($this->controller, $this->method))->getParameters();
+
         $params = [];
+        
         foreach ($this->reflectionParams as $val) {
             if ($val->getType()) {
                 $params[] = $this->getService($val->getType()->getName()); // kvieciu is konteinerio
