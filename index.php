@@ -24,16 +24,4 @@ require_once __DIR__.'/vendor/autoload.php';
 define('PLUGIN_DIR_URL', plugin_dir_url(__FILE__));
 define('PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
 
-
-
-// $requestId = new RequestId($request);
-// var_dump($requestId);
-// 
-// $getPostType = $query->postType('event')->getPost();
-// $getPostTitle = $query->postTitle('Ivykiai')->getPost();
-// var_dump($query);
-// var_dump($getPostType);
-// var_dump($getPostTitle);
-//paskui istrinti
-
 App::start();
