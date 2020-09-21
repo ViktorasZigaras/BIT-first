@@ -30,7 +30,7 @@ class TaxCollection implements \IteratorAggregate
 
     public function sortByName() 
     {
-        $tags = $this->getAllTags();
+        // $tags = $this->getAllTags();
 
     }
 }

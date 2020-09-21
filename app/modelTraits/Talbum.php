@@ -2,6 +2,7 @@
 namespace BIT\app\modelTraits;
 
 use BIT\app\TaxCollection;
+use BIT\app\coreExeptions\InitHookNotFiredExeption;
 
 trait Talbum {
 
@@ -24,10 +25,19 @@ trait Talbum {
     
     /** adds tag (Hashtag term) to post type Album */
     public function addTag(string $tag) 
-    {           
-        /**Hierarchical taxonomies must always pass IDs rather than names ($tag) 
-         * so that children with the same names but different parents aren't confused.*/
-        wp_set_post_terms( $this->ID, $tag, $this->taxonomy, $append = true );        
+    {
+        if (did_action('init')) {
+            // if (!term_exists( $tag, $this->taxonomy )) {
+            //     wp_insert_term( $tag, $this->taxonomy, ['slug' => str_replace(' ', '-', $tag)] );
+                           
+            // }
+            echo 'ID' . $this->ID;
+            wp_set_post_terms( $this->ID, $tag, $this->taxonomy, $append = true );
+            /**Hierarchical taxonomies must always pass IDs rather than names ($tag) 
+             * so that children with the same names but different parents aren't confused.*/
+        } else {
+            throw new InitHookNotFiredExeption('Error: Call to custom taxonomy function before init hook is fired.');
+        }
     } 
 
     /** removes tag form post type Album */
@@ -45,14 +55,14 @@ trait Talbum {
         }        
     }
 
-    /** returns all (post) tags array (as Iterable) */
+    /** returns all post tags as array */
     public function getTags() 
     {
         $terms = get_the_terms($this->ID, $this->taxonomy);
         return $terms;    
     }
 
-    /** returns all hashtags Collection */
+    /** returns all hashtags as Collection */
     public function getAllTags() 
     {
         $taxCollection = new TaxCollection();
