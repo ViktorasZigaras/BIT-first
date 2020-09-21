@@ -25,26 +25,33 @@ class TaxCollection implements \IteratorAggregate
         $this->tags[] = $tag;
     }
 
+    /** returns an array of hashtags sorted by name */
     public function sortByName() 
     {
-        usort($this->tags, [$this, 'byName']);
-        return $tags;        
+        usort($this->tags, [$this, 'cmpByName']);
+        return $this->tags;     
     }
 
+    /** returns an array of hashtags sorted by count (times used) in descending order */
+
+    /** Example usage:
+    * $album = new AlbumPost;
+    * $album->getAllTags()->sortByCount() */
+    
     public function sortByCount() 
     {
-        usort($this->tags, [$this, 'byCount']);
-        return $tags;        
+        usort($this->tags, [$this, 'cmpByCount']);
+        return $this->tags;        
     }
 
-    public function byName($a, $b) 
+    public function cmpByName($a, $b) 
     {
         return $a->name <=> $b->name;
     }
 
-    public function byCount($a, $b) 
+    public function cmpByCount($a, $b) 
     {
-        return $a->count <=> $b->count;
+        return $b->count <=> $a->count;
     }
 }
 
