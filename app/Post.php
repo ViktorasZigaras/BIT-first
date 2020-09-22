@@ -154,7 +154,4 @@ class Post{
                 return null;
         }
     }
-
-
-
 }
