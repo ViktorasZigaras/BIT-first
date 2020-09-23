@@ -3,6 +3,7 @@ namespace BIT\app;
 
 use BIT\app\coreExeptions\wrongArgsTypeExeption;
 use BIT\app\Attachment;
+use BIT\app\Colection;
 use BIT\models\IdeaPost;
 use BIT\models\EventPost;
 use BIT\models\NewsPost;
@@ -52,14 +53,34 @@ class Post{
 
     // returns all Post model objects if no args bypassed
     // if args bypassed as objects variable - returns var values of all objects as array
-    public static function all(string $field = '') :array{
+    // if args bypassed as array of objects variable - returns var values of all objects as array
+    public static function all( $field = null, $indexes = false) :array{
+        $posts = get_posts(['posts_per_page' => -1, 'post_type' => static::$type]);
         $list =[];
-        if($field){
-            foreach (get_posts(['posts_per_page' => -1, 'post_type' => static::$type]) as $post) {
+
+        if(is_array($field)){
+            if(!$indexes){
+                foreach ($posts as $post) {
+                    $list[$post->ID] = [];
+                    foreach ($field as $value) {
+                        $list[$post->ID][$value] = $post->$value;
+                    }
+                }
+            }else{
+                foreach ($posts as $post) {
+                    $list[$post->ID] = [];
+                    foreach ($field as $value) {
+                        $list[$post->ID][] = $post->$value;
+                    }
+                }
+            }
+        }
+        elseif(is_string($field)){
+            foreach ($posts as $post) {
                 $list[$post->ID] = $post->$field;
             }
         }else{
-            foreach (get_posts(['posts_per_page' => -1, 'post_type' => static::$type]) as $post) {
+            foreach ($posts as $post) {
                 $list[$post->ID] = static::get($post->ID);
             }
         }
@@ -133,7 +154,4 @@ class Post{
                 return null;
         }
     }
-
-
-
 }
