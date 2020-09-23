@@ -5,8 +5,13 @@ namespace BIT\controllers;
 use BIT\app\App;
 
 use BIT\app\View;
+use BIT\app\Attachment;
+
+
 
 use BIT\models\NewsPost;
+
+use BIT\app\Attachment;
 
 use Symfony\Component\HttpFoundation\Request;
 
@@ -14,28 +19,53 @@ use Symfony\Component\HttpFoundation\Response;
 
 class NewsController {
     
-    public function index(/*Request $request*/) 
+    public function index() 
     {   
         $news = NewsPost::all();
 
-        // return view('news.index');
-        // echo 'labas buliau';
         return View::adminRender('news.index', ['url' => PLUGIN_DIR_URL, 'news' => $news]);
-
     }
 
     public function create(Request $request){}
     
     
-    public function store(Request $request, NewsPost $newsPost)
+    public function store(Request $request, NewsPost $newsPost) 
     {   
+        // $new_news = new NewsPost();
+        
+        // $new_news->news_content = $request->request->get('news-content');
+        // $new_news->news_content = $request->content->get('content');
+        $newsPost->news_content = $request->query->get('content');
+        // $new_news->news_content = $request->query->get('content');
+        
+        $newsPost->save();
+       
+        // var_dump($request);
+
+        // $new_news->attachments = [u, i, j];
+        
+        var_dump($newsPost);
+        $new_content = $newsPost->news_content;
+        var_dump($new_content);
+        // $new_news_attachment = new Attachment();
+        // $new_news_attachment->save('news-picture', $postID);
+        
+        // $new_news_attachment->attachments = [o, p, u];
+        // var_dump($new_news_attachment);
+        // $new_news->attachments = $_FILES['news-picture'];
         $new_news = new NewsPost();
-        $new_news->news_content = $request->query->get('content');
-        // $new_news->news_content = $request->getContent();
+        $new_news->news_content = $request->get('content');
+        $new_news->save();
+        
+        $inputName = 'photo';
+        $attachment = new Attachment();
+        $attachment->save($inputName, $new_news->ID);
+        //atsiskirti attachment, kintamajame, wordpress irasytu attachment - 3 failai
+
         // var_dump($request);
         // $new_news->news_content = 'hey';
         print_r($new_news);
-        $new_news->save();
+        
 
         $response = new Response;
         $response->prepare($request);
@@ -43,38 +73,37 @@ class NewsController {
         return $response;
 
         var_dump($response);
-        // print_r($news_content.value);
     }
 
 
-    public function show (/*NewsPost $newsPost*/)
-    {
-    }
+    public function show (){}
 
 
-    public function edit (/*NewsPost $newsPost*/)
-    {
-        return view('news.edit'); //kaip pasiimti objekta is db su id url?
-    }
 
-    public function update(Request $request/*, NewsPost $newsPost*/)
+    public function edit (){}
+
+    public function update(Request $request, NewsPost $newsPost)
     {   
-        $newsPost->news_content = $request->content;
-
+        $new_news->news_content = $request->get('news-content');
+        
         $newsPost->save();
         
 
-        return 'labas';
-        
-        // return redirect()->route('menu.index')->with('success_message', 'Succsesfully updated.'); TODO su Js
+        $news = NewsPost::all();
+
+        $response = new Response;
+        $response->prepare($request);
+        $response->setContent(json_encode(['list' => 'hello']));
+        // $response->setContent(json_encode(['list' => View::adminRender('news.list', ['news' => $news])]));
+        return $response;
     }
 
 
     public function destroy(Request $request, NewsPost $newsPost)
     {   
-        $newsPost->delete();
+        // $newsPost->delete();
 
-        $news = NewsPost::all();
+        // $news = NewsPost::all();
 
         $response = new Response;
         $response->prepare($request);
