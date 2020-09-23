@@ -16,7 +16,7 @@ trait Talbum {
         if (did_action('init')) {       
             $tags = explode(', ', $tag);
             foreach ($tags as $key => $term) {
-                foreach (getTags() as $post_term) {
+                foreach ($this->getTags() as $post_term) {
                     if ($post_term->name == $term) {
                         $tag_ids[] = $post_term->term_id;                    
                     }
@@ -28,7 +28,9 @@ trait Talbum {
         }    
     }
     
-    /** adds tag (Hashtag term) to post type Album */
+    /** adds tag (Hashtag term) to post type Album
+     * string $tag: 'tag' or 'tag, tag1, tag2'
+     */
     public function addTag(string $tag) 
     {
         if (did_action('init')) {
@@ -36,26 +38,29 @@ trait Talbum {
             //     wp_insert_term( $tag, $this->taxonomy, ['slug' => str_replace(' ', '-', $tag)] );
                            
             // }
-            if(!isset($this->ID)) {
+            
+            if ($this->ID == null) {
                 throw new PostIdNotSetException('Error: Call to addTag() function before save()');
+            } else {
+                wp_set_post_terms( $this->ID, $tag, $this->taxonomy, $append = true );
+                /**Hierarchical taxonomies must always pass IDs rather than names ($tag) 
+                 * so that children with the same names but different parents aren't confused.*/
             }
-            // echo 'ID ' . $this->ID;
-            wp_set_post_terms( $this->ID, $tag, $this->taxonomy, $append = true );
-            /**Hierarchical taxonomies must always pass IDs rather than names ($tag) 
-             * so that children with the same names but different parents aren't confused.*/
         } else {
             throw new InitHookNotFiredException('Error: Call to custom taxonomy function before init hook is fired.');
         }
     } 
 
-    /** removes tag form post type Album */
+    /** removes tag form post type Album
+     * string $tag: 'tag' or 'tag, tag1, tag2'
+     */
     public function removeTag(string $tag) 
     {
         if (did_action('init')) {
             if(strpos($tag, ',')) {
-                checkMulti($tag);
+                $this->checkMulti($tag);
             } else {
-                foreach (getTags() as $term) {
+                foreach ($this->getTags() as $term) {
                     if ($term->name == $tag) {
                         $tag_id = $term->term_id;
                         wp_remove_object_terms( $this->ID, $tag_id, $this->taxonomy );
@@ -67,12 +72,17 @@ trait Talbum {
         }        
     }
 
-    /** returns all post tags as array */
+    /** returns all post tags as Collection */
     public function getTags() 
     {
         if (did_action('init')) {
+            $taxCollection = new TaxCollection();
             $terms = get_the_terms($this->ID, $this->taxonomy);
-            return $terms;
+
+            foreach ($terms as $term) {
+                $taxCollection->addTerm($term);
+            }
+            return $taxCollection;
         } else {
             throw new InitHookNotFiredException('Error: Call to custom taxonomy function before init hook is fired.');
         }

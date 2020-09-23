@@ -7,7 +7,7 @@ use BIT\app\coreExeptions\InvalidOrderArgException;
 class TaxCollection implements \IteratorAggregate
 {
     private $tags = [];
-    private $termProps = ['term_id', 'name', 'slug', 'term_taxonomy_id', 'description', 'count', 'filter'];
+    
 
     public function getIterator() : TaxIterator
     {
@@ -39,27 +39,12 @@ class TaxCollection implements \IteratorAggregate
     /** Example usage:
     * $album = new AlbumPost;
     * $album->getAllTags()->sortByCount() */
-
     public function sortByCount() 
     {
         usort($this->tags, [$this, 'cmpByCount']);
         return $this->tags;        
     }
-
-    public function sortBy(string $prop, string $order = 'asc') 
-    {
-        usort($this->tags, function($a, $b) use ($prop, $order) {
-            if ('asc' == $order) {
-                return ($a->$prop <=> $b->$prop);
-            } elseif ('desc' == $order) {
-                return ($b->$prop <=> $a->$prop);
-            } else {
-                throw new InvalidOrderArgException('Error: the second argument of sortBy() must be \'asc\' or \'desc\'.');
-            }
-        });
-        return $this->tags;        
-    }
-
+    
     public function cmpByName($a, $b) 
     {
         return $a->name <=> $b->name;
@@ -70,9 +55,34 @@ class TaxCollection implements \IteratorAggregate
         return $b->count <=> $a->count;
     }
 
+    /** returns an array of hashtags sorted by $prop */
+
+    /** Example usage:
+    * $album = new AlbumPost;
+    * $album->getAllTags()->sortBy('count', 'desc') */
+    public function sortBy(string $prop, string $order = 'asc') 
+    {
+        $termProps = ['term_id', 'name', 'slug', 'term_taxonomy_id', 'description', 'count', 'filter'];
+        if (in_array($prop, $termProps)) {
+            usort($this->tags, function($a, $b) use ($prop, $order) {
+                if ('asc' == $order) {
+                    return ($a->$prop <=> $b->$prop);
+                } elseif ('desc' == $order) {
+                    return ($b->$prop <=> $a->$prop);
+                } else {
+                    throw new InvalidOrderArgException('Error: the second argument of sortBy() must be \'asc\' or \'desc\'.');
+                }
+            });
+            return $this->tags;            
+        } else {
+            throw new InvalidOrderArgException('Error: the first argument of sortBy() is invalid.');
+        }
+    }
+
     public function pluck(...$args)
     {
         // $args - array
+        // return $args;
         
     }
 
