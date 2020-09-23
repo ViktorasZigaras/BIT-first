@@ -24,6 +24,12 @@ use BIT\app\ApiRoute;
 
 $response = ApiRoute::apiRoute(/*$app*/);
     // throw error???
-if (!$response); //throw Error;
-else $response->send();
+// if (!$response); //throw Error;
+// else $response->send();
+try {
+    if (!$response) throw new Exception('error'); // throw Error;
+    else $response->send();
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
 

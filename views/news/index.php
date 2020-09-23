@@ -32,12 +32,13 @@ require ('list.php');
     const deleteButtons = document.querySelectorAll('.news-delete');
     deleteButtons.forEach((button, key) => {
         if (button) {
-            console.log(key);
+            // console.log(key);
             const id = button.dataset.id;
             button.addEventListener('click', () => { 
                 console.log(key);
                 console.log(id);
-                axios.post('<?= $url ?>/?route=news_destroy', {ID: id}
+                axios.get('<?= $url ?>/?route=news_destroy&ID=' + id
+                // axios.post('<?= $url ?>/?route=news_destroy', {ID: id}
                 )  
                 .then((response) => {  
                     console.log(response);

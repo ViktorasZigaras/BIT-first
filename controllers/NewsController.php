@@ -83,9 +83,9 @@ class NewsController {
 
     public function destroy(Request $request, NewsPost $newsPost)
     {   
-        $newsPost->delete();
+        // $newsPost->delete();
 
-        $news = NewsPost::all();
+        // $news = NewsPost::all();
 
         $response = new Response;
         $response->prepare($request);
