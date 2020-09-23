@@ -5,6 +5,9 @@ namespace BIT\controllers;
 use BIT\app\App;
 
 use BIT\app\View;
+use BIT\app\Attachment;
+
+
 
 use BIT\models\NewsPost;
 
@@ -26,7 +29,7 @@ class NewsController {
     public function create(Request $request){}
     
     
-    public function store(Request $request, NewsPost $newsPost)
+    public function store(Request $request, NewsPost $newsPost) 
     {   
         // $new_news = new NewsPost();
         
@@ -50,6 +53,18 @@ class NewsController {
         // $new_news_attachment->attachments = [o, p, u];
         // var_dump($new_news_attachment);
         // $new_news->attachments = $_FILES['news-picture'];
+        $new_news = new NewsPost();
+        $new_news->news_content = $request->get('content');
+        $new_news->save();
+        
+        $inputName = 'photo';
+        $attachment = new Attachment();
+        $attachment->save($inputName, $new_news->ID);
+        //atsiskirti attachment, kintamajame, wordpress irasytu attachment - 3 failai
+
+        // var_dump($request);
+        // $new_news->news_content = 'hey';
+        print_r($new_news);
         
 
         $response = new Response;
