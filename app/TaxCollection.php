@@ -2,10 +2,12 @@
 namespace BIT\app;
 
 use BIT\app\modelTraits\Talbum;
+use BIT\app\coreExeptions\InvalidOrderArgException;
 
 class TaxCollection implements \IteratorAggregate
 {
     private $tags = [];
+    private $termProps = ['term_id', 'name', 'slug', 'term_taxonomy_id', 'description', 'count', 'filter'];
 
     public function getIterator() : TaxIterator
     {
@@ -37,10 +39,24 @@ class TaxCollection implements \IteratorAggregate
     /** Example usage:
     * $album = new AlbumPost;
     * $album->getAllTags()->sortByCount() */
-    
+
     public function sortByCount() 
     {
         usort($this->tags, [$this, 'cmpByCount']);
+        return $this->tags;        
+    }
+
+    public function sortBy(string $prop, string $order = 'asc') 
+    {
+        usort($this->tags, function($a, $b) use ($prop, $order) {
+            if ('asc' == $order) {
+                return ($a->$prop <=> $b->$prop);
+            } elseif ('desc' == $order) {
+                return ($b->$prop <=> $a->$prop);
+            } else {
+                throw new InvalidOrderArgException('Error: the second argument of sortBy() must be \'asc\' or \'desc\'.');
+            }
+        });
         return $this->tags;        
     }
 
@@ -53,6 +69,13 @@ class TaxCollection implements \IteratorAggregate
     {
         return $b->count <=> $a->count;
     }
+
+    public function pluck(...$args)
+    {
+        // $args - array
+        
+    }
+
 }
 
         // $album = new Talbum;

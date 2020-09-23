@@ -21,7 +21,7 @@ class TaxIterator implements \Iterator
     public function current() 
     {
         // return $this->array[$this->position];
-        return $this->taxCollection->getTag($this->position);
+        return $this->taxCollection->getTerm($this->position);
     }
 
     public function key() 
@@ -37,6 +37,6 @@ class TaxIterator implements \Iterator
     public function valid() 
     {
         // return isset($this->array[$this->position]);
-        return !is_null($this->taxCollection->getTag($this->position));
+        return !is_null($this->taxCollection->getTerm($this->position));
     }
 }

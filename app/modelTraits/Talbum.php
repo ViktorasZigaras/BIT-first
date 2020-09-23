@@ -2,7 +2,8 @@
 namespace BIT\app\modelTraits;
 
 use BIT\app\TaxCollection;
-use BIT\app\coreExeptions\InitHookNotFiredExeption;
+use BIT\app\coreExeptions\InitHookNotFiredException;
+use BIT\app\coreExeptions\PostIdNotSetException;
 
 trait Talbum {
 
@@ -23,7 +24,7 @@ trait Talbum {
             }
             wp_remove_object_terms( $this->ID, $tag_ids, $this->taxonomy );
         } else {
-            throw new InitHookNotFiredExeption('Error: Call to custom taxonomy function before init hook is fired.');
+            throw new InitHookNotFiredException('Error: Call to custom taxonomy function before init hook is fired.');
         }    
     }
     
@@ -35,12 +36,15 @@ trait Talbum {
             //     wp_insert_term( $tag, $this->taxonomy, ['slug' => str_replace(' ', '-', $tag)] );
                            
             // }
-            echo 'ID ' . $this->ID;
+            if(!isset($this->ID)) {
+                throw new PostIdNotSetException('Error: Call to addTag() function before save()');
+            }
+            // echo 'ID ' . $this->ID;
             wp_set_post_terms( $this->ID, $tag, $this->taxonomy, $append = true );
             /**Hierarchical taxonomies must always pass IDs rather than names ($tag) 
              * so that children with the same names but different parents aren't confused.*/
         } else {
-            throw new InitHookNotFiredExeption('Error: Call to custom taxonomy function before init hook is fired.');
+            throw new InitHookNotFiredException('Error: Call to custom taxonomy function before init hook is fired.');
         }
     } 
 
@@ -59,7 +63,7 @@ trait Talbum {
                 }
             }
         } else {
-            throw new InitHookNotFiredExeption('Error: Call to custom taxonomy function before init hook is fired.');
+            throw new InitHookNotFiredException('Error: Call to custom taxonomy function before init hook is fired.');
         }        
     }
 
@@ -70,7 +74,7 @@ trait Talbum {
             $terms = get_the_terms($this->ID, $this->taxonomy);
             return $terms;
         } else {
-            throw new InitHookNotFiredExeption('Error: Call to custom taxonomy function before init hook is fired.');
+            throw new InitHookNotFiredException('Error: Call to custom taxonomy function before init hook is fired.');
         }
     }
 
@@ -88,7 +92,7 @@ trait Talbum {
             }
             return $taxCollection;
         } else {
-            throw new InitHookNotFiredExeption('Error: Call to custom taxonomy function before init hook is fired.');
+            throw new InitHookNotFiredException('Error: Call to custom taxonomy function before init hook is fired.');
         }
     }
 
