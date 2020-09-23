@@ -78,6 +78,8 @@ class NewsController {
 
     public function show (){}
 
+
+
     public function edit (){}
 
     public function update(Request $request, NewsPost $newsPost)
@@ -85,6 +87,7 @@ class NewsController {
         $new_news->news_content = $request->get('news-content');
         
         $newsPost->save();
+        
 
         $news = NewsPost::all();
 

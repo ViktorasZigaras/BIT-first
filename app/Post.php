@@ -3,6 +3,7 @@ namespace BIT\app;
 
 use BIT\app\coreExeptions\wrongArgsTypeExeption;
 use BIT\app\Attachment;
+use BIT\app\Colection;
 use BIT\models\IdeaPost;
 use BIT\models\EventPost;
 use BIT\models\NewsPost;
@@ -50,14 +51,42 @@ class Post{
         return new static($post_id);
     }
 
-    // returns all Post object by type
-    public static function all() :array{
+    // returns all Post model objects if no args bypassed
+    // if args bypassed as objects variable - returns var values of all objects as array
+    // if args bypassed as array of objects variable - returns var values of all objects as array
+    public static function all( $field = null, $indexes = false) :array{
+        $posts = get_posts(['posts_per_page' => -1, 'post_type' => static::$type]);
         $list =[];
-        foreach (get_posts(['posts_per_page' => -1, 'post_type' => static::$type]) as $post) {
-            $list[$post->ID] = static::get($post->ID);
+
+        if(is_array($field)){
+            if(!$indexes){
+                foreach ($posts as $post) {
+                    $list[$post->ID] = [];
+                    foreach ($field as $value) {
+                        $list[$post->ID][$value] = $post->$value;
+                    }
+                }
+            }else{
+                foreach ($posts as $post) {
+                    $list[$post->ID] = [];
+                    foreach ($field as $value) {
+                        $list[$post->ID][] = $post->$value;
+                    }
+                }
+            }
+        }
+        elseif(is_string($field)){
+            foreach ($posts as $post) {
+                $list[$post->ID] = $post->$field;
+            }
+        }else{
+            foreach ($posts as $post) {
+                $list[$post->ID] = static::get($post->ID);
+            }
         }
         return $list;
     }
+
     
     // inserts or updates new object to DB 
     public function save(){
@@ -107,7 +136,7 @@ class Post{
         return $attachments;
     }
 
-    public static function getModel(\WP_Post $post){
+    protected static function getModel(\WP_Post $post){
         
         switch ($post->post_type) {
             case 'post':
@@ -125,7 +154,4 @@ class Post{
                 return null;
         }
     }
-
-
-
 }
