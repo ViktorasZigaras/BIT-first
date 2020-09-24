@@ -11,7 +11,7 @@ use BIT\app\Attachment;
 
 use BIT\models\NewsPost;
 
-use BIT\app\Attachment;
+
 
 use Symfony\Component\HttpFoundation\Request;
 
@@ -40,31 +40,31 @@ class NewsController {
         
         $newsPost->save();
        
-        // var_dump($request);
+        var_dump($request);
 
         // $new_news->attachments = [u, i, j];
         
-        var_dump($newsPost);
-        $new_content = $newsPost->news_content;
-        var_dump($new_content);
+        // var_dump($newsPost);
+        // $new_content = $newsPost->news_content;
+        // var_dump($new_content);
         // $new_news_attachment = new Attachment();
         // $new_news_attachment->save('news-picture', $postID);
         
         // $new_news_attachment->attachments = [o, p, u];
         // var_dump($new_news_attachment);
         // $new_news->attachments = $_FILES['news-picture'];
-        $new_news = new NewsPost();
-        $new_news->news_content = $request->get('content');
-        $new_news->save();
+        // $new_news = new NewsPost();
+        // $new_news->news_content = $request->get('content');
+        // $new_news->save();
         
-        $inputName = 'photo';
-        $attachment = new Attachment();
-        $attachment->save($inputName, $new_news->ID);
+        // $inputName = 'photo';
+        // $attachment = new Attachment();
+        // $attachment->save($inputName, $new_news->ID);
         //atsiskirti attachment, kintamajame, wordpress irasytu attachment - 3 failai
 
         // var_dump($request);
         // $new_news->news_content = 'hey';
-        print_r($new_news);
+        // print_r($new_news);
         
 
         $response = new Response;
