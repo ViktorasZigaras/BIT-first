@@ -20,7 +20,7 @@ class IdeaController {
 	public function addIdea(Request $request, IdeaPost $idea) {
 	
 		$data = IdeaPost::all(['idea_content', 'idea_like', 'post_date', 'ID']);
-var_dump($data);
+
 		$response = new Response;
 		$output = View::render('home.ideja',);
 		$response->prepare($request);
