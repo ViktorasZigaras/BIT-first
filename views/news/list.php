@@ -4,7 +4,6 @@ echo '<div id="list">';
 foreach ($news as $key => $post) {
 
 
-    
     echo '<div class="admin-event-div">
         <div class="admin-event-forms">
             <input type="hidden" name="news_update" value="update news">
@@ -19,9 +18,7 @@ foreach ($news as $key => $post) {
         </div>
         <div>
             <div class="admin-event-buttons">
-                <input type="hidden" name="news_delete" value="news_id">
-                <input type="hidden" name="news_id" value="' . $post->ID . '">
-                <button type="submit" class="news-delete admin-event-button">Trinti</button>
+                <button type="submit" class="news-delete admin-event-button" data-id="' . $post->ID . '">Trinti</button>
             </div>
         </div>
     </div>'

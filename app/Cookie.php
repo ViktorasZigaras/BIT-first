@@ -27,8 +27,7 @@ class Cookie {
         if ( ! in_array($like, $cookie) ) {
             $cookie[] = $like;
         }       
-       
         setcookie($cookieName, serialize( $cookie), time()+30*24*60*60, '/');   
-        //var_dump($_COOKIE);
+        }              
     }
 }
