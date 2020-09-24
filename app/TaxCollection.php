@@ -83,6 +83,12 @@ class TaxCollection implements \IteratorAggregate
         }
     }
 
+    /** returns an array (collection object) of hashtag properties 
+     * if two or more properties are given, returns a 2D array */
+
+     /** Example usage:
+    * $album = new AlbumPost;
+    * $album->getAllTags()->sortBy('count', 'desc')->pluck('name', 'slug') */
     public function pluck(...$args)
     {
         $termProps = ['term_id', 'name', 'slug', 'term_taxonomy_id', 'description', 'count', 'filter'];
@@ -118,10 +124,3 @@ class TaxCollection implements \IteratorAggregate
     }
 
 }
-
-        // $album = new Talbum;
-        // $tags = $album->getAllTags();
-    
-        // usort($tags, function($a, $b) {
-        //     return ($a->count <=> $b->count);
-        // });
