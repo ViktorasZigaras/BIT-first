@@ -10,6 +10,7 @@
  **/
 use BIT\models\AlbumPost;
 use BIT\app\App;
+use BIT\models\IdeaPost;
 use BIT\app\Query;
 use BIT\app\Post;
 use BIT\app\RequestId;
