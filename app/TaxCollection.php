@@ -8,6 +8,9 @@ class TaxCollection implements \IteratorAggregate
 {
     private $tags = [];
     
+    public function __construct($tags = []){
+        $this->tags = $tags;
+    }
 
     public function getIterator() : TaxIterator
     {
@@ -55,7 +58,7 @@ class TaxCollection implements \IteratorAggregate
         return $b->count <=> $a->count;
     }
 
-    /** returns an array of hashtags sorted by $prop */
+    /** returns a collection of hashtags sorted by $prop */
 
     /** Example usage:
     * $album = new AlbumPost;
@@ -64,7 +67,8 @@ class TaxCollection implements \IteratorAggregate
     {
         $termProps = ['term_id', 'name', 'slug', 'term_taxonomy_id', 'description', 'count', 'filter'];
         if (in_array($prop, $termProps)) {
-            usort($this->tags, function($a, $b) use ($prop, $order) {
+            $sortedTags = $this->tags;
+            usort($sortedTags, function($a, $b) use ($prop, $order) {
                 if ('asc' == $order) {
                     return ($a->$prop <=> $b->$prop);
                 } elseif ('desc' == $order) {
@@ -72,25 +76,51 @@ class TaxCollection implements \IteratorAggregate
                 } else {
                     throw new InvalidOrderArgException('Error: the second argument of sortBy() must be \'asc\' or \'desc\'.');
                 }
-            });
-            return $this->tags;            
+            }); 
+            return new self($sortedTags);     
         } else {
             throw new InvalidOrderArgException('Error: the first argument of sortBy() is invalid.');
         }
     }
 
+    /** returns an array (collection object) of hashtag properties 
+     * if two or more properties are given, returns a 2D array */
+
+     /** Example usage:
+    * $album = new AlbumPost;
+    * $album->getAllTags()->sortBy('count', 'desc')->pluck('name', 'slug') */
     public function pluck(...$args)
     {
-        // $args - array
-        // return $args;
+        $termProps = ['term_id', 'name', 'slug', 'term_taxonomy_id', 'description', 'count', 'filter'];
+        $pluckedTags = [];
+        if ($args) {
+            foreach ($args as $arg) {
+                if (in_array($arg, $termProps)) {
+                    foreach ($this->tags as $itemKey => $itemValue) {
+                        if (is_object($itemValue)) {
+                            foreach (get_object_vars($itemValue) as $key => $value) {                        
+                                if (strcmp((string)$key, (string)$arg) == 0) {
+                                    if (count($args) > 1) {
+                                        $pluckedTags[$itemKey][$key] = $value;
+                                    } else {
+                                        $pluckedTags[] = $value;
+                                    }
+                                }
+                            } 
+                        } else {
+                            if (strcmp((string)$itemKey, (string)$arg) == 0) {
+                                $pluckedTags[$itemKey] = $itemValue; 
+                            }
+                        }
+
+                    }
+                } else {
+                    throw new InvalidOrderArgException('Error: argument of pluck() is invalid.');
+                }
+            }
+        }
+        return new self($pluckedTags);
         
     }
 
 }
-
-        // $album = new Talbum;
-        // $tags = $album->getAllTags();
-    
-        // usort($tags, function($a, $b) {
-        //     return ($a->count <=> $b->count);
-        // });
