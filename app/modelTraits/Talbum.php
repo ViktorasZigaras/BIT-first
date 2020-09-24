@@ -29,14 +29,18 @@ trait Talbum {
     }
     
     /** adds tag (Hashtag term) to post type Album
-     * string $tag: 'tag' or 'tag, tag1, tag2'
+     * string $tag: 'tag' or 'tag1, tag2'
      */
-    public function addTag(string $tag) 
+    /** Example usage:
+     * $album = new AlbumPost;
+     * $album->save();
+     * $album->addTag('tag1, tag2');
+     */
+    public function addTag(string $tag)    
     {
         if (did_action('init')) {
             // if (!term_exists( $tag, $this->taxonomy )) {
-            //     wp_insert_term( $tag, $this->taxonomy, ['slug' => str_replace(' ', '-', $tag)] );
-                           
+            //     wp_insert_term( $tag, $this->taxonomy, ['slug' => str_replace(' ', '-', $tag)] );                           
             // }
             
             if ($this->ID == null) {
@@ -52,7 +56,7 @@ trait Talbum {
     } 
 
     /** removes tag form post type Album
-     * string $tag: 'tag' or 'tag, tag1, tag2'
+     * $album->removeTag('tag') or $album->removeTag('tag1, tag2')
      */
     public function removeTag(string $tag) 
     {
