@@ -54,7 +54,7 @@ class Post{
     // returns all Post model objects if no args bypassed
     // if args bypassed as objects variable - returns var values of all objects as array
     // if args bypassed as array of objects variable - returns var values of all objects as array
-    public static function all( $field = null, $indexes = false) :array{
+    public static function all( $field = null, $indexes = false) :Collection{
         $posts = get_posts(['posts_per_page' => -1, 'post_type' => static::$type]);
         $list =[];
 
@@ -84,7 +84,7 @@ class Post{
                 $list[$post->ID] = static::get($post->ID);
             }
         }
-        return $list;
+        return new Collection($list);
     }
 
     
@@ -136,7 +136,7 @@ class Post{
         return $attachments;
     }
 
-    protected static function getModel(\WP_Post $post){
+    public static function getModel(\WP_Post $post){
         
         switch ($post->post_type) {
             case 'post':

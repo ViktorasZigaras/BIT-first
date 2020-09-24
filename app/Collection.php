@@ -2,8 +2,9 @@
 namespace BIT\app;
 
 use BIT\app\coreExeptions\wrongArgsTypeExeption;
+use stdClass;
 
-class Collection{
+class Collection {
 
     protected $items = [];
 
@@ -15,6 +16,30 @@ class Collection{
     public function all()
     {
         return $this->items;
+    }
+
+    public function pluck(...$args)
+    {
+        $pluckedItems = [];
+        if($args){
+            foreach ($args as $arg) {
+                foreach ($this->items as $itemKey => $itemValue) {
+                    if(is_object($itemValue)){
+                        foreach ( get_object_vars($itemValue) as $key => $value ) {
+                            if(strcmp((string)$key, (string)$arg)==0){
+                                $pluckedItems[$itemKey][$key] = $value; 
+                            }
+                        } 
+                    }else{
+                        if(strcmp((string)$itemKey, (string)$arg)==0){
+                            $pluckedItems[$itemKey] = $itemValue; 
+                        }
+                    }
+
+                }
+            }
+        }
+        return new self($pluckedItems);
     }
 
     // public function contains($key, $operator = null, $value = null)
