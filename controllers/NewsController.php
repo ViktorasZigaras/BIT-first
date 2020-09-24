@@ -64,15 +64,15 @@ class NewsController {
 
         // var_dump($request);
         // $new_news->news_content = 'hey';
-        // print_r($new_news);
-        
+        $new_news->save();
 
         $response = new Response;
         $response->prepare($request);
         $response->setContent(json_encode(['html' => $this->index()]));
         return $response;
 
-        var_dump($response);
+        // print_r($news_content.value);
+
     }
 
 
