@@ -69,6 +69,7 @@ function renderTreeColons() {
 
     })
         .then(function (response) {
+            
             if (response.status == 200 && response.statusText == 'OK') {
                 const data = response.data.allData;
 
@@ -92,10 +93,10 @@ function renderTreeColons() {
                         <textarea class="ideaText" maxlength="200" name="idea" id="textArea" data-attribute_name="">
                                 ${value.idea_content}
                         </textarea>  
-                        <button  class="ideaBtn delIdea" id="${value.ID}">
+                        <button  class="ideaBtn delIdea" id="${keys[i]}">
                             Trinti
                         </button> 
-                        <button class="ideaBtn edit editButtonIdea" id="${value.ID}">
+                        <button class="ideaBtn edit editButtonIdea" id="${keys[i]}">
                             Saugoti
                         </button>
                     </div>
@@ -103,16 +104,16 @@ function renderTreeColons() {
                         <textarea class="ideaTextSoliution" maxlength="200" name="idea" id="textArea1" > 
                             ${value.idea_solution}                     
                         </textarea>
-                        <button class="ideaBtn delIdea answer" id="${value.ID}">
+                        <button class="ideaBtn delIdea answer" id="${keys[i]}">
                             Trinti
                         </button> 
-                        <button  class="ideaBtn addButtonIdea" id="${value.ID}">
+                        <button  class="ideaBtn addButtonIdea" id="${keys[i]}">
                             Sprendimas
                         </button> 
                     </div> 
                     <span class="textCount" id="count"></span>
                     </div>  
-                        <div class="like" data-custom-id="${value.ID}">
+                        <div class="like" data-custom-id="${keys[i]}">
                             <span class="like__number">Like: ${value.idea_like}</span>             
                         </div>            
                     </div>
