@@ -33,7 +33,7 @@ class Attachment extends Post{
             die( 'WordPress doesn\'t allow this type of uploads.' );
         
         while( file_exists( $new_file_path ) ) {
-            $i++;
+            $fileNamePrefix++;
             $new_file_path = $wordpress_upload_dir['path'] . '/' . $fileNamePrefix . '_' . $profilepicture['name'];
         }
         //save to DB

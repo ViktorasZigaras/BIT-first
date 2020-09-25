@@ -8,6 +8,7 @@
  * Author: Your Name Here
  * Author URI: http://yourwebsiteurl.com/
  **/
+use BIT\models\AlbumPost;
 use BIT\app\App;
 use BIT\app\Query;
 use BIT\app\Post;
@@ -23,4 +24,6 @@ require_once __DIR__.'/vendor/autoload.php';
 
 define('PLUGIN_DIR_URL', plugin_dir_url(__FILE__));
 define('PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
+
 App::start();
+

@@ -15,43 +15,19 @@ class IdeaController {
 	}
 
 	public function frontIndex() {
-		return View::render('home.ideja', []);
+		return View::render('home.ideja');
 	}
 
 	public function addIdea(Request $request, IdeaPost $idea) {
-
-		$getPosts = IdeaPost::all();
-
-		$text = [];
-		$like = [];
-		$post_date = [];
-		$post_id = [];
-		$data = [];
-		foreach($getPosts as $value){
-			$text[] .= $value->idea_content;
-			$like[] .= $value->idea_like;
-			$post_date[] .=  $value->post_date;
-			$post_id[] .= $value->ID;
-		}
-		foreach($text as $key1 => $value1 ){
-			foreach($like as $key2 => $value2 ){
-				foreach($post_date as $key3 => $value3 ){
-					foreach($post_id as $key4 => $value4){
-						if($key1 == $key2 && $key2 == $key3 && $key3 == $key4){
-							$data[] = $text[$key1];
-							$data[] = $like[$key2];
-							$data[] = $post_date[$key3];
-							$data[] = $post_id[$key4];
-						}
-					}
-				}
-			}
-		}
-
-		$data = array_chunk($data,4);
+	
+		$data = IdeaPost::all(['idea_content', 'idea_like', 'post_date', 'ID']);
 
 		$response = new Response;
+<<<<<<< HEAD
 		$output = View::render('home.ideja', );
+=======
+		$output = View::render('home.ideja');
+>>>>>>> 33a7015f5af261d7917c0ef9fc27d7c69e795588
 		$response->prepare($request);
 		$response->setContent(json_encode(['html' => $output, 'allData' => $data]));
 
@@ -63,7 +39,7 @@ class IdeaController {
 		$array  = $idea->idea_content = $request->request->get('idea');
 		$like  = $idea->idea_like = $request->request->get('idea_like');
 
-		if(count(array_filter($array)) != ""){
+		if(is_array($array) && count(array_filter($array)) != "" ){
 			$txt = '';
 			foreach ($array as  $text) {;
 				$txt .=$text . ' ';			
@@ -74,18 +50,9 @@ class IdeaController {
 		if($like){
 			Cookie::ideaCookie($like);
 
-			foreach($_COOKIE as $cookieVal){
-				if($_COOKIE["Idea_cookie"] != $like){
-					$ideaLike = IdeaPost::get($like);				
-					$ideaLike ->idea_like = $ideaLike->idea_like+1;
-					$ideaLike->save();
-					break;
-				}else{
-					break;
-				}
-			}
-			
-
+			$ideaLike = IdeaPost::get($like);				
+			$ideaLike ->idea_like = $ideaLike->idea_like+1;
+			$ideaLike->save();
 		}		
 
 		return $response;

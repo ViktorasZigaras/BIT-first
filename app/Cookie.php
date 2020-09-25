@@ -18,18 +18,17 @@ class Cookie {
     }
 
     public static function ideaCookie($like){
-        $cookieName = "Idea_cookie";
+        $cookieName = "Idea_cookie-".$like;
         if ( isset($_COOKIE[$cookieName]) ) {
             $cookie = unserialize($_COOKIE[$cookieName]);
         } else {
             $cookie = array();
-        }
-     
+        }     
         if ( ! in_array($like, $cookie) ) {
             $cookie[] = $like;
         }       
        
-        setcookie($cookieName, serialize( $cookie), time()+30*24*60*60, '/');   
-        var_dump($_COOKIE);
+        setcookie($cookieName, serialize( $cookie), time()+365*24*60*60, '/');   
+        //var_dump($_COOKIE);
     }
 }

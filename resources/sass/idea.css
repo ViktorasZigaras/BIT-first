@@ -1,158 +1,4 @@
-body {
-  background-color: white;
-}
-
-h2 {
-  text-transform: uppercase;
-  font-size: 20px;
-}
-
-.name {
-  margin-right: 1200px;
-  margin-top: 0px;
-  color: greenyellow;
-  font-style: italic;
-  background-color: black;
-}
-
-.form-group {
-  text-align: center;
-  padding: 10px 0;
-}
-
-.form-admin {
-  display: block;
-  width: 50%;
-}
-
-.admin-input {
-  width: 50%;
-  height: 40px;
-  font-size: 15px;
-  margin: 10px 0;
-}
-
-.admin-label {
-  width: 100%;
-  font-size: 15px;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-.lenteles {
-  display: block;
-  width: 100%;
-}
-
-.forma {
-  justify-content: center;
-  width: 500px;
-  border-radius: 20px;
-  margin: auto;
-  background-color: #d8d4d4;
-}
-
-.mygtukai {
-  display: block;
-  width: 100%;
-  text-align: center;
-  padding: 20px 0;
-}
-
-.admin-button {
-  height: 40px;
-  width: 100px;
-  background-color: #c58181;
-  border-radius: 20px;
-  border: solid 1px #645b5b;
-  cursor: pointer;
-  text-transform: uppercase;
-  margin: 0 10px;
-}
-
-.admin-button:hover {
-  transition: 1s;
-  background-color: #645b5b;
-  color: white;
-}
-
-.admin-event-form-group {
-  width: 50%;
-}
-
-.form-admin {
-  display: block;
-  width: 50%;
-}
-
-input[type=text].admin-input,
-input[type=datetime-local].admin-input,
-textarea.admin-input {
-  width: 70%;
-  height: 40px;
-  font-size: 12px;
-  margin: 10px 0;
-  color: #585858;
-  border-color: #bdbdbd;
-  border-radius: 4px;
-}
-
-input[type=text].admin-input:focus,
-input[type=datetime-local].admin-input:focus,
-textarea.admin-input:focus {
-  outline: none !important;
-}
-
-textarea.admin-input {
-  padding-top: 10px;
-  height: 70px;
-}
-
-.admin-label {
-  width: 100%;
-  font-size: 12px;
-  text-transform: uppercase;
-  font-weight: bold;
-  padding-left: 10px;
-  cursor: auto;
-}
-
-.admin-event-div {
-  display: block;
-  background-color: #fff;
-  padding: 20px;
-}
-
-.admin-event-forms {
-  justify-content: left;
-  width: 100%;
-}
-
-.admin-event-buttons {
-  display: block;
-  width: 100%;
-  text-align: left;
-  padding: 20px 0 0 0;
-}
-
-.admin-event-button {
-  width: 100px;
-  height: 35px;
-  border-radius: 4px;
-  border: 1px solid #9c9c9c;
-  background-color: #ebebeb;
-  cursor: pointer;
-  text-transform: uppercase;
-  font-size: 11px;
-}
-
-.admin-event-button:hover {
-  transition: 0.5s;
-  background-color: #d4d4d4;
-}
-
 /*-----------idejos-----------------*/
-
 .container {
   width: calc(100% - 600px);
   margin-left: auto;
@@ -174,7 +20,7 @@ textarea.admin-input {
   border-radius: 6px;
   color: #fff;
   background-color: #585858;
-  font: 16px "Opens Sans", sans-serif;
+  font: 16px 'Opens Sans', sans-serif;
   letter-spacing: 1px;
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -185,9 +31,11 @@ textarea.admin-input {
 .wrapper {
   max-width: 1600px;
   margin: 0 auto;
+  display: -ms-grid;
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  -ms-grid-columns: (minmax(500px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
 }
 
 .box {
@@ -220,31 +68,28 @@ textarea.admin-input {
   color: black;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+*, *::before, *::after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
-.cont,
-.backdrop,
-.writeIdeaText {
+.cont, .backdrop, .writeIdeaText {
   text-align: center;
   width: 100%;
   height: 40px;
 }
 
-.highlights,
-textarea {
+.highlights, textarea {
   padding: 10px;
-  font: 20px/28px "Open Sans", sans-serif;
+  font: 20px/28px 'Open Sans', sans-serif;
   letter-spacing: 1px;
 }
 
 .cont {
   display: block;
   margin: 0 auto;
-  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
   -webkit-text-size-adjust: none;
 }
 
@@ -255,7 +100,10 @@ textarea {
   background-color: #fff;
   overflow: auto;
   pointer-events: none;
+  -webkit-transition: -webkit-transform 1s;
+  transition: -webkit-transform 1s;
   transition: transform 1s;
+  transition: transform 1s, -webkit-transform 1s;
 }
 
 .highlights {
@@ -285,7 +133,10 @@ textarea {
   background-color: transparent;
   overflow: auto;
   resize: none;
+  -webkit-transition: -webkit-transform 1s;
+  transition: -webkit-transform 1s;
   transition: transform 1s;
+  transition: transform 1s, -webkit-transform 1s;
   font-size: 18px;
   line-height: 20px;
   height: 70%;
@@ -307,7 +158,10 @@ textarea {
   background-color: transparent;
   overflow: auto;
   resize: none;
+  -webkit-transition: -webkit-transform 1s;
+  transition: -webkit-transform 1s;
   transition: transform 1s;
+  transition: transform 1s, -webkit-transform 1s;
   font-size: 18px;
   line-height: 20px;
   height: 70%;
@@ -336,7 +190,7 @@ mark {
   border-radius: 6px;
   color: #fff;
   background-color: #585858;
-  font: 16px "Opens Sans", sans-serif;
+  font: 16px 'Opens Sans', sans-serif;
   letter-spacing: 1px;
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -345,21 +199,22 @@ mark {
 }
 
 .perspective .backdrop {
-  transform: perspective(1500px) translateX(-125px) rotateY(45deg) scale(0.9);
+  -webkit-transform: perspective(1500px) translateX(-125px) rotateY(45deg) scale(0.9);
+          transform: perspective(1500px) translateX(-125px) rotateY(45deg) scale(0.9);
 }
 
 .perspective textarea {
-  transform: perspective(1500px) translateX(155px) rotateY(45deg) scale(1.1);
+  -webkit-transform: perspective(1500px) translateX(155px) rotateY(45deg) scale(1.1);
+          transform: perspective(1500px) translateX(155px) rotateY(45deg) scale(1.1);
 }
 
-textarea:focus,
-button:focus {
+textarea:focus, button:focus {
   outline: none;
-  box-shadow: 0 0 0 2px #c6aada;
+  -webkit-box-shadow: 0 0 0 2px #c6aada;
+          box-shadow: 0 0 0 2px #c6aada;
 }
 
 /*------like button-----------------*/
-
 .like__btn {
   border: none;
   color: #4b4a4a;
@@ -367,6 +222,7 @@ button:focus {
   padding: 0.2rem;
   border-radius: 50px;
   max-width: 100px;
+  -webkit-transition: all ease 0.3s;
   transition: all ease 0.3s;
   margin: 10px 0 10px 0;
 }
@@ -393,41 +249,52 @@ button:focus {
 }
 
 .like {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   position: absolute;
   left: 90%;
   top: 7%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 @media (max-width: 600px) {
-  textarea,
-  .container {
+  textarea, .container {
     width: 260px;
   }
-
   .like__number {
     margin: 10px 0 0 0;
   }
-
   .like__btn {
     margin: 20px 0 10px 0;
   }
 }
 
 .likeBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: 100%;
   width: 100%;
   background-color: white;
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 .likeBox .number {
@@ -435,4 +302,4 @@ button:focus {
   font-size: 16px;
   margin: 0 0 0 20px;
 }
-
+/*# sourceMappingURL=idea.css.map */

@@ -1,5 +1,11 @@
 <?php
+
+// getCurrentRequest();
 require ('list.php');
+
+
+    // var_dump($post->news_content); content 16, 
+
 
 ?>
 
@@ -7,40 +13,33 @@ require ('list.php');
     <input type="hidden" name="news_new" value="new news">
     <div class="admin-event-form-group">
         <label class="admin-label">Naujienos pavadinimas</label><br>
-        <input type="text" id="content" value="" placeholder="Įrašykite naujienos teksta..." class="admin-input">
-    </div>
-    <div class="admin-event-buttons">
-        <button type="submit" id="create" class="admin-event-button">Pridėti</button>
-    </div>
+
+        <input type="text" name="news-content" id="news-content" value="" placeholder="Įrašykite naujienos teksta..." class="admin-input">
+   
+   
+        <!-- <input type="file" name="news-picture" id="news-picture" value="" class="admin-input"> -->
+        <div class="admin-event-buttons">
+            <button type="submit" id="create" class="admin-event-button">Pridėti</button>
+        </div>
+   </div>
+    <!-- <form enctype="multipart/form-data" action="{route: 'news.index'}" method="POST">
+        <input type="file" name="news-picture" id="news-picture" value="" class="admin-input">
+        <div class="admin-event-buttons">
+            <button type="submit" id="create" class="admin-event-button">Pridėti</button>
+        </div>
+    </form> -->
 <div>
+       
+
 <br>
+
 
 
 
 
 <script language='javascript'>
 
-    const deleteButtons = document.querySelectorAll('.news-delete');
-    deleteButtons.forEach((button, key) => {
-        if (button) {
-            console.log(key);
-            button.addEventListener('click', () => { 
-                console.log(key);
-                axios.post('<?= $url ?>api', {route: 'news_destroy'}
-                )  
-                .then((response) => {  
-                    console.log(response);
-                    console.log(response.data.list);
-                    document.querySelector('#list').innerHTML = response.data.list;
 
-                // console.log(response.data); 
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-            });
-        }
-    });
     // news_create
     const editButton = document.querySelector('#create');
     // console.log(editButton);

@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'admin' => 'AdminController@index',
-    'news' => 'NewsController@index',
-    'idejos' => 'IdeasController@adminIndex',
-    
-    'philosophy' => 'PhilosophyController@index'
+	'admin' => 'AdminController@index',
+	'news' => 'NewsController@index',
+	'index' => 'IdeAdminController@adminIndex',
+
+	'philosophy' => 'PhilosophyController@index',
 ];
