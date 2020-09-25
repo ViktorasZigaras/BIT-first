@@ -136,7 +136,7 @@ function deleteIdea(deleteId) {
   })["catch"](function (err) {
     console.log(err instanceof TypeError);
   });
-  setTimeout(renderTreeColons, 1000);
+  setTimeout(renderTreeColons, 300);
 } //  textArea.addEventListener("input", function(){
 //    let maxlength = this.getAttribute("maxlength");
 //    let currentLength = this.value.length;
