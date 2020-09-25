@@ -32,6 +32,7 @@ class App
     private function __construct()
     {
         Config::postTypeRegister();
+        Config::customTaxonomyRegister();
         $this->routeDir = PLUGIN_DIR_PATH . 'routes/';
         $this->viewDir = PLUGIN_DIR_PATH . 'views/';
         $this->resourseDir = PLUGIN_DIR_PATH . 'resources/';
@@ -42,7 +43,7 @@ class App
         add_action('admin_enqueue_scripts', function () {
             wp_enqueue_style('app', PLUGIN_DIR_URL . 'public/style/app.css');
             wp_enqueue_style('app');
-            wp_enqueue_script('js', PLUGIN_DIR_URL . 'public/js/app.js');
+            wp_enqueue_script('js', PLUGIN_DIR_URL . 'public/js/app.js', true);
             wp_enqueue_script('js');
             wp_enqueue_script( 'axios', 'https://unpkg.com/axios/dist/axios.min.js' );
         });
