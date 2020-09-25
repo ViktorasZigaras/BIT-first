@@ -102,8 +102,7 @@ function editText(editId) {
   var txt = document.getElementById("textArea").value;
 
   if (txt != undefined || txt != null || txt.length >= 0 || txt != "" || txt != NaN) {
-    var text = txt.split(/\s+/); // textArea.value = '';
-
+    var text = txt.split(/\s+/);
     axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=api-admin', {
       idea: text,
       editId: editId
@@ -118,8 +117,7 @@ function solutionText(sId) {
   var txt1 = document.getElementById("textArea1").value;
 
   if (txt1 != undefined || txt1 != null || txt1.length >= 0 || txt1 != "" || txt1 != NaN) {
-    var text1 = txt1.split(/\s+/); // textArea.value = '';
-
+    var text1 = txt1.split(/\s+/);
     axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=api-admin', {
       soliution: text1,
       solutionId: sId
@@ -175,18 +173,21 @@ function renderTreeColons() {
       rende.innerHTML = HTMLString;
       var editBtn = document.querySelectorAll(".editButtonIdea");
       var postBtn = document.querySelectorAll(".addButtonIdea");
-      var deletetBtn = document.querySelectorAll(".delIdea"); //  const textId = document.querySelectorAll(".ideaText");
+      var deletetBtn = document.querySelectorAll(".delIdea");
 
-      for (var _i = 0; _i < postBtn.length; _i++) {
-        var solutionId = postBtn[_i].id;
+      var _loop = function _loop(_i) {
+        var sId = postBtn[_i].id;
 
         postBtn[_i].addEventListener('click', function () {
           solutionText(sId);
-        }, false); // console.log( postBtn[i].id)
+        }, false);
+      };
 
+      for (var _i = 0; _i < postBtn.length; _i++) {
+        _loop(_i);
       }
 
-      var _loop = function _loop(_i2) {
+      var _loop2 = function _loop2(_i2) {
         var editId = editBtn[_i2].id;
 
         editBtn[_i2].addEventListener('click', function () {
@@ -195,10 +196,10 @@ function renderTreeColons() {
       };
 
       for (var _i2 = 0; _i2 < editBtn.length; _i2++) {
-        _loop(_i2);
+        _loop2(_i2);
       }
 
-      var _loop2 = function _loop2(_i3) {
+      var _loop3 = function _loop3(_i3) {
         var deleteId = deletetBtn[_i3].id;
 
         deletetBtn[_i3].addEventListener('click', function () {
@@ -207,7 +208,7 @@ function renderTreeColons() {
       };
 
       for (var _i3 = 0; _i3 < deletetBtn.length; _i3++) {
-        _loop2(_i3);
+        _loop3(_i3);
       }
     } // console.log(response.status);
     // console.log(response.statusText);

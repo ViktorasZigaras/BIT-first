@@ -18,7 +18,7 @@ class IdeasController {
 	public function ideasAip(Request $request, IdeaPost $idea) {
 
 		$data = IdeaPost::all(['idea_content', 'idea_like', 'post_date', 'idea_solution', 'ID']);
-// var_dump($data);
+
 		$response = new Response;
 		$output = View::render('ideas.idejos');
 		$response->prepare($request);

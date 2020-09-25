@@ -8,7 +8,6 @@ console.log(editId)
 
     if (txt != undefined || txt != null || txt.length >= 0 || txt != "" || txt != NaN) {
         let text = txt.split(/\s+/);       
-          // textArea.value = '';
         axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=api-admin', {
             idea: text, 
             editId: editId,  
@@ -25,7 +24,6 @@ function solutionText(sId) {
 
     if (    txt1 != undefined || txt1 != null || txt1.length >= 0 || txt1 != "" || txt1 != NaN) {
        let text1 = txt1.split(/\s+/);
-        // textArea.value = '';
         axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=api-admin', {
            soliution: text1,
            solutionId: sId,
@@ -125,12 +123,10 @@ function renderTreeColons() {
                 const editBtn = document.querySelectorAll(".editButtonIdea");
                 const postBtn = document.querySelectorAll(".addButtonIdea");
                 const deletetBtn = document.querySelectorAll(".delIdea");
-              //  const textId = document.querySelectorAll(".ideaText");
 
                 for (let i = 0; i < postBtn.length; i++) {
-                    let solutionId = postBtn[i].id;
+                    let sId = postBtn[i].id;
                     postBtn[i].addEventListener('click', function () { solutionText(sId); } , false);                   
-                  // console.log( postBtn[i].id)
                 }
                 for (let i = 0; i < editBtn.length; i++) {
                     let editId = editBtn[i].id;
