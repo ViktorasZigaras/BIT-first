@@ -1,5 +1,6 @@
 <?php
 
+// getCurrentRequest();
 require ('list.php');
 
 
