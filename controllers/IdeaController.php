@@ -14,7 +14,7 @@ class IdeaController {
 	}
 
 	public function frontIndex() {
-		return View::render('home.ideja', []);
+		return View::render('home.ideja');
 	}
 
 	public function addIdea(Request $request, IdeaPost $idea) {
@@ -22,7 +22,7 @@ class IdeaController {
 		$data = IdeaPost::all(['idea_content', 'idea_like', 'post_date', 'ID']);
 
 		$response = new Response;
-		$output = View::render('home.ideja',);
+		$output = View::render('home.ideja');
 		$response->prepare($request);
 		$response->setContent(json_encode(['html' => $output, 'allData' => $data ] ));
 
@@ -34,7 +34,7 @@ class IdeaController {
 		$array  = $idea->idea_content = $request->request->get('idea');
 		$like  = $idea->idea_like = $request->request->get('idea_like');
 
-		if(count(array_filter($array)) != ""){
+		if(is_array($array) && count(array_filter($array)) != "" ){
 			$txt = '';
 			foreach ($array as  $text) {;
 				$txt .=$text . ' ';			

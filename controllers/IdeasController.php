@@ -12,36 +12,18 @@ class IdeasController {
 	}
 
 	public function index() {
-		return View::render('ideas.idejos', []);
+		return View::render('ideas.idejos');
 	}
 
-	// public function index(Request $request) {
-	// 	// echo '<pre>';
-	// 	// var_dump($request);
-	// 	$idea = IdeaPost::all();
-	// 	return View::render('home.idea', ['url' => PLUGIN_DIR_URL, 'idea' => $idea]);
-	// }
-	public function create(Request $request) {
+	public function ideasAip(Request $request, IdeaPost $idea) {
+
+		$data = IdeaPost::all(['idea_content', 'idea_like', 'post_date', 'idea_solution', 'ID']);
+// var_dump($data);
 		$response = new Response;
+		$output = View::render('ideas.idejos');
 		$response->prepare($request);
-		$response->setContent(json_encode(['a' => 'jjjjjjj']));
-		var_dump($response);
+		$response->setContent(json_encode(['html' => $output, 'allData' => $data] ));
+
 		return $response;
-	}
-	public function store(Request $request, IdeaPost $ideaPost) {
-		$idea = new IdeaPost();
-		$idea->idea_content = $request->idea;
-		$idea->save();
-	}
-	function adminIndex(Request $request) {
-		$response = new Response;
-		// echo '<pre>';
-		// var_dump($request);
-		$output = View::adminRender('idea.index');
-		$response->prepare($request);
-		$response->setContent(json_encode(['html' => $output]));
-		//var_dump($request->query->get('route'));
-		return $response;
-		//http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=event
 	}
 }
