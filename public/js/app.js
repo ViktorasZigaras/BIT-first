@@ -136,7 +136,7 @@ function deleteIdea(deleteId) {
   })["catch"](function (err) {
     console.log(err instanceof TypeError);
   });
-  setTimeout(renderTreeColons, 1000);
+  setTimeout(renderTreeColons, 300);
 } //  textArea.addEventListener("input", function(){
 //    let maxlength = this.getAttribute("maxlength");
 //    let currentLength = this.value.length;
@@ -242,8 +242,8 @@ function renderTreeColons() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\xampp\htdocs\wordpress\wp-content\plugins\BIT-first\resources\js\main.js */"./resources/js/main.js");
-module.exports = __webpack_require__(/*! D:\xampp\htdocs\wordpress\wp-content\plugins\BIT-first\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/wordpress/wp-content/plugins/BIT-first/resources/js/main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/wordpress/wp-content/plugins/BIT-first/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
