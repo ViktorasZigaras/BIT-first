@@ -1,6 +1,6 @@
 "use strict";
 
-/*----------------------- save content axios----------------------------*/
+/*----------------------- edit content axios----------------------------*/
 
 function  editText(editId) {
 console.log(editId)
@@ -8,7 +8,7 @@ console.log(editId)
 
     if (txt != undefined || txt != null || txt.length >= 0 || txt != "" || txt != NaN) {
         let text = txt.split(/\s+/);       
-        axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=api-admin', {
+        axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-edit', {
             idea: text, 
             editId: editId,  
         }).catch(err => {
@@ -18,13 +18,15 @@ console.log(editId)
     }
 }
 
+/*----------------------- save content axios----------------------------*/
+
 function solutionText(sId) {
 
     const txt1 = document.getElementById("textArea1").value;
 
     if (    txt1 != undefined || txt1 != null || txt1.length >= 0 || txt1 != "" || txt1 != NaN) {
        let text1 = txt1.split(/\s+/);
-        axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=api-admin', {
+        axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-create', {
            soliution: text1,
            solutionId: sId,
         }).catch(err => {
@@ -36,10 +38,9 @@ function solutionText(sId) {
 
 /*----------------------- delete content axios----------------------------*/
 
-function deleteIdea(deleteId){
-
-    axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=api-admin', {
-        deletedId: deleteId,
+function deleteIdea(delId){
+     axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-delete', {
+        deleteId: delId,
      }).catch(err => {
          console.log(err instanceof TypeError);
      });
@@ -65,7 +66,7 @@ window.addEventListener('load', renderTreeColons);
 
 function renderTreeColons() {
 
-    axios.get('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=api-admin', {
+    axios.get('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-render', {
 
     })
         .then(function (response) {
@@ -93,10 +94,10 @@ function renderTreeColons() {
                         <textarea class="ideaText" maxlength="200" name="idea" id="textArea" data-attribute_name="">
                                 ${value.idea_content}
                         </textarea>  
-                        <button  class="ideaBtn delIdea" id="${keys[i]}">
+                        <button  class="ideaBtn delIdea" id="${value.ID}">
                             Trinti
                         </button> 
-                        <button class="ideaBtn edit editButtonIdea" id="${keys[i]}">
+                        <button class="ideaBtn edit editButtonIdea" id="${value.ID}">
                             Saugoti
                         </button>
                     </div>
@@ -104,16 +105,16 @@ function renderTreeColons() {
                         <textarea class="ideaTextSoliution" maxlength="200" name="idea" id="textArea1" > 
                             ${value.idea_solution}                     
                         </textarea>
-                        <button class="ideaBtn delIdea answer" id="${keys[i]}">
+                        <button class="ideaBtn delIdea answer" id="${value.ID}">
                             Trinti
                         </button> 
-                        <button  class="ideaBtn addButtonIdea" id="${keys[i]}">
+                        <button  class="ideaBtn addButtonIdea" id="${value.ID}">
                             Sprendimas
                         </button> 
                     </div> 
                     <span class="textCount" id="count"></span>
                     </div>  
-                        <div class="like" data-custom-id="${keys[i]}">
+                        <div class="like" data-custom-id="${value.ID}">
                             <span class="like__number">Like: ${value.idea_like}</span>             
                         </div>            
                     </div>
@@ -134,8 +135,8 @@ function renderTreeColons() {
                     editBtn[i].addEventListener('click', function () { editText(editId); } , false);                     
                 }
                 for (let i = 0; i < deletetBtn.length; i++) {
-                    let deleteId =  deletetBtn[i].id;
-                    deletetBtn[i].addEventListener('click', function () { deleteIdea(deleteId); }, false);
+                    let delId =  deletetBtn[i].id;
+                    deletetBtn[i].addEventListener('click', function () { deleteIdea(delId); }, false);
                 }               
             }
             // console.log(response.status);
