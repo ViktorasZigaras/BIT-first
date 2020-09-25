@@ -113,7 +113,7 @@ class Post{
     }
 
     public function delete($force_delete = false){
-        if(isset($this->ID)){
+        if( isset($this->ID) ){
             wp_delete_post($this->ID, $force_delete);
         }
         else throw new wrongArgsTypeExeption('Klaida: trinamas objektas neturi ID');

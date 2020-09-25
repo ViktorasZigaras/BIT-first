@@ -25,7 +25,9 @@ class Collection {
             foreach ($args as $arg) {
                 foreach ($this->items as $itemKey => $itemValue) {
                     if(is_object($itemValue)){
-                        foreach ( get_object_vars($itemValue) as $key => $value ) {
+                        $vars = get_object_vars($itemValue);
+                        $vars['ID'] = $itemValue->__get('ID');
+                        foreach ( $vars as $key => $value ) {
                             if(strcmp((string)$key, (string)$arg)==0){
                                 $pluckedItems[$itemKey][$key] = $value; 
                             }
