@@ -7,12 +7,14 @@ return [
 	'gallery' => 'GalleryController@index',
 
 	'api-ideas' => 'IdeasController@ideasAip',
-	'add-idea' => 'IdeaController@addIdea',
 
-	'idea-render' => 'IdeAdminController@render',
-	'idea-edit' => 'IdeAdminController@edit',
-	'idea-create' => 'IdeAdminController@create',
-	'idea-delete' => 'IdeAdminController@delete',
+	'idea-create-front' => 'IdeaController@create',
+	'idea-render-front' => 'IdeaController@render',
+
+	'idea-render-admin' => 'IdeAdminController@render',
+	'idea-edit-admin' => 'IdeAdminController@edit',
+	'idea-create-admin' => 'IdeAdminController@create',
+	'idea-delete-admin' => 'IdeAdminController@delete',
 
 	'news_store' => 'NewsController@store',
 	'news_update' => 'NewsController@update',

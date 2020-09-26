@@ -3,48 +3,49 @@
 /*----------------------- edit content axios----------------------------*/
 
 function  editText(editId) {
-console.log(editId)
-    const txt = document.getElementById("textArea").value;  
+
+    const txt = document.getElementById(editId).value;  
 
     if (txt != undefined || txt != null || txt.length >= 0 || txt != "" || txt != NaN) {
         let text = txt.split(/\s+/);       
-        axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-edit', {
+        axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-edit-admin', {
             idea: text, 
             editId: editId,  
         }).catch(err => {
             console.log(err instanceof TypeError);
         });
-        setTimeout(renderTreeColons, 300);
+        setTimeout(renderTreeColons, 500);
     }
 }
 
 /*----------------------- save content axios----------------------------*/
 
-function solutionText(sId) {
+function solutionText(sId, i) {
 
-    const txt1 = document.getElementById("textArea1").value;
+    const txt1 = document.getElementById(i).value;
 
     if (    txt1 != undefined || txt1 != null || txt1.length >= 0 || txt1 != "" || txt1 != NaN) {
        let text1 = txt1.split(/\s+/);
-        axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-create', {
+        axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-create-admin', {
            soliution: text1,
            solutionId: sId,
         }).catch(err => {
             console.log(err instanceof TypeError);
         });
-        setTimeout(renderTreeColons, 300);
+      return  setTimeout(renderTreeColons, 500);
     }
 }
 
 /*----------------------- delete content axios----------------------------*/
 
 function deleteIdea(delId){
-     axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-delete', {
+     axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-delete-admin', {
         deleteId: delId,
      }).catch(err => {
          console.log(err instanceof TypeError);
+         console.log('Problemos su Delete api')
      });
-     setTimeout(renderTreeColons, 300);
+     setTimeout(renderTreeColons, 500);
 }
 
 //  textArea.addEventListener("input", function(){
@@ -66,7 +67,7 @@ window.addEventListener('load', renderTreeColons);
 
 function renderTreeColons() {
 
-    axios.get('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-render', {
+    axios.get('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-render-admin', {
 
     })
         .then(function (response) {
@@ -82,16 +83,19 @@ function renderTreeColons() {
 
                 const rende = document.getElementById('box');
                 let HTMLString = '';
+                let counter = 0;
 
-                for (let i = keys.length - 1; i >= 0; i--) {
+                for (let i = keys.length - 1; i >= 0; i--) {         
+                    counter++;       
                     let value = data[keys[i]];
+
                     HTMLString +=
                         `<div class="box"> 
             <div class="text"><div class="data" >${value.post_date}</div>                 
                 </div>
                 <div class="ideaContent">
                     <div class="ideaTextEdit">
-                        <textarea class="ideaText" maxlength="200" name="idea" id="textArea" data-attribute_name="">
+                        <textarea class="ideaText" maxlength="200" name="idea" id="${value.ID}" data-attribute_name="">
                                 ${value.idea_content}
                         </textarea>  
                         <button  class="ideaBtn delIdea" id="${value.ID}">
@@ -102,12 +106,9 @@ function renderTreeColons() {
                         </button>
                     </div>
                     <div class="ideaSoliution">
-                        <textarea class="ideaTextSoliution" maxlength="200" name="idea" id="textArea1" > 
+                        <textarea class="ideaTextSoliution" maxlength="200" name="idea" id="${counter}" > 
                             ${value.idea_solution}                     
                         </textarea>
-                        <button class="ideaBtn delIdea answer" id="${value.ID}">
-                            Trinti
-                        </button> 
                         <button  class="ideaBtn addButtonIdea" id="${value.ID}">
                             Sprendimas
                         </button> 
@@ -128,7 +129,8 @@ function renderTreeColons() {
 
                 for (let i = 0; i < postBtn.length; i++) {
                     let sId = postBtn[i].id;
-                    postBtn[i].addEventListener('click', function () { solutionText(sId); } , false);                   
+                    postBtn[i].addEventListener('click', function () { solutionText(sId, i+1); 
+                    } , false);                   
                 }
                 for (let i = 0; i < editBtn.length; i++) {
                     let editId = editBtn[i].id;
