@@ -94,6 +94,9 @@ class Post{
         $metaVars = []; 
         foreach(get_object_vars($this) as $var => $value){
             if(! array_key_exists($var, get_object_vars( new \WP_Post(new \stdClass()) ))){
+                if(strcmp($var, 'attachments')==0){
+                    continue;
+                }
                 $metaVars[$var] = $value;
             } 
         }
@@ -132,7 +135,7 @@ class Post{
         return null;
     }
 
-    protected function getAttachments($parent_id){
+    protected function getAttachments($parent_id) :array{
         $allAttachments = get_posts(['posts_per_page' => -1, 'post_type' => 'attachment', 'post_parent' => $parent_id]);
         $attachments = [];
         foreach ($allAttachments as $id => $attachment) {

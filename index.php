@@ -26,10 +26,3 @@ define('PLUGIN_DIR_URL', plugin_dir_url(__FILE__));
 define('PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
 
 App::start();
-
-use BIT\models\IdeaPost;
-// $x = IdeaPost::get(500);
-// _dc($x);
-// _dc(get_post(500));
-// $data = (IdeaPost::all())->pluck('idea_content', 'idea_like', 'post_date', 'idea_solution', 'ID')->all();
-// _dc((new Query)->postType('idea')->getPost());
