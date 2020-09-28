@@ -20,7 +20,6 @@ class IdeAdminController
 
 	public function adminApi(Request $request, IdeaPost $idea)
 	{
-
 		$data = (IdeaPost::all())->pluck('idea_content', 'idea_like', 'post_date', 'idea_solution', 'ID')->all();
 
 		$response = new Response;
@@ -39,12 +38,8 @@ class IdeAdminController
 		// $soliutionId  = $idea->ID = $request->request->get('solutionId');
 		$deleteId = $idea->ID = $request->request->get('deletedId');
 		$deletePost = IdeaPost::get($deleteId);
-		// var_dump($deletePost);
 		// $editPost = IdeaPost::get($editId);
 		// $soliutionPost = IdeaPost::get($soliutionId);
-
-		// wp_delete_post($deleteId);
-		$deletePost->save();
 
 		// $array = [];
 		// if(is_array($ideaContent) && count(array_filter($ideaContent)) != "" ){
@@ -68,7 +63,7 @@ class IdeAdminController
 		// 	$soliutionPost->save();
 		// }
 
-	//	public function delete($force_delete = false)
+	// _dc($response);
 		return $response;
 	}
 }
