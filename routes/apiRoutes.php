@@ -7,8 +7,14 @@ return [
 	'gallery' => 'GalleryController@index',
 
 	'api-ideas' => 'IdeasController@ideasAip',
-	'api-admin' => 'IdeAdminController@adminApi',
-	'add-idea' => 'IdeaController@addIdea',
+
+	'idea-create-front' => 'IdeaController@create',
+	'idea-render-front' => 'IdeaController@render',
+
+	'idea-render-admin' => 'IdeAdminController@render',
+	'idea-edit-admin' => 'IdeAdminController@edit',
+	'idea-create-admin' => 'IdeAdminController@create',
+	'idea-delete-admin' => 'IdeAdminController@delete',
 
 	'news_store' => 'NewsController@store',
 	'news_update' => 'NewsController@update',

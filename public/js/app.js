@@ -95,48 +95,50 @@
 
 "use strict";
 
-/*----------------------- save content axios----------------------------*/
+/*----------------------- edit content axios----------------------------*/
 
 function editText(editId) {
-  console.log(editId);
-  var txt = document.getElementById("textArea").value;
+  var txt = document.getElementById(editId).value;
 
   if (txt != undefined || txt != null || txt.length >= 0 || txt != "" || txt != NaN) {
     var text = txt.split(/\s+/);
-    axios.post('http://localhost:8080/wordpress/wp-content/plugins/BIT-first/api/?route=api-admin', {
+    axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-edit-admin', {
       idea: text,
       editId: editId
     })["catch"](function (err) {
       console.log(err instanceof TypeError);
     });
-    setTimeout(renderTreeColons, 300);
+    setTimeout(renderTreeColons, 500);
   }
 }
+/*----------------------- save content axios----------------------------*/
 
-function solutionText(sId) {
-  var txt1 = document.getElementById("textArea1").value;
+
+function solutionText(sId, i) {
+  var txt1 = document.getElementById(i).value;
 
   if (txt1 != undefined || txt1 != null || txt1.length >= 0 || txt1 != "" || txt1 != NaN) {
     var text1 = txt1.split(/\s+/);
-    axios.post('http://localhost:8080/wordpress/wp-content/plugins/BIT-first/api/?route=api-admin', {
+    axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-create-admin', {
       soliution: text1,
       solutionId: sId
     })["catch"](function (err) {
       console.log(err instanceof TypeError);
     });
-    setTimeout(renderTreeColons, 300);
+    return setTimeout(renderTreeColons, 500);
   }
 }
 /*----------------------- delete content axios----------------------------*/
 
 
-function deleteIdea(deleteId) {
-  axios.post('http://localhost:8080/wordpress/wp-content/plugins/BIT-first/api/?route=api-admin', {
-    deletedId: deleteId
+function deleteIdea(delId) {
+  axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-delete-admin', {
+    deleteId: delId
   })["catch"](function (err) {
     console.log(err instanceof TypeError);
+    console.log('Problemos su Delete api');
   });
-  setTimeout(renderTreeColons, 300);
+  setTimeout(renderTreeColons, 500);
 } //  textArea.addEventListener("input", function(){
 //    let maxlength = this.getAttribute("maxlength");
 //    let currentLength = this.value.length;
@@ -153,7 +155,7 @@ function deleteIdea(deleteId) {
 window.addEventListener('load', renderTreeColons);
 
 function renderTreeColons() {
-  axios.get('http://localhost:8080/wordpress/wp-content/plugins/BIT-first/api/?route=api-admin', {}).then(function (response) {
+  axios.get('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-render-admin', {}).then(function (response) {
     if (response.status == 200 && response.statusText == 'OK') {
       var data = response.data.allData;
       var keys = [];
@@ -164,10 +166,12 @@ function renderTreeColons() {
 
       var rende = document.getElementById('box');
       var HTMLString = '';
+      var counter = 0;
 
       for (var i = keys.length - 1; i >= 0; i--) {
+        counter++;
         var value = data[keys[i]];
-        HTMLString += "<div class=\"box\"> \n            <div class=\"text\"><div class=\"data\" >".concat(value.post_date, "</div>                 \n                </div>\n                <div class=\"ideaContent\">\n                    <div class=\"ideaTextEdit\">\n                        <textarea class=\"ideaText\" maxlength=\"200\" name=\"idea\" id=\"textArea\" data-attribute_name=\"\">\n                                ").concat(value.idea_content, "\n                        </textarea>  \n                        <button  class=\"ideaBtn delIdea\" id=\"").concat(value.ID, "\">\n                            Trinti\n                        </button> \n                        <button class=\"ideaBtn edit editButtonIdea\" id=\"").concat(value.ID, "\">\n                            Saugoti\n                        </button>\n                    </div>\n                    <div class=\"ideaSoliution\">\n                        <textarea class=\"ideaTextSoliution\" maxlength=\"200\" name=\"idea\" id=\"textArea1\" > \n                            ").concat(value.idea_solution, "                     \n                        </textarea>\n                        <button class=\"ideaBtn delIdea answer\" id=\"").concat(value.ID, "\">\n                            Trinti\n                        </button> \n                        <button  class=\"ideaBtn addButtonIdea\" id=\"").concat(value.ID, "\">\n                            Sprendimas\n                        </button> \n                    </div> \n                    <span class=\"textCount\" id=\"count\"></span>\n                    </div>  \n                        <div class=\"like\" data-custom-id=\"").concat(value.ID, "\">\n                            <span class=\"like__number\">Like: ").concat(value.idea_like, "</span>             \n                        </div>            \n                    </div>\n                </div>");
+        HTMLString += "<div class=\"box\"> \n            <div class=\"text\"><div class=\"data\" >".concat(value.post_date, "</div>                 \n                </div>\n                <div class=\"ideaContent\">\n                    <div class=\"ideaTextEdit\">\n                        <textarea class=\"ideaText\" maxlength=\"200\" name=\"idea\" id=\"").concat(value.ID, "\" data-attribute_name=\"\">\n                                ").concat(value.idea_content, "\n                        </textarea>  \n                        <button  class=\"ideaBtn delIdea\" id=\"").concat(value.ID, "\">\n                            Trinti\n                        </button> \n                        <button class=\"ideaBtn edit editButtonIdea\" id=\"").concat(value.ID, "\">\n                            Saugoti\n                        </button>\n                    </div>\n                    <div class=\"ideaSoliution\">\n                        <textarea class=\"ideaTextSoliution\" maxlength=\"200\" name=\"idea\" id=\"").concat(counter, "\" > \n                            ").concat(value.idea_solution, "                     \n                        </textarea>\n                        <button  class=\"ideaBtn addButtonIdea\" id=\"").concat(value.ID, "\">\n                            Sprendimas\n                        </button> \n                    </div> \n                    <span class=\"textCount\" id=\"count\"></span>\n                    </div>  \n                        <div class=\"like\" data-custom-id=\"").concat(value.ID, "\">\n                            <span class=\"like__number\">Like: ").concat(value.idea_like, "</span>             \n                        </div>            \n                    </div>\n                </div>");
       }
 
       rende.innerHTML = HTMLString;
@@ -179,7 +183,7 @@ function renderTreeColons() {
         var sId = postBtn[_i].id;
 
         postBtn[_i].addEventListener('click', function () {
-          solutionText(sId);
+          solutionText(sId, _i + 1);
         }, false);
       };
 
@@ -200,10 +204,10 @@ function renderTreeColons() {
       }
 
       var _loop3 = function _loop3(_i3) {
-        var deleteId = deletetBtn[_i3].id;
+        var delId = deletetBtn[_i3].id;
 
         deletetBtn[_i3].addEventListener('click', function () {
-          deleteIdea(deleteId);
+          deleteIdea(delId);
         }, false);
       };
 
@@ -242,8 +246,8 @@ function renderTreeColons() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/wordpress/wp-content/plugins/BIT-first/resources/js/main.js */"./resources/js/main.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/wordpress/wp-content/plugins/BIT-first/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\xampp\htdocs\wordpress\wp-content\plugins\BIT-first\resources\js\main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\wordpress\wp-content\plugins\BIT-first\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
