@@ -58,7 +58,6 @@ class IdeAdminController {
 		$soliutionId = $idea->ID = $request->request->get('solutionId');
 		$soliution = $idea->idea_solution = $request->request->get('soliution');
 
-		
 		$soliutionPost = IdeaPost::get($soliutionId);
 
 		if (is_array($soliution) && count(array_filter($soliution)) != "") {
@@ -75,8 +74,7 @@ class IdeAdminController {
 		return $response = new Response;
 	}
 	//	public function delete($force_delete = false)
-	public function delete(Request $requestJson, IdeaPost $idea) {
-		
+	public function delete(Request $requestJson, IdeaPost $idea) {		
 	
 		$request = $this->decodeRequest($requestJson);
 

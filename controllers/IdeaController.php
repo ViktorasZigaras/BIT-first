@@ -4,9 +4,9 @@ namespace BIT\controllers;
 use BIT\app\Cookie;
 use BIT\app\View;
 use BIT\models\IdeaPost;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class IdeaController {
 	public function __construct() {
@@ -63,14 +63,14 @@ class IdeaController {
 		}
 		return $response;
 	}
-	
-	public function decodeRequest($request){
+
+	public function decodeRequest($request) {
 
 		if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
 			$data = json_decode($request->getContent(), true);
 			$request->request->replace(is_array($data) ? $data : array());
 		}
 
-        return $request;
+		return $request;
 	}
 }

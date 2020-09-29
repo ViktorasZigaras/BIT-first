@@ -1,5 +1,7 @@
 "use strict";
 
+let uri = document.location.origin; 
+
 /*----------------------- edit content axios----------------------------*/
 
 function  editText(editId) {
@@ -8,7 +10,7 @@ function  editText(editId) {
 
     if (txt != undefined || txt != null || txt.length >= 0 || txt != "" || txt != NaN) {
         let text = txt.split(/\s+/);       
-        axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-edit-admin', {
+        axios.post(uri+'/wordpress/wp-content/plugins/BIT-first/api/?route=idea-edit-admin', {
             idea: text, 
             editId: editId,  
         }).catch(err => {
@@ -26,7 +28,7 @@ function solutionText(sId, i) {
 
     if (    txt1 != undefined || txt1 != null || txt1.length >= 0 || txt1 != "" || txt1 != NaN) {
        let text1 = txt1.split(/\s+/);
-        axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-create-admin', {
+        axios.post(uri+'/wordpress/wp-content/plugins/BIT-first/api/?route=idea-create-admin', {
            soliution: text1,
            solutionId: sId,
         }).catch(err => {
@@ -39,7 +41,7 @@ function solutionText(sId, i) {
 /*----------------------- delete content axios----------------------------*/
 
 function deleteIdea(delId){
-     axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-delete-admin', {
+     axios.post(uri+'/wordpress/wp-content/plugins/BIT-first/api/?route=idea-delete-admin', {
         deleteId: delId,
      }).catch(err => {
          console.log(err instanceof TypeError);
@@ -67,7 +69,7 @@ window.addEventListener('load', renderTreeColons);
 
 function renderTreeColons() {
 
-    axios.get('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-render-admin', {
+    axios.get(uri+'/wordpress/wp-content/plugins/BIT-first/api/?route=idea-render-admin', {
 
     })
         .then(function (response) {
