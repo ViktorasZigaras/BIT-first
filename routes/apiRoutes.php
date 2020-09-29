@@ -6,7 +6,7 @@ return [
 	'event' => 'EventController@index',
 	'gallery' => 'GalleryController@index',
 
-	'api-ideas' => 'IdeasController@ideasAip',
+	'ideas-render-front' => 'IdeasController@render',
 
 	'idea-create-front' => 'IdeaController@create',
 	'idea-render-front' => 'IdeaController@render',
