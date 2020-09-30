@@ -34,7 +34,7 @@ class NewsController {
         // $new_news = new NewsPost();
         
         // $new_news->news_content = $request->request->get('news-content');
-        // $new_news->news_content = $request->content->get('content');
+        // $new_news->news_content = $request->content->get('content');        
         $newsPost->news_content = $request->query->get('content');
         // $new_news->news_content = $request->query->get('content');
         
