@@ -10,21 +10,23 @@ use BIT\models\NewsPost;
 use BIT\models\AlbumPost;
 
 class Post{
-
+    
     private $ID;
     protected static $type = 'post';
     public $attachments = [];
     // combines meta ant post tables
-
+    
     public function __construct($post_id = 0){
-        $post_id = (string)$post_id;
-        if($post_id == 0){
+        if(!is_string($post_id) && !is_integer($post_id)){
+            $post_id = 0;
+        }
+        if(strcmp($post_id, '0')===0){
             foreach ( get_object_vars( new \WP_Post(new \stdClass())) as $var => $value ) {
                 $this->$var = $value; 
             }
             if(isset(static::$type)) $this->post_type = static::$type;
         }
-        elseif($post_id >0){
+        elseif(strcmp($post_id, '0')!=0){
             foreach ( get_object_vars(get_post($post_id)) as $var => $value ) {
                 $this->$var = $value; 
             }
@@ -38,12 +40,11 @@ class Post{
 
     // returns Post object with common post and meta fields
     public static function get($post_id = 0) {
-        $post_id = (int) $post_id;
-
+        $post_id = (int)$post_id;
         if(0 === $post_id || !get_post_status($post_id)){
             return new static();
         } 
-
+        
 		if ( $post_id<0 || (strcmp(get_post($post_id)->post_type, static::$type )!=0) ){
             throw new wrongArgsTypeExeption('Wrong $post_id args passed to Post::get($post_id)');
         }
@@ -93,6 +94,9 @@ class Post{
         $metaVars = []; 
         foreach(get_object_vars($this) as $var => $value){
             if(! array_key_exists($var, get_object_vars( new \WP_Post(new \stdClass()) ))){
+                if(strcmp($var, 'attachments')==0){
+                    continue;
+                }
                 $metaVars[$var] = $value;
             } 
         }
@@ -113,10 +117,14 @@ class Post{
     }
 
     public function delete($force_delete = false){
-        if( $this->ID > 0 ){
+
+        if($this->ID >0){
             wp_delete_post($this->ID, $force_delete);
         }
-        else throw new wrongArgsTypeExeption('Klaida: trinamas objektas neturi ID');
+        else{
+            throw new wrongArgsTypeExeption('Klaida: trinamas objektas neturi ID');
+        }
+
     }
 
     //returns objects ID (protected)
@@ -127,7 +135,7 @@ class Post{
         return null;
     }
 
-    protected function getAttachments($parent_id){
+    protected function getAttachments($parent_id) :array{
         $allAttachments = get_posts(['posts_per_page' => -1, 'post_type' => 'attachment', 'post_parent' => $parent_id]);
         $attachments = [];
         foreach ($allAttachments as $id => $attachment) {
@@ -153,5 +161,6 @@ class Post{
             default:
                 return null;
         }
+
     }
 }

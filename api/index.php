@@ -23,16 +23,10 @@ use BIT\app\ApiRoute;
 // $app = App::start();
 
 $response = ApiRoute::apiRoute(/*$app*/);
-    // throw error???
 
-// if (!$response); //throw Error;
-// else $response->send();
-try {
-    if (!$response) throw new Exception('error'); // throw Error;
-    else $response->send();
-} catch (Exception $e) {
-    echo 'Caught exception: ',  $e->getMessage(), "\n";
-}
+ $response->send();
+// Cia neturi buti jokiu try cach visi nusitrinkite
+//WP pats gaudo is isveda i debug.log !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 

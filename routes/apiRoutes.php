@@ -20,6 +20,7 @@ return [
 	'gallery-create-admin' => 'GalleryAdminController@create',
 	'gallery-delete-admin' => 'GalleryAdminController@delete',
 
+
 	'news_store' => 'NewsController@store',
 	'news_update' => 'NewsController@update',
 	'news_destroy' => 'NewsController@destroy',

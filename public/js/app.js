@@ -101,7 +101,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderColons", function() { return renderColons; });
 
 
+
 var uri = document.location.origin;
+
 /*----------------------- edit content axios----------------------------*/
 
 function editText(editId) {
@@ -109,13 +111,17 @@ function editText(editId) {
 
   if (txt != undefined || txt != null || txt.length >= 0 || txt != "" || txt != NaN) {
     var text = txt.split(/\s+/);
+
     axios.post(uri + '/wordpress/wp-content/plugins/BIT-first/api/?route=idea-edit-admin', {
+
       idea: text,
       editId: editId
     })["catch"](function (err) {
       console.log(err instanceof TypeError);
     });
+
     setTimeout(renderColons, 500);
+
   }
 }
 /*----------------------- save content axios----------------------------*/
@@ -126,25 +132,32 @@ function solutionText(sId, i) {
 
   if (txt1 != undefined || txt1 != null || txt1.length >= 0 || txt1 != "" || txt1 != NaN) {
     var text1 = txt1.split(/\s+/);
+
     axios.post(uri + '/wordpress/wp-content/plugins/BIT-first/api/?route=idea-create-admin', {
+
       soliution: text1,
       solutionId: sId
     })["catch"](function (err) {
       console.log(err instanceof TypeError);
     });
+
     return setTimeout(renderColons, 500);
+
   }
 }
 /*----------------------- delete content axios----------------------------*/
 
 
 function deleteIdea(delId) {
+
   axios.post(uri + '/wordpress/wp-content/plugins/BIT-first/api/?route=idea-delete-admin', {
+
     deleteId: delId
   })["catch"](function (err) {
     console.log(err instanceof TypeError);
     console.log('Problemos su Delete api');
   });
+
   setTimeout(renderColons, 500);
 } //  /*------------------------------render data  axios-----------------------------------------*/
 
@@ -153,6 +166,7 @@ window.addEventListener('load', renderColons);
 
 function renderColons() {
   axios.get(uri + '/wordpress/wp-content/plugins/BIT-first/api/?route=idea-render-admin', {}).then(function (response) {
+
     if (response.status == 200 && response.statusText == 'OK') {
       var data = response.data.allData;
       var keys = [];
@@ -168,7 +182,9 @@ function renderColons() {
       for (var i = keys.length - 1; i >= 0; i--) {
         counter++;
         var value = data[keys[i]];
+
         HTMLString += "<div class=\"box\"> \n                    <div class=\"text\"><div class=\"data\" >".concat(value.post_date, "</div>                 \n                    </div>\n                    <div class=\"ideaContent\">\n                    <div class=\"ideaTextEdit\">\n                        <textarea class=\"ideaText\" maxlength=\"200\" name=\"idea\" id=\"").concat(value.ID, "\" data-attribute_name=\"\">\n                                ").concat(value.idea_content, "\n                        </textarea>  \n                        <button  class=\"ideaBtn delIdea\" id=\"").concat(value.ID, "\">\n                            Trinti\n                        </button> \n                        <button class=\"ideaBtn edit editButtonIdea\" id=\"").concat(value.ID, "\">\n                            Saugoti\n                        </button>\n                    </div>\n                    <div class=\"ideaSoliution\">\n                        <textarea class=\"ideaTextSoliution\" maxlength=\"200\" name=\"idea\" id=\"").concat(counter, "\" > \n                            ").concat(value.idea_solution, "                     \n                        </textarea>\n                        <button  class=\"ideaBtn addButtonIdea\" id=\"").concat(value.ID, "\">\n                            Sprendimas\n                        </button> \n                    </div> \n                    <span class=\"textCount\" id=\"count\"></span>\n                    </div>  \n                        <div class=\"like\" data-custom-id=\"").concat(value.ID, "\">\n                            <span class=\"like__number\">Like: ").concat(value.idea_like, "</span>             \n                        </div>            \n                    </div>\n                </div>");
+
       }
 
       rende.innerHTML = HTMLString;
