@@ -436,3 +436,15 @@ button:focus {
   margin: 0 0 0 20px;
 }
 
+output > div {
+  max-width: 1600px;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px 1fr));
+}
+
+output > div img {
+  height: 200px;
+}
+
