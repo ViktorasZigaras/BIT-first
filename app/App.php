@@ -8,6 +8,7 @@ use BIT\app\Config;
 use BIT\app\FrontRouter;
 use BIT\app\AdminRoute;
 use BIT\app\Cookie;
+use BIT\models\IdeaPost;
 
 class App
 {
@@ -49,7 +50,7 @@ class App
         });
         add_shortcode('front_shortcode', [FrontRoute::class, 'frontRoute']);
         AdminRoute::start();
-        Cookie::getUuid();
+        Session::start();
     }
 
     public function getService($service){
