@@ -57,7 +57,7 @@ class Query{
             $post = Post::getModel($post);
         } 
        
-        return $list;
+        return new Collection($list);
     }
 
 }

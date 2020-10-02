@@ -32,7 +32,6 @@ class Post{
             }
             $this->attachments = $this->getAttachments($this->ID);
         }
-       
     }
 
     // returns Post object with common post and meta fields

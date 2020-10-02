@@ -1,19 +1,27 @@
 <?php
 namespace BIT\app;
+use BIT\models\IdeaPost;
 
 class Cookie {
-    static private $uuid;
+    private static $uuid;
     
     public static function getUuid(){
         self::$uuid = rand(1000, 2000);
         if (!isset($_COOKIE['Bit'])) {
-            setcookie("Bit", self::$uuid);
+            setcookie("Bit", self::$uuid); 
         }
+        self::$uuid = $_COOKIE['Bit'];
+       
         return self::$uuid;
+    }
+
+    public static function deleteCookie($name){
+        unset($_COOKIE[$name]);
     }
 
     public function __get($dir)
     {
         return $this->$dir;
     }
+
 }
