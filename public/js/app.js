@@ -86,14 +86,23 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/main.js":
+/***/ "./resources/js/idea.js":
 /*!******************************!*\
-  !*** ./resources/js/main.js ***!
+  !*** ./resources/js/idea.js ***!
   \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: editText, solutionText, deleteIdea, renderColons */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editText", function() { return editText; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "solutionText", function() { return solutionText; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteIdea", function() { return deleteIdea; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderColons", function() { return renderColons; });
+
+
+
+var uri = document.location.origin;
 
 /*----------------------- edit content axios----------------------------*/
 
@@ -102,13 +111,17 @@ function editText(editId) {
 
   if (txt != undefined || txt != null || txt.length >= 0 || txt != "" || txt != NaN) {
     var text = txt.split(/\s+/);
-    axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-edit-admin', {
+
+    axios.post(uri + '/wordpress/wp-content/plugins/BIT-first/api/?route=idea-edit-admin', {
+
       idea: text,
       editId: editId
     })["catch"](function (err) {
       console.log(err instanceof TypeError);
     });
-    setTimeout(renderTreeColons, 500);
+
+    setTimeout(renderColons, 500);
+
   }
 }
 /*----------------------- save content axios----------------------------*/
@@ -119,43 +132,41 @@ function solutionText(sId, i) {
 
   if (txt1 != undefined || txt1 != null || txt1.length >= 0 || txt1 != "" || txt1 != NaN) {
     var text1 = txt1.split(/\s+/);
-    axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-create-admin', {
+
+    axios.post(uri + '/wordpress/wp-content/plugins/BIT-first/api/?route=idea-create-admin', {
+
       soliution: text1,
       solutionId: sId
     })["catch"](function (err) {
       console.log(err instanceof TypeError);
     });
-    return setTimeout(renderTreeColons, 500);
+
+    return setTimeout(renderColons, 500);
+
   }
 }
 /*----------------------- delete content axios----------------------------*/
 
 
 function deleteIdea(delId) {
-  axios.post('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-delete-admin', {
+
+  axios.post(uri + '/wordpress/wp-content/plugins/BIT-first/api/?route=idea-delete-admin', {
+
     deleteId: delId
   })["catch"](function (err) {
     console.log(err instanceof TypeError);
     console.log('Problemos su Delete api');
   });
-  setTimeout(renderTreeColons, 500);
-} //  textArea.addEventListener("input", function(){
-//    let maxlength = this.getAttribute("maxlength");
-//    let currentLength = this.value.length;
-//    if( currentLength >= maxlength ){
-//      document.getElementById("count").innerHTML = "0  simboliu liko";
-//    }else{
-//      document.getElementById("count").innerHTML = maxlength - currentLength + " simboliu liko";
-//      //console.log(maxlength - currentLength + " chars left");
-//    }
-//  });
-//  /*------------------------------render data  axios-----------------------------------------*/
+
+  setTimeout(renderColons, 500);
+} //  /*------------------------------render data  axios-----------------------------------------*/
 
 
-window.addEventListener('load', renderTreeColons);
+window.addEventListener('load', renderColons);
 
-function renderTreeColons() {
-  axios.get('http://localhost/wordpress/wp-content/plugins/BIT-first/api/?route=idea-render-admin', {}).then(function (response) {
+function renderColons() {
+  axios.get(uri + '/wordpress/wp-content/plugins/BIT-first/api/?route=idea-render-admin', {}).then(function (response) {
+
     if (response.status == 200 && response.statusText == 'OK') {
       var data = response.data.allData;
       var keys = [];
@@ -171,7 +182,9 @@ function renderTreeColons() {
       for (var i = keys.length - 1; i >= 0; i--) {
         counter++;
         var value = data[keys[i]];
-        HTMLString += "<div class=\"box\"> \n            <div class=\"text\"><div class=\"data\" >".concat(value.post_date, "</div>                 \n                </div>\n                <div class=\"ideaContent\">\n                    <div class=\"ideaTextEdit\">\n                        <textarea class=\"ideaText\" maxlength=\"200\" name=\"idea\" id=\"").concat(value.ID, "\" data-attribute_name=\"\">\n                                ").concat(value.idea_content, "\n                        </textarea>  \n                        <button  class=\"ideaBtn delIdea\" id=\"").concat(value.ID, "\">\n                            Trinti\n                        </button> \n                        <button class=\"ideaBtn edit editButtonIdea\" id=\"").concat(value.ID, "\">\n                            Saugoti\n                        </button>\n                    </div>\n                    <div class=\"ideaSoliution\">\n                        <textarea class=\"ideaTextSoliution\" maxlength=\"200\" name=\"idea\" id=\"").concat(counter, "\" > \n                            ").concat(value.idea_solution, "                     \n                        </textarea>\n                        <button  class=\"ideaBtn addButtonIdea\" id=\"").concat(value.ID, "\">\n                            Sprendimas\n                        </button> \n                    </div> \n                    <span class=\"textCount\" id=\"count\"></span>\n                    </div>  \n                        <div class=\"like\" data-custom-id=\"").concat(value.ID, "\">\n                            <span class=\"like__number\">Like: ").concat(value.idea_like, "</span>             \n                        </div>            \n                    </div>\n                </div>");
+
+        HTMLString += "<div class=\"box\"> \n                    <div class=\"text\"><div class=\"data\" >".concat(value.post_date, "</div>                 \n                    </div>\n                    <div class=\"ideaContent\">\n                    <div class=\"ideaTextEdit\">\n                        <textarea class=\"ideaText\" maxlength=\"200\" name=\"idea\" id=\"").concat(value.ID, "\" data-attribute_name=\"\">\n                                ").concat(value.idea_content, "\n                        </textarea>  \n                        <button  class=\"ideaBtn delIdea\" id=\"").concat(value.ID, "\">\n                            Trinti\n                        </button> \n                        <button class=\"ideaBtn edit editButtonIdea\" id=\"").concat(value.ID, "\">\n                            Saugoti\n                        </button>\n                    </div>\n                    <div class=\"ideaSoliution\">\n                        <textarea class=\"ideaTextSoliution\" maxlength=\"200\" name=\"idea\" id=\"").concat(counter, "\" > \n                            ").concat(value.idea_solution, "                     \n                        </textarea>\n                        <button  class=\"ideaBtn addButtonIdea\" id=\"").concat(value.ID, "\">\n                            Sprendimas\n                        </button> \n                    </div> \n                    <span class=\"textCount\" id=\"count\"></span>\n                    </div>  \n                        <div class=\"like\" data-custom-id=\"").concat(value.ID, "\">\n                            <span class=\"like__number\">Like: ").concat(value.idea_like, "</span>             \n                        </div>            \n                    </div>\n                </div>");
+
       }
 
       rende.innerHTML = HTMLString;
@@ -214,17 +227,39 @@ function renderTreeColons() {
       for (var _i3 = 0; _i3 < deletetBtn.length; _i3++) {
         _loop3(_i3);
       }
-    } // console.log(response.status);
-    // console.log(response.statusText);
-    //  console.log(response.headers);
-    // console.log(response.config);
-
+    }
 
     return response;
   })["catch"](function (error) {
-    console.log(error instanceof TypeError);
+    if (error.response) {
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log('Error', error.message);
+    }
+
+    console.log(error);
   });
 }
+
+
+
+/***/ }),
+
+/***/ "./resources/js/main.js":
+/*!******************************!*\
+  !*** ./resources/js/main.js ***!
+  \******************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _idea_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./idea.js */ "./resources/js/idea.js");
+ // import {updateSize} from './gallery.js';
 
 /***/ }),
 
@@ -246,8 +281,8 @@ function renderTreeColons() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/wordpress/wp-content/plugins/BIT-first/resources/js/main.js */"./resources/js/main.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/wordpress/wp-content/plugins/BIT-first/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\xampp\htdocs\wordpress\wp-content\plugins\BIT-first\resources\js\main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\wordpress\wp-content\plugins\BIT-first\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

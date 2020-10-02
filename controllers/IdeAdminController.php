@@ -13,7 +13,7 @@ class IdeAdminController {
 	}
 
 	public function adminIndex() {
-		return View::adminRender('idejos.idejos');
+		return View::adminRender('idea.idejos');
 	}
 
 	public function render(Request $request, IdeaPost $idea) {
@@ -21,7 +21,7 @@ class IdeAdminController {
 		$data = (IdeaPost::all())->pluck('idea_content', 'idea_like', 'post_date', 'idea_solution', 'ID')->all();
 
 		$response = new Response;
-		$output = View::adminRender('idejos.idejos');
+		$output = View::adminRender('idea.idejos');
 		$response->prepare($request);
 		$response = new JsonResponse(['html' => $output, 'allData' => $data]);
 
@@ -60,22 +60,23 @@ class IdeAdminController {
 
 		$soliutionPost = IdeaPost::get($soliutionId);
 
-		if (is_array($soliution) && count(array_filter($soliution)) != "") {
+		if (is_array($soliution) ) {
 			$array = $soliution;
 
 			$txt = '';
 			foreach ($array as $text) {
 				$txt .= $text . ' ';
 			}
+			var_dump($text);
 			$soliutionPost->idea_solution = $txt;
-			var_dump($soliutionPost);
+
 			$soliutionPost->save();
 		}
 		return $response = new Response;
 	}
 	//	public function delete($force_delete = false)
 	public function delete(Request $requestJson, IdeaPost $idea) {		
-	
+
 		$request = $this->decodeRequest($requestJson);
 
 		$deleteId = $idea->ID = $request->request->get('deleteId');

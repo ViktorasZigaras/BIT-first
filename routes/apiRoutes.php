@@ -4,7 +4,6 @@
 // 'event' (key) is part of URL http://.../bebras/api/?route=event
 return [
 	'event' => 'EventController@index',
-	'gallery' => 'GalleryController@index',
 
 	'ideas-render-front' => 'IdeasController@render',
 
@@ -15,6 +14,12 @@ return [
 	'idea-edit-admin' => 'IdeAdminController@edit',
 	'idea-create-admin' => 'IdeAdminController@create',
 	'idea-delete-admin' => 'IdeAdminController@delete',
+
+	'gallery-render-admin' => 'GalleryAdminController@render',
+	'gallery-edit-admin' => 'GalleryAdminController@edit',
+	'gallery-create-admin' => 'GalleryAdminController@create',
+	'gallery-delete-admin' => 'GalleryAdminController@delete',
+
 
 	'news_store' => 'NewsController@store',
 	'news_update' => 'NewsController@update',
