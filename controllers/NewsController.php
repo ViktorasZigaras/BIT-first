@@ -5,8 +5,13 @@ namespace BIT\controllers;
 use BIT\app\App;
 
 use BIT\app\View;
+use BIT\app\Attachment;
+
+
 
 use BIT\models\NewsPost;
+
+
 
 use Symfony\Component\HttpFoundation\Request;
 
@@ -17,76 +22,94 @@ class NewsController {
     public function index() 
     {   
         $news = NewsPost::all();
-        // $new_news = new NewsPost();
-        // $postType = $newsPost->post_type;
-        // return view('news.index');
-        // echo 'labas buliau';
+
         return View::adminRender('news.index', ['url' => PLUGIN_DIR_URL, 'news' => $news]);
     }
 
     public function create(Request $request){}
     
     
-    public function store(Request $request, NewsPost $newsPost)
+    public function store(Request $request, NewsPost $newsPost) 
     {   
-        $new_news = new NewsPost();
-        var_dump($newsPost);
-        $request->news_content = $request->query->get('content');
+        // $new_news = new NewsPost();
+        
+        // $new_news->news_content = $request->request->get('news-content');
+        // $new_news->news_content = $request->content->get('content');        
+        $newsPost->news_content = $request->query->get('content');
+        // $new_news->news_content = $request->query->get('content');
+        
+        $newsPost->save();
+       
+        var_dump($request);
 
-        // $new_news->news_content = $request->getContent();
-        var_dump($request);
-        var_dump($request);
+        // $new_news->attachments = [u, i, j];
+        
+        // var_dump($newsPost);
+        // $new_content = $newsPost->news_content;
+        // var_dump($new_content);
+        // $new_news_attachment = new Attachment();
+        // $new_news_attachment->save('news-picture', $postID);
+        
+        // $new_news_attachment->attachments = [o, p, u];
+        // var_dump($new_news_attachment);
+        // $new_news->attachments = $_FILES['news-picture'];
+        // $new_news = new NewsPost();
+        // $new_news->news_content = $request->get('content');
+        // $new_news->save();
+        
+        // $inputName = 'photo';
+        // $attachment = new Attachment();
+        // $attachment->save($inputName, $new_news->ID);
+        //atsiskirti attachment, kintamajame, wordpress irasytu attachment - 3 failai
+
+        // var_dump($request);
         // $new_news->news_content = 'hey';
-        print_r($new_news);
         $new_news->save();
 
         $response = new Response;
         $response->prepare($request);
-        // $response->setContent(json_encode(['a' => $request->getContent()]));
-        // $response->setContent(json_encode(['a' => $request]));
-        // $response->setContent(json_encode(['html' => $this->index()]));
         $response->setContent(json_encode(['html' => $this->index()]));
         return $response;
 
-        var_dump($response);
         // print_r($news_content.value);
+
     }
 
 
-    public function show (/*NewsPost $newsPost*/)
-    {
-        
-    }
+    public function show (){}
 
 
-    public function edit (/*NewsPost $newsPost*/)
-    {
-        return view('news.edit'); //kaip pasiimti objekta is db su id url?
-    }
 
-    public function update(Request $request/*, NewsPost $newsPost*/)
+    public function edit (){}
+
+    public function update(Request $request, NewsPost $newsPost)
     {   
-        $newsPost->news_content = $request->content;
-
+        $new_news->news_content = $request->get('news-content');
+        
         $newsPost->save();
         
 
-        return 'labas';
-        
-        // return redirect()->route('menu.index')->with('success_message', 'Succsesfully updated.'); TODO su Js
+        $news = NewsPost::all();
+
+        $response = new Response;
+        $response->prepare($request);
+        $response->setContent(json_encode(['list' => 'hello']));
+        // $response->setContent(json_encode(['list' => View::adminRender('news.list', ['news' => $news])]));
+        return $response;
     }
 
 
-    public function destroy(/*NewsPost $newsPost*/)
-    {
-        // if($menu->restaurants->count()){
-        //     return redirect()->route('menu.index')->with('info_message', 'Don\'t delete, there are restaurants by this menu.');;
-        // }
-        // $newsPost->wp_delete_post($newsPost->ID);
-        // return redirect()->route('menu.index');
+    public function destroy(Request $request, NewsPost $newsPost)
+    {   
+        // $newsPost->delete();
 
-        // return redirect()->route('menu.index')->with('success_message', 'Succesfully deleted.');
-        // TODO su Js
+        // $news = NewsPost::all();
+
+        $response = new Response;
+        $response->prepare($request);
+        $response->setContent(json_encode(['list' => 'hello']));
+        // $response->setContent(json_encode(['list' => View::adminRender('news.list', ['news' => $news])]));
+        return $response;
  
     }
 }
