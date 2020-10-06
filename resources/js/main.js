@@ -1,4 +1,6 @@
 
-import {editText, solutionText, deleteIdea, renderColons} from './idea.js';
-// import {updateSize} from './gallery.js';
+// import  renderColons from './idea.js';
+// labas()
+// import loadedGallery from './gallery.js';
+// loadedGallery()
 

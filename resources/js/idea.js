@@ -148,4 +148,4 @@ function renderColons() {
         });
 }
 
-export {editText, solutionText, deleteIdea, renderColons};
+export default  labas;
